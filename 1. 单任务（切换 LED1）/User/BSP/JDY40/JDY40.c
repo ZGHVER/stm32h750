@@ -1,7 +1,7 @@
 #include "./JDY40/JDY40.h"
 #include "os.h"
 
-
+/*
 UART_HandleTypeDef uart5_h;
 
 
@@ -22,7 +22,7 @@ __STATIC_INLINE void JDY40_UART_INIT(){
     __UART5_CLK_ENABLE();
     uart5_h.Instance = UART5;
     uart5_h.Init.BaudRate               = 9600;                         //波特率       
-    uart5_h.Init.WordLength             = IRDA_WORDLENGTH_8B;           //数据位宽   
+    uart5_h.Init.WordLength             = UART_WORDLENGTH_8B;           //数据位宽   
     uart5_h.Init.StopBits               = UART_STOPBITS_1;              //停止位   
     uart5_h.Init.Parity                 = UART_PARITY_NONE;             //奇偶校验   
     uart5_h.Init.Mode                   = USART_MODE_TX_RX;             //uart模式   
@@ -35,8 +35,8 @@ __STATIC_INLINE void JDY40_UART_INIT(){
     uart5_h.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;      //uart高级设置
     HAL_UART_Init(&uart5_h);
 
-    HAL_NVIC_SetPriority(UART5_IRQn, 2, 0);
     HAL_NVIC_EnableIRQ(UART5_IRQn);
+    HAL_NVIC_SetPriority(UART5_IRQn, 2, 0);
     __HAL_UART_ENABLE_IT(&uart5_h, UART_IT_RXNE);
 }
 
@@ -81,7 +81,6 @@ void JDY40_SetBandRate(uint16_t bandrate){
 void UART5_IRQHandler(){
     uint8_t s;
     static uint16_t posi = 0;
-    OSIntEnter();
     GPIOC->ODR ^= GPIO_PIN_5;
     if(__HAL_UART_GET_IT(&uart5_h, UART_IT_RXNE)){
         HAL_UART_Receive(&uart5_h, &s, 1, 0xff);
@@ -89,6 +88,5 @@ void UART5_IRQHandler(){
         posi += 15;
     }
     __HAL_UART_CLEAR_IT(&uart5_h, UART_IT_RXNE);
-    OSIntExit();
-}
+}*/
 
