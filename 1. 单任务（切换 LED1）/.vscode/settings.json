@@ -30,6 +30,16 @@
         "stm32h7xx_hal_dma.h": "c",
         "stm32h7xx_hal_ltdc.h": "c",
         "stdio.h": "c",
-        "fonts.h": "c"
+        "fonts.h": "c",
+        "JDY_40.C": "c",
+        "JDY.C": "c",
+        "bsp_lcd.h": "c",
+        "jdy_40.h": "c",
+        "os.h": "c",
+        "app_cfg.h": "c",
+        "stm32h7xx_hal_uart.h": "c",
+        "bsp.h": "c",
+        "os_app_hooks.h": "c",
+        "stm32h7xx_hal_def.h": "c"
     }
 }
