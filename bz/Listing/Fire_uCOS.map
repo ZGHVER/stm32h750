@@ -15,8 +15,7 @@ Section Cross References
     startup_stm32h743xx.o(RESET) refers to stm32h7xx_it.o(i.DebugMon_Handler) for DebugMon_Handler
     startup_stm32h743xx.o(RESET) refers to os_cpu_a.o(CODE) for OS_CPU_PendSVHandler
     startup_stm32h743xx.o(RESET) refers to os_cpu_c.o(i.OS_CPU_SysTickHandler) for OS_CPU_SysTickHandler
-    startup_stm32h743xx.o(RESET) refers to main.o(i.USART1_IRQHandler) for USART1_IRQHandler
-    startup_stm32h743xx.o(RESET) refers to main.o(i.UART5_IRQHandler) for UART5_IRQHandler
+    startup_stm32h743xx.o(RESET) refers to inmp441.o(i.DMA1_Stream0_IRQHandler) for DMA1_Stream0_IRQHandler
     startup_stm32h743xx.o(.text) refers to system_stm32h7xx.o(i.SystemInit) for SystemInit
     startup_stm32h743xx.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
     system_stm32h7xx.o(i.SystemCoreClockUpdate) refers to system_stm32h7xx.o(.data) for SystemCoreClock
@@ -2322,32 +2321,6 @@ Section Cross References
     stm32h7xx_ll_usb.o(i.USB_StopHost) refers to stm32h7xx_ll_usb.o(i.USB_FlushTxFifo) for USB_FlushTxFifo
     stm32h7xx_ll_usb.o(i.USB_StopHost) refers to stm32h7xx_ll_usb.o(i.USB_FlushRxFifo) for USB_FlushRxFifo
     stm32h7xx_ll_usb.o(i.USB_StopHost) refers to stm32h7xx_ll_usb.o(i.USB_EnableGlobalInt) for USB_EnableGlobalInt
-    main.o(i.SystemClock_Config) refers to memseta.o(.text) for __aeabi_memclr4
-    main.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
-    main.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
-    main.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) for HAL_RCCEx_PeriphCLKConfig
-    main.o(i.UART5_IRQHandler) refers to main.o(.data) for Phuart5
-    main.o(i.USART1_IRQHandler) refers to main.o(.data) for Phuart1
-    main.o(i.main) refers to main.o(i.SystemClock_Config) for SystemClock_Config
-    main.o(i.main) refers to stm32h7xx_hal.o(i.HAL_Init) for HAL_Init
-    main.o(i.main) refers to os_cpu_c.o(i.OS_CPU_SysTickInitFreq) for OS_CPU_SysTickInitFreq
-    main.o(i.main) refers to main.o(i.uart1) for uart1
-    main.o(i.main) refers to main.o(i.uart5) for uart5
-    main.o(i.main) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
-    main.o(i.main) refers to main.o(i.delay) for delay
-    main.o(i.uart1) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
-    main.o(i.uart1) refers to stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) for HAL_RCCEx_PeriphCLKConfig
-    main.o(i.uart1) refers to stm32h7xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
-    main.o(i.uart1) refers to stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
-    main.o(i.uart1) refers to stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
-    main.o(i.uart1) refers to main.o(.bss) for huart1
-    main.o(i.uart1) refers to main.o(.data) for Phuart1
-    main.o(i.uart5) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
-    main.o(i.uart5) refers to stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) for HAL_RCCEx_PeriphCLKConfig
-    main.o(i.uart5) refers to stm32h7xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
-    main.o(i.uart5) refers to stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
-    main.o(i.uart5) refers to main.o(.bss) for huart5
-    main.o(i.uart5) refers to main.o(.data) for Phuart5
     os_app_hooks.o(i.App_OS_ClrAllHooks) refers to cpu_a.o(.text) for CPU_SR_Save
     os_app_hooks.o(i.App_OS_ClrAllHooks) refers to cpu_core.o(i.CPU_IntDisMeasStart) for CPU_IntDisMeasStart
     os_app_hooks.o(i.App_OS_ClrAllHooks) refers to cpu_core.o(i.CPU_IntDisMeasStop) for CPU_IntDisMeasStop
@@ -2363,6 +2336,21 @@ Section Cross References
     os_app_hooks.o(i.App_OS_SetAllHooks) refers to os_app_hooks.o(i.App_OS_TaskReturnHook) for App_OS_TaskReturnHook
     os_app_hooks.o(i.App_OS_SetAllHooks) refers to os_app_hooks.o(i.App_OS_TaskSwHook) for App_OS_TaskSwHook
     os_app_hooks.o(i.App_OS_SetAllHooks) refers to os_app_hooks.o(i.App_OS_TimeTickHook) for App_OS_TimeTickHook
+    main.o(i.main) refers to app.o(i.SystemClock_Config) for SystemClock_Config
+    main.o(i.main) refers to stm32h7xx_hal.o(i.HAL_Init) for HAL_Init
+    main.o(i.main) refers to memcpya.o(.text) for __aeabi_memcpy4
+    main.o(i.main) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.main) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    main.o(i.main) refers to stm32h7xx_hal_dma.o(i.HAL_DMA_DeInit) for HAL_DMA_DeInit
+    main.o(i.main) refers to stm32h7xx_hal_dma.o(i.HAL_DMA_Init) for HAL_DMA_Init
+    main.o(i.main) refers to stm32h7xx_hal_uart.o(i.HAL_UART_Init) for HAL_UART_Init
+    main.o(i.main) refers to stm32h7xx_hal_uart.o(i.HAL_UART_Transmit_DMA) for HAL_UART_Transmit_DMA
+    main.o(i.main) refers to main.o(.bss) for hdma_usart1_tx
+    app.o(i.SystemClock_Config) refers to memseta.o(.text) for __aeabi_memclr4
+    app.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig) for HAL_RCC_OscConfig
+    app.o(i.SystemClock_Config) refers to app.o(i.Error_Handler) for Error_Handler
+    app.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig) for HAL_RCC_ClockConfig
+    app.o(i.SystemClock_Config) refers to stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig) for HAL_RCCEx_PeriphCLKConfig
     bsp_led.o(i.LED_GPIO_Config) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
     bsp.o(i.BSP_ClkFreqGet) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq) for HAL_RCC_GetSysClockFreq
     bsp.o(i.BSP_ClkFreqGet) refers to stm32h7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq) for HAL_RCC_GetHCLKFreq
@@ -2538,6 +2526,19 @@ Section Cross References
     bsp_sdram.o(i.SDRAM_WriteBuffer) refers to stm32h7xx_hal_sdram.o(i.HAL_SDRAM_WriteProtection_Disable) for HAL_SDRAM_WriteProtection_Disable
     bsp_sdram.o(i.SDRAM_WriteBuffer) refers to stm32h7xx_hal_sdram.o(i.HAL_SDRAM_GetState) for HAL_SDRAM_GetState
     bsp_sdram.o(i.SDRAM_WriteBuffer) refers to bsp_sdram.o(.bss) for hsdram1
+    inmp441.o(i.DMA1_Stream0_IRQHandler) refers to stm32h7xx_hal_dma.o(i.HAL_DMA_IRQHandler) for HAL_DMA_IRQHandler
+    inmp441.o(i.DMA1_Stream0_IRQHandler) refers to inmp441.o(.bss) for hdma_spi1_rx
+    inmp441.o(i.INMP441_Init) refers to inmp441.o(i.I_I2S_Init) for I_I2S_Init
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_i2s.o(i.HAL_I2S_Init) for HAL_I2S_Init
+    inmp441.o(i.I_I2S_Init) refers to app.o(i.ERR_H) for ERR_H
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_dma.o(i.HAL_DMA_Init) for HAL_DMA_Init
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_dma.o(i.HAL_DMA_RegisterCallback) for HAL_DMA_RegisterCallback
+    inmp441.o(i.I_I2S_Init) refers to stm32h7xx_hal_dma_ex.o(i.HAL_DMAEx_MultiBufferStart_IT) for HAL_DMAEx_MultiBufferStart_IT
+    inmp441.o(i.I_I2S_Init) refers to inmp441.o(.bss) for hi2s1
+    inmp441.o(i.I_I2S_Init) refers to inmp441.o(i.callb) for callb
     cpu_cache_armv7m_generic_l1.o(i.CPU_Cache_Init) refers to cpu_cache_armv7m_generic_l1.o(i.CPU_DCache_LineSizeGet) for CPU_DCache_LineSizeGet
     cpu_cache_armv7m_generic_l1.o(i.CPU_Cache_Init) refers to cpu_cache_armv7m_generic_l1.o(.data) for CPU_Cache_Linesize
     cpu_cache_armv7m_generic_l1.o(i.CPU_DCache_RangeFlush) refers to cpu_cache_armv7m_generic_l1.o(.data) for CPU_Cache_Linesize
@@ -3674,16 +3675,20 @@ Removing Unused input sections from the image.
     Removing stm32h7xx_hal_cortex.o(i.HAL_MPU_ConfigRegion), (92 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_ClearPendingIRQ), (36 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_DisableIRQ), (68 bytes).
+    Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ), (32 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_GetActive), (48 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_GetPendingIRQ), (48 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_GetPriority), (148 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_GetPriorityGrouping), (8 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPendingIRQ), (36 bytes).
+    Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority), (124 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_NVIC_SystemReset), (68 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_SYSTICK_CLKSourceConfig), (40 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_SYSTICK_Callback), (2 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_SYSTICK_Config), (52 bytes).
     Removing stm32h7xx_hal_cortex.o(i.HAL_SYSTICK_IRQHandler), (8 bytes).
+    Removing stm32h7xx_hal_cortex.o(i.__NVIC_GetPriorityGrouping), (16 bytes).
+    Removing stm32h7xx_hal_cortex.o(i.__NVIC_SetPriority), (40 bytes).
     Removing stm32h7xx_hal_cortex.o(.constdata), (48 bytes).
     Removing stm32h7xx_hal_crc.o(.rev16_text), (4 bytes).
     Removing stm32h7xx_hal_crc.o(.revsh_text), (4 bytes).
@@ -3907,24 +3912,13 @@ Removing Unused input sections from the image.
     Removing stm32h7xx_hal_dma.o(.rev16_text), (4 bytes).
     Removing stm32h7xx_hal_dma.o(.revsh_text), (4 bytes).
     Removing stm32h7xx_hal_dma.o(.rrx_text), (6 bytes).
-    Removing stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift), (52 bytes).
-    Removing stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask), (116 bytes).
-    Removing stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask), (84 bytes).
-    Removing stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam), (174 bytes).
-    Removing stm32h7xx_hal_dma.o(i.DMA_SetConfig), (180 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_Abort), (328 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_Abort_IT), (248 bytes).
-    Removing stm32h7xx_hal_dma.o(i.HAL_DMA_DeInit), (288 bytes).
-    Removing stm32h7xx_hal_dma.o(i.HAL_DMA_GetError), (6 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_GetState), (8 bytes).
-    Removing stm32h7xx_hal_dma.o(i.HAL_DMA_IRQHandler), (1100 bytes).
-    Removing stm32h7xx_hal_dma.o(i.HAL_DMA_Init), (528 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_PollForTransfer), (696 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_RegisterCallback), (100 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_Start), (196 bytes).
-    Removing stm32h7xx_hal_dma.o(i.HAL_DMA_Start_IT), (336 bytes).
     Removing stm32h7xx_hal_dma.o(i.HAL_DMA_UnRegisterCallback), (130 bytes).
-    Removing stm32h7xx_hal_dma.o(.constdata), (56 bytes).
     Removing stm32h7xx_hal_dma_ex.o(.rev16_text), (4 bytes).
     Removing stm32h7xx_hal_dma_ex.o(.revsh_text), (4 bytes).
     Removing stm32h7xx_hal_dma_ex.o(.rrx_text), (6 bytes).
@@ -5804,7 +5798,6 @@ Removing Unused input sections from the image.
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_DMAResume), (108 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_DMAStop), (100 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_DeInit), (72 bytes).
-    Removing stm32h7xx_hal_uart.o(i.HAL_UART_ErrorCallback), (2 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_GetError), (6 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_GetState), (20 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_IRQHandler), (444 bytes).
@@ -5815,23 +5808,15 @@ Removing Unused input sections from the image.
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_RxCpltCallback), (2 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_RxHalfCpltCallback), (2 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_Transmit), (198 bytes).
-    Removing stm32h7xx_hal_uart.o(i.HAL_UART_Transmit_DMA), (156 bytes).
     Removing stm32h7xx_hal_uart.o(i.HAL_UART_Transmit_IT), (114 bytes).
-    Removing stm32h7xx_hal_uart.o(i.HAL_UART_TxCpltCallback), (2 bytes).
-    Removing stm32h7xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback), (2 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMAAbortOnError), (24 bytes).
-    Removing stm32h7xx_hal_uart.o(i.UART_DMAError), (92 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMAReceiveCplt), (70 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMARxAbortCallback), (60 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMARxHalfCplt), (14 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMARxOnlyAbortCallback), (32 bytes).
-    Removing stm32h7xx_hal_uart.o(i.UART_DMATransmitCplt), (54 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMATxAbortCallback), (60 bytes).
-    Removing stm32h7xx_hal_uart.o(i.UART_DMATxHalfCplt), (14 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_DMATxOnlyAbortCallback), (26 bytes).
-    Removing stm32h7xx_hal_uart.o(i.UART_EndRxTransfer), (32 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_EndTransmit_IT), (32 bytes).
-    Removing stm32h7xx_hal_uart.o(i.UART_EndTxTransfer), (20 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_Receive_IT), (138 bytes).
     Removing stm32h7xx_hal_uart.o(i.UART_Transmit_IT), (130 bytes).
     Removing stm32h7xx_hal_uart_ex.o(.rev16_text), (4 bytes).
@@ -6038,10 +6023,6 @@ Removing Unused input sections from the image.
     Removing stm32h7xx_it.o(.revsh_text), (4 bytes).
     Removing stm32h7xx_it.o(.rrx_text), (6 bytes).
     Removing stm32h7xx_it.o(.constdata), (48 bytes).
-    Removing main.o(.rev16_text), (4 bytes).
-    Removing main.o(.revsh_text), (4 bytes).
-    Removing main.o(.rrx_text), (6 bytes).
-    Removing main.o(.constdata), (89 bytes).
     Removing os_app_hooks.o(.rev16_text), (4 bytes).
     Removing os_app_hooks.o(.revsh_text), (4 bytes).
     Removing os_app_hooks.o(.rrx_text), (6 bytes).
@@ -6055,6 +6036,15 @@ Removing Unused input sections from the image.
     Removing os_app_hooks.o(i.App_OS_TaskSwHook), (2 bytes).
     Removing os_app_hooks.o(i.App_OS_TimeTickHook), (20 bytes).
     Removing os_app_hooks.o(.constdata), (48 bytes).
+    Removing main.o(.rev16_text), (4 bytes).
+    Removing main.o(.revsh_text), (4 bytes).
+    Removing main.o(.rrx_text), (6 bytes).
+    Removing main.o(.constdata), (48 bytes).
+    Removing app.o(.rev16_text), (4 bytes).
+    Removing app.o(.revsh_text), (4 bytes).
+    Removing app.o(.rrx_text), (6 bytes).
+    Removing app.o(i.ERR_H), (10 bytes).
+    Removing app.o(.constdata), (48 bytes).
     Removing bsp_led.o(.rev16_text), (4 bytes).
     Removing bsp_led.o(.revsh_text), (4 bytes).
     Removing bsp_led.o(.rrx_text), (6 bytes).
@@ -6161,6 +6151,13 @@ Removing Unused input sections from the image.
     Removing jdy40.o(.revsh_text), (4 bytes).
     Removing jdy40.o(.rrx_text), (6 bytes).
     Removing jdy40.o(.constdata), (89 bytes).
+    Removing inmp441.o(.rev16_text), (4 bytes).
+    Removing inmp441.o(.revsh_text), (4 bytes).
+    Removing inmp441.o(.rrx_text), (6 bytes).
+    Removing inmp441.o(i.INMP441_Init), (8 bytes).
+    Removing inmp441.o(i.I_I2S_Init), (356 bytes).
+    Removing inmp441.o(i.callb), (2 bytes).
+    Removing inmp441.o(.constdata), (48 bytes).
     Removing cpu_cache_armv7m_generic_l1.o(i.CPU_Cache_Init), (16 bytes).
     Removing cpu_cache_armv7m_generic_l1.o(i.CPU_DCache_LineSizeGet), (24 bytes).
     Removing cpu_cache_armv7m_generic_l1.o(i.CPU_DCache_RangeFlush), (84 bytes).
@@ -6276,6 +6273,8 @@ Removing Unused input sections from the image.
     Removing lib_str.o(.constdata), (148 bytes).
     Removing lib_mem_a.o(.text), (544 bytes).
     Removing os_cfg_app.o(i.OSCfg_Init), (2 bytes).
+    Removing os_cfg_app.o(.bss), (3072 bytes).
+    Removing os_cfg_app.o(.constdata), (120 bytes).
     Removing os_core.o(i.OSInit), (348 bytes).
     Removing os_core.o(i.OSSchedLock), (120 bytes).
     Removing os_core.o(i.OSSchedUnlock), (152 bytes).
@@ -6405,6 +6404,8 @@ Removing Unused input sections from the image.
     Removing os_cpu_c.o(i.OSTaskDelHook), (24 bytes).
     Removing os_cpu_c.o(i.OSTaskReturnHook), (24 bytes).
     Removing os_cpu_c.o(i.OSTaskStkInit), (712 bytes).
+    Removing os_cpu_c.o(i.OS_CPU_SysTickInit), (48 bytes).
+    Removing os_cpu_c.o(i.OS_CPU_SysTickInitFreq), (24 bytes).
     Removing os_cpu_c.o(.constdata), (48 bytes).
     Removing dadd.o(.text), (334 bytes).
     Removing dmul.o(.text), (228 bytes).
@@ -6413,7 +6414,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (48 bytes).
     Removing depilogue.o(.text), (186 bytes).
 
-2901 unused section(s) (total 320860 bytes) removed from the image.
+2901 unused section(s) (total 321501 bytes) removed from the image.
 
 ==============================================================================
 
@@ -6423,35 +6424,35 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
@@ -6543,8 +6544,9 @@ Image Symbol Table
     ..\..\Libraries\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c 0x00000000   Number         0  stm32h7xx_ll_fmc.o ABSOLUTE
     ..\..\Libraries\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c 0x00000000   Number         0  stm32h7xx_ll_sdmmc.o ABSOLUTE
     ..\..\Libraries\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usb.c 0x00000000   Number         0  stm32h7xx_ll_usb.o ABSOLUTE
-    ..\..\User\APP\main.c                    0x00000000   Number         0  main.o ABSOLUTE
+    ..\..\User\APP\app.c                     0x00000000   Number         0  app.o ABSOLUTE
     ..\..\User\APP\os_app_hooks.c            0x00000000   Number         0  os_app_hooks.o ABSOLUTE
+    ..\..\User\BSP\INMP441\INMP441.c         0x00000000   Number         0  inmp441.o ABSOLUTE
     ..\..\User\BSP\JDY40\JDY40.c             0x00000000   Number         0  jdy40.o ABSOLUTE
     ..\..\User\BSP\bsp.c                     0x00000000   Number         0  bsp.o ABSOLUTE
     ..\..\User\BSP\cpu_bsp.c                 0x00000000   Number         0  cpu_bsp.o ABSOLUTE
@@ -6558,6 +6560,7 @@ Image Symbol Table
     ..\..\User\BSP\mpu\bsp_mpu.c             0x00000000   Number         0  bsp_mpu.o ABSOLUTE
     ..\..\User\BSP\sdram\bsp_sdram.c         0x00000000   Number         0  bsp_sdram.o ABSOLUTE
     ..\..\User\BSP\usart\bsp_usart.c         0x00000000   Number         0  bsp_usart.o ABSOLUTE
+    ..\..\User\main.c                        0x00000000   Number         0  main.o ABSOLUTE
     ..\..\User\stm32h7xx_it.c                0x00000000   Number         0  stm32h7xx_it.o ABSOLUTE
     ..\..\User\uC-CPU\ARM-Cortex-M4\RealView\cpu_a.asm 0x00000000   Number         0  cpu_a.o ABSOLUTE
     ..\..\User\uC-CPU\ARM-Cortex-M4\RealView\cpu_c.c 0x00000000   Number         0  cpu_c.o ABSOLUTE
@@ -6666,8 +6669,9 @@ Image Symbol Table
     ..\\..\\Libraries\\STM32H7xx_HAL_Driver\\Src\\stm32h7xx_ll_fmc.c 0x00000000   Number         0  stm32h7xx_ll_fmc.o ABSOLUTE
     ..\\..\\Libraries\\STM32H7xx_HAL_Driver\\Src\\stm32h7xx_ll_sdmmc.c 0x00000000   Number         0  stm32h7xx_ll_sdmmc.o ABSOLUTE
     ..\\..\\Libraries\\STM32H7xx_HAL_Driver\\Src\\stm32h7xx_ll_usb.c 0x00000000   Number         0  stm32h7xx_ll_usb.o ABSOLUTE
-    ..\\..\\User\\APP\\main.c                0x00000000   Number         0  main.o ABSOLUTE
+    ..\\..\\User\\APP\\app.c                 0x00000000   Number         0  app.o ABSOLUTE
     ..\\..\\User\\APP\\os_app_hooks.c        0x00000000   Number         0  os_app_hooks.o ABSOLUTE
+    ..\\..\\User\\BSP\\INMP441\\INMP441.c    0x00000000   Number         0  inmp441.o ABSOLUTE
     ..\\..\\User\\BSP\\JDY40\\JDY40.c        0x00000000   Number         0  jdy40.o ABSOLUTE
     ..\\..\\User\\BSP\\bsp.c                 0x00000000   Number         0  bsp.o ABSOLUTE
     ..\\..\\User\\BSP\\lcd\\bsp_lcd.c        0x00000000   Number         0  bsp_lcd.o ABSOLUTE
@@ -6675,6 +6679,7 @@ Image Symbol Table
     ..\\..\\User\\BSP\\mpu\\bsp_mpu.c        0x00000000   Number         0  bsp_mpu.o ABSOLUTE
     ..\\..\\User\\BSP\\sdram\\bsp_sdram.c    0x00000000   Number         0  bsp_sdram.o ABSOLUTE
     ..\\..\\User\\BSP\\usart\\bsp_usart.c    0x00000000   Number         0  bsp_usart.o ABSOLUTE
+    ..\\..\\User\\main.c                     0x00000000   Number         0  main.o ABSOLUTE
     ..\\..\\User\\stm32h7xx_it.c             0x00000000   Number         0  stm32h7xx_it.o ABSOLUTE
     ..\\..\\User\\uCOS-III\\Ports\\ARM-Cortex-M\\ARMv7-M\\RealView\\os_cpu_c.c 0x00000000   Number         0  os_cpu_c.o ABSOLUTE
     cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
@@ -6697,108 +6702,128 @@ Image Symbol Table
     .text                                    0x080002d0   Section       52  cpu_a.o(.text)
     $v0                                      0x080002d0   Number         0  cpu_a.o(.text)
     .text                                    0x08000304   Section        0  uldiv.o(.text)
-    .text                                    0x08000366   Section        0  memseta.o(.text)
-    .text                                    0x0800038a   Section        0  llshl.o(.text)
-    .text                                    0x080003a8   Section        0  llushr.o(.text)
-    .text                                    0x080003c8   Section       36  init.o(.text)
-    CODE                                     0x080003ec   Section      264  os_cpu_a.o(CODE)
-    $v0                                      0x080003ec   Number         0  os_cpu_a.o(CODE)
-    i.BusFault_Handler                       0x080004f4   Section        0  stm32h7xx_it.o(i.BusFault_Handler)
-    i.CPU_IntDisMeasMaxCalc                  0x080004f8   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCalc)
-    CPU_IntDisMeasMaxCalc                    0x080004f9   Thumb Code    24  cpu_core.o(i.CPU_IntDisMeasMaxCalc)
-    i.CPU_IntDisMeasMaxCurGet                0x08000514   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCurGet)
-    i.CPU_IntDisMeasMaxCurReset              0x08000540   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCurReset)
-    i.CPU_IntDisMeasStart                    0x0800056c   Section        0  cpu_core.o(i.CPU_IntDisMeasStart)
-    i.CPU_IntDisMeasStop                     0x080005a0   Section        0  cpu_core.o(i.CPU_IntDisMeasStop)
-    i.CPU_TS_TmrRd                           0x080005f4   Section        0  cpu_bsp.o(i.CPU_TS_TmrRd)
-    i.DebugMon_Handler                       0x08000600   Section        0  stm32h7xx_it.o(i.DebugMon_Handler)
-    i.HAL_GPIO_Init                          0x08000604   Section        0  stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init)
-    i.HAL_GetTick                            0x08000850   Section        0  bsp.o(i.HAL_GetTick)
-    i.HAL_Init                               0x0800085e   Section        0  stm32h7xx_hal.o(i.HAL_Init)
-    i.HAL_InitTick                           0x0800087a   Section        0  bsp.o(i.HAL_InitTick)
-    i.HAL_MspInit                            0x08000888   Section        0  stm32h7xx_hal.o(i.HAL_MspInit)
-    i.HAL_NVIC_EnableIRQ                     0x0800088a   Section        0  stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ)
-    i.HAL_NVIC_SetPriority                   0x080008aa   Section        0  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority)
-    i.HAL_NVIC_SetPriorityGrouping           0x08000928   Section        0  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping)
-    i.HAL_RCCEx_GetD1SysClockFreq            0x08000950   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD1SysClockFreq)
-    i.HAL_RCCEx_GetD3PCLK1Freq               0x08000988   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD3PCLK1Freq)
-    i.HAL_RCCEx_GetPLL2ClockFreq             0x080009b4   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL2ClockFreq)
-    i.HAL_RCCEx_GetPLL3ClockFreq             0x08000be0   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL3ClockFreq)
-    i.HAL_RCCEx_PeriphCLKConfig              0x08000e0c   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig)
-    i.HAL_RCC_ClockConfig                    0x08001a94   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
-    i.HAL_RCC_GetHCLKFreq                    0x08001ce4   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq)
-    i.HAL_RCC_GetPCLK1Freq                   0x08001d1c   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq)
-    i.HAL_RCC_GetPCLK2Freq                   0x08001d48   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq)
-    i.HAL_RCC_GetSysClockFreq                0x08001d74   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
-    i.HAL_RCC_OscConfig                      0x08001fb8   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig)
-    i.HAL_UART_Init                          0x08002674   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_Init)
-    i.HAL_UART_MspInit                       0x080026ec   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_MspInit)
-    i.HardFault_Handler                      0x080026ee   Section        0  stm32h7xx_it.o(i.HardFault_Handler)
-    i.MemManage_Handler                      0x080026f2   Section        0  stm32h7xx_it.o(i.MemManage_Handler)
-    i.NMI_Handler                            0x080026f6   Section        0  stm32h7xx_it.o(i.NMI_Handler)
-    i.OSIntEnter                             0x080026f8   Section        0  os_core.o(i.OSIntEnter)
-    i.OSIntExit                              0x08002724   Section        0  os_core.o(i.OSIntExit)
-    i.OSSched                                0x080027fc   Section        0  os_core.o(i.OSSched)
-    i.OSTaskSemPost                          0x080028b4   Section        0  os_task.o(i.OSTaskSemPost)
-    i.OSTaskSwHook                           0x08002a14   Section        0  os_cpu_c.o(i.OSTaskSwHook)
-    i.OSTimeGet                              0x08002aa4   Section        0  os_time.o(i.OSTimeGet)
-    i.OSTimeTick                             0x08002ae0   Section        0  os_time.o(i.OSTimeTick)
-    i.OSTimeTickHook                         0x08002b34   Section        0  os_cpu_c.o(i.OSTimeTickHook)
-    i.OS_CPU_SysTickHandler                  0x08002b48   Section        0  os_cpu_c.o(i.OS_CPU_SysTickHandler)
-    i.OS_CPU_SysTickInit                     0x08002b80   Section        0  os_cpu_c.o(i.OS_CPU_SysTickInit)
-    i.OS_CPU_SysTickInitFreq                 0x08002bb0   Section        0  os_cpu_c.o(i.OS_CPU_SysTickInitFreq)
-    i.OS_PendDbgNameRemove                   0x08002bc8   Section        0  os_core.o(i.OS_PendDbgNameRemove)
-    i.OS_PendListRemove                      0x08002bec   Section        0  os_core.o(i.OS_PendListRemove)
-    i.OS_Post                                0x08002c3a   Section        0  os_core.o(i.OS_Post)
-    i.OS_PrioGetHighest                      0x08002ce8   Section        0  os_prio.o(i.OS_PrioGetHighest)
-    i.OS_PrioInsert                          0x08002d00   Section        0  os_prio.o(i.OS_PrioInsert)
-    i.OS_RdyListInsert                       0x08002d24   Section        0  os_core.o(i.OS_RdyListInsert)
-    i.OS_RdyListInsertHead                   0x08002d50   Section        0  os_core.o(i.OS_RdyListInsertHead)
-    i.OS_RdyListInsertTail                   0x08002d90   Section        0  os_core.o(i.OS_RdyListInsertTail)
-    i.OS_TickListRemove                      0x08002dcc   Section        0  os_tick.o(i.OS_TickListRemove)
-    i.RCCEx_PLL2_Config                      0x08002e24   Section        0  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL2_Config)
-    RCCEx_PLL2_Config                        0x08002e25   Thumb Code   244  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL2_Config)
-    i.RCCEx_PLL3_Config                      0x08002f1c   Section        0  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL3_Config)
-    RCCEx_PLL3_Config                        0x08002f1d   Thumb Code   244  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL3_Config)
-    i.SVC_Handler                            0x08003014   Section        0  stm32h7xx_it.o(i.SVC_Handler)
-    i.SystemClock_Config                     0x08003018   Section        0  main.o(i.SystemClock_Config)
-    SystemClock_Config                       0x08003019   Thumb Code   204  main.o(i.SystemClock_Config)
-    i.SystemInit                             0x080030e8   Section        0  system_stm32h7xx.o(i.SystemInit)
-    i.UART5_IRQHandler                       0x0800317c   Section        0  main.o(i.UART5_IRQHandler)
-    i.UART_AdvFeatureConfig                  0x080031d4   Section        0  stm32h7xx_hal_uart.o(i.UART_AdvFeatureConfig)
-    i.UART_CheckIdleState                    0x080032be   Section        0  stm32h7xx_hal_uart.o(i.UART_CheckIdleState)
-    i.UART_SetConfig                         0x08003334   Section        0  stm32h7xx_hal_uart.o(i.UART_SetConfig)
-    i.UART_WaitOnFlagUntilTimeout            0x08003cd8   Section        0  stm32h7xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout)
-    i.USART1_IRQHandler                      0x08003d44   Section        0  main.o(i.USART1_IRQHandler)
-    i.UsageFault_Handler                     0x08003d9c   Section        0  stm32h7xx_it.o(i.UsageFault_Handler)
-    i.__NVIC_GetPriorityGrouping             0x08003da0   Section        0  stm32h7xx_hal_cortex.o(i.__NVIC_GetPriorityGrouping)
-    __NVIC_GetPriorityGrouping               0x08003da1   Thumb Code    10  stm32h7xx_hal_cortex.o(i.__NVIC_GetPriorityGrouping)
-    i.__NVIC_SetPriority                     0x08003db0   Section        0  stm32h7xx_hal_cortex.o(i.__NVIC_SetPriority)
-    __NVIC_SetPriority                       0x08003db1   Thumb Code    32  stm32h7xx_hal_cortex.o(i.__NVIC_SetPriority)
-    i.__scatterload_copy                     0x08003dd8   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08003de6   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08003de8   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.delay                                  0x08003df6   Section        0  main.o(i.delay)
-    i.main                                   0x08003e04   Section        0  main.o(i.main)
-    i.uart1                                  0x08003ef8   Section        0  main.o(i.uart1)
-    i.uart5                                  0x08003fe0   Section        0  main.o(i.uart5)
-    .constdata                               0x080040dc   Section       64  system_stm32h7xx.o(.constdata)
-    UARTPrescTable                           0x080040dc   Data          24  system_stm32h7xx.o(.constdata)
-    USARTPrescTable                          0x080040f4   Data          24  system_stm32h7xx.o(.constdata)
-    .constdata                               0x0800411c   Section       48  stm32h7xx_hal_uart.o(.constdata)
-    UARTPrescTable                           0x0800411c   Data          24  stm32h7xx_hal_uart.o(.constdata)
-    USARTPrescTable                          0x08004134   Data          24  stm32h7xx_hal_uart.o(.constdata)
-    .constdata                               0x0800414c   Section      120  os_cfg_app.o(.constdata)
+    .text                                    0x08000366   Section        0  memcpya.o(.text)
+    .text                                    0x0800038a   Section        0  memseta.o(.text)
+    .text                                    0x080003ae   Section        0  llshl.o(.text)
+    .text                                    0x080003cc   Section        0  llushr.o(.text)
+    .text                                    0x080003ec   Section       36  init.o(.text)
+    CODE                                     0x08000410   Section      264  os_cpu_a.o(CODE)
+    $v0                                      0x08000410   Number         0  os_cpu_a.o(CODE)
+    i.BusFault_Handler                       0x08000518   Section        0  stm32h7xx_it.o(i.BusFault_Handler)
+    i.CPU_IntDisMeasMaxCalc                  0x0800051c   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCalc)
+    CPU_IntDisMeasMaxCalc                    0x0800051d   Thumb Code    24  cpu_core.o(i.CPU_IntDisMeasMaxCalc)
+    i.CPU_IntDisMeasMaxCurGet                0x08000538   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCurGet)
+    i.CPU_IntDisMeasMaxCurReset              0x08000564   Section        0  cpu_core.o(i.CPU_IntDisMeasMaxCurReset)
+    i.CPU_IntDisMeasStart                    0x08000590   Section        0  cpu_core.o(i.CPU_IntDisMeasStart)
+    i.CPU_IntDisMeasStop                     0x080005c4   Section        0  cpu_core.o(i.CPU_IntDisMeasStop)
+    i.CPU_TS_TmrRd                           0x08000618   Section        0  cpu_bsp.o(i.CPU_TS_TmrRd)
+    i.DMA1_Stream0_IRQHandler                0x08000624   Section        0  inmp441.o(i.DMA1_Stream0_IRQHandler)
+    i.DMA_CalcBaseAndBitshift                0x08000634   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
+    DMA_CalcBaseAndBitshift                  0x08000635   Thumb Code    46  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
+    i.DMA_CalcDMAMUXChannelBaseAndMask       0x08000668   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
+    DMA_CalcDMAMUXChannelBaseAndMask         0x08000669   Thumb Code   100  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
+    i.DMA_CalcDMAMUXRequestGenBaseAndMask    0x080006dc   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
+    DMA_CalcDMAMUXRequestGenBaseAndMask      0x080006dd   Thumb Code    70  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
+    i.DMA_CheckFifoParam                     0x08000730   Section        0  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
+    DMA_CheckFifoParam                       0x08000731   Thumb Code   174  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
+    i.DMA_SetConfig                          0x080007e0   Section        0  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
+    DMA_SetConfig                            0x080007e1   Thumb Code   166  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
+    i.DebugMon_Handler                       0x08000894   Section        0  stm32h7xx_it.o(i.DebugMon_Handler)
+    i.Error_Handler                          0x08000896   Section        0  app.o(i.Error_Handler)
+    i.HAL_DMA_DeInit                         0x08000898   Section        0  stm32h7xx_hal_dma.o(i.HAL_DMA_DeInit)
+    i.HAL_DMA_GetError                       0x080009b8   Section        0  stm32h7xx_hal_dma.o(i.HAL_DMA_GetError)
+    i.HAL_DMA_IRQHandler                     0x080009c0   Section        0  stm32h7xx_hal_dma.o(i.HAL_DMA_IRQHandler)
+    i.HAL_DMA_Init                           0x08000e0c   Section        0  stm32h7xx_hal_dma.o(i.HAL_DMA_Init)
+    i.HAL_DMA_Start_IT                       0x0800101c   Section        0  stm32h7xx_hal_dma.o(i.HAL_DMA_Start_IT)
+    i.HAL_GPIO_Init                          0x0800116c   Section        0  stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init)
+    i.HAL_GetTick                            0x080013b8   Section        0  bsp.o(i.HAL_GetTick)
+    i.HAL_Init                               0x080013c6   Section        0  stm32h7xx_hal.o(i.HAL_Init)
+    i.HAL_InitTick                           0x080013e2   Section        0  bsp.o(i.HAL_InitTick)
+    i.HAL_MspInit                            0x080013f0   Section        0  stm32h7xx_hal.o(i.HAL_MspInit)
+    i.HAL_NVIC_SetPriorityGrouping           0x080013f4   Section        0  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping)
+    i.HAL_RCCEx_GetD1SysClockFreq            0x0800141c   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD1SysClockFreq)
+    i.HAL_RCCEx_GetD3PCLK1Freq               0x08001454   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD3PCLK1Freq)
+    i.HAL_RCCEx_GetPLL2ClockFreq             0x08001480   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL2ClockFreq)
+    i.HAL_RCCEx_GetPLL3ClockFreq             0x080016ac   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL3ClockFreq)
+    i.HAL_RCCEx_PeriphCLKConfig              0x080018d8   Section        0  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig)
+    i.HAL_RCC_ClockConfig                    0x08002560   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
+    i.HAL_RCC_GetHCLKFreq                    0x080027b0   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq)
+    i.HAL_RCC_GetPCLK1Freq                   0x080027e8   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq)
+    i.HAL_RCC_GetPCLK2Freq                   0x08002814   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq)
+    i.HAL_RCC_GetSysClockFreq                0x08002840   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
+    i.HAL_RCC_OscConfig                      0x08002a84   Section        0  stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig)
+    i.HAL_UART_ErrorCallback                 0x08003140   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_ErrorCallback)
+    i.HAL_UART_Init                          0x08003142   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_Init)
+    i.HAL_UART_MspInit                       0x080031ba   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_MspInit)
+    i.HAL_UART_Transmit_DMA                  0x080031bc   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_Transmit_DMA)
+    i.HAL_UART_TxCpltCallback                0x08003258   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_TxCpltCallback)
+    i.HAL_UART_TxHalfCpltCallback            0x0800325a   Section        0  stm32h7xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback)
+    i.HardFault_Handler                      0x0800325c   Section        0  stm32h7xx_it.o(i.HardFault_Handler)
+    i.MemManage_Handler                      0x08003260   Section        0  stm32h7xx_it.o(i.MemManage_Handler)
+    i.NMI_Handler                            0x08003264   Section        0  stm32h7xx_it.o(i.NMI_Handler)
+    i.OSIntEnter                             0x08003268   Section        0  os_core.o(i.OSIntEnter)
+    i.OSIntExit                              0x08003294   Section        0  os_core.o(i.OSIntExit)
+    i.OSSched                                0x0800336c   Section        0  os_core.o(i.OSSched)
+    i.OSTaskSemPost                          0x08003424   Section        0  os_task.o(i.OSTaskSemPost)
+    i.OSTaskSwHook                           0x08003584   Section        0  os_cpu_c.o(i.OSTaskSwHook)
+    i.OSTimeGet                              0x08003614   Section        0  os_time.o(i.OSTimeGet)
+    i.OSTimeTick                             0x08003650   Section        0  os_time.o(i.OSTimeTick)
+    i.OSTimeTickHook                         0x080036a4   Section        0  os_cpu_c.o(i.OSTimeTickHook)
+    i.OS_CPU_SysTickHandler                  0x080036b8   Section        0  os_cpu_c.o(i.OS_CPU_SysTickHandler)
+    i.OS_PendDbgNameRemove                   0x080036f0   Section        0  os_core.o(i.OS_PendDbgNameRemove)
+    i.OS_PendListRemove                      0x08003714   Section        0  os_core.o(i.OS_PendListRemove)
+    i.OS_Post                                0x08003762   Section        0  os_core.o(i.OS_Post)
+    i.OS_PrioGetHighest                      0x08003810   Section        0  os_prio.o(i.OS_PrioGetHighest)
+    i.OS_PrioInsert                          0x08003828   Section        0  os_prio.o(i.OS_PrioInsert)
+    i.OS_RdyListInsert                       0x0800384c   Section        0  os_core.o(i.OS_RdyListInsert)
+    i.OS_RdyListInsertHead                   0x08003878   Section        0  os_core.o(i.OS_RdyListInsertHead)
+    i.OS_RdyListInsertTail                   0x080038b8   Section        0  os_core.o(i.OS_RdyListInsertTail)
+    i.OS_TickListRemove                      0x080038f4   Section        0  os_tick.o(i.OS_TickListRemove)
+    i.RCCEx_PLL2_Config                      0x0800394c   Section        0  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL2_Config)
+    RCCEx_PLL2_Config                        0x0800394d   Thumb Code   244  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL2_Config)
+    i.RCCEx_PLL3_Config                      0x08003a44   Section        0  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL3_Config)
+    RCCEx_PLL3_Config                        0x08003a45   Thumb Code   244  stm32h7xx_hal_rcc_ex.o(i.RCCEx_PLL3_Config)
+    i.SVC_Handler                            0x08003b3c   Section        0  stm32h7xx_it.o(i.SVC_Handler)
+    i.SystemClock_Config                     0x08003b40   Section        0  app.o(i.SystemClock_Config)
+    i.SystemInit                             0x08003c24   Section        0  system_stm32h7xx.o(i.SystemInit)
+    i.UART_AdvFeatureConfig                  0x08003cb8   Section        0  stm32h7xx_hal_uart.o(i.UART_AdvFeatureConfig)
+    i.UART_CheckIdleState                    0x08003da2   Section        0  stm32h7xx_hal_uart.o(i.UART_CheckIdleState)
+    i.UART_DMAError                          0x08003e16   Section        0  stm32h7xx_hal_uart.o(i.UART_DMAError)
+    UART_DMAError                            0x08003e17   Thumb Code    92  stm32h7xx_hal_uart.o(i.UART_DMAError)
+    i.UART_DMATransmitCplt                   0x08003e72   Section        0  stm32h7xx_hal_uart.o(i.UART_DMATransmitCplt)
+    UART_DMATransmitCplt                     0x08003e73   Thumb Code    54  stm32h7xx_hal_uart.o(i.UART_DMATransmitCplt)
+    i.UART_DMATxHalfCplt                     0x08003ea8   Section        0  stm32h7xx_hal_uart.o(i.UART_DMATxHalfCplt)
+    UART_DMATxHalfCplt                       0x08003ea9   Thumb Code    14  stm32h7xx_hal_uart.o(i.UART_DMATxHalfCplt)
+    i.UART_EndRxTransfer                     0x08003eb6   Section        0  stm32h7xx_hal_uart.o(i.UART_EndRxTransfer)
+    UART_EndRxTransfer                       0x08003eb7   Thumb Code    32  stm32h7xx_hal_uart.o(i.UART_EndRxTransfer)
+    i.UART_EndTxTransfer                     0x08003ed6   Section        0  stm32h7xx_hal_uart.o(i.UART_EndTxTransfer)
+    UART_EndTxTransfer                       0x08003ed7   Thumb Code    20  stm32h7xx_hal_uart.o(i.UART_EndTxTransfer)
+    i.UART_SetConfig                         0x08003eec   Section        0  stm32h7xx_hal_uart.o(i.UART_SetConfig)
+    i.UART_WaitOnFlagUntilTimeout            0x08004890   Section        0  stm32h7xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout)
+    i.UsageFault_Handler                     0x080048fc   Section        0  stm32h7xx_it.o(i.UsageFault_Handler)
+    i.__scatterload_copy                     0x08004900   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0800490e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08004910   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.main                                   0x08004920   Section        0  main.o(i.main)
+    .constdata                               0x08004a74   Section       64  system_stm32h7xx.o(.constdata)
+    UARTPrescTable                           0x08004a74   Data          24  system_stm32h7xx.o(.constdata)
+    USARTPrescTable                          0x08004a8c   Data          24  system_stm32h7xx.o(.constdata)
+    .constdata                               0x08004ab4   Section       56  stm32h7xx_hal_dma.o(.constdata)
+    UARTPrescTable                           0x08004ab4   Data          24  stm32h7xx_hal_dma.o(.constdata)
+    USARTPrescTable                          0x08004acc   Data          24  stm32h7xx_hal_dma.o(.constdata)
+    flagBitshiftOffset                       0x08004ae4   Data           8  stm32h7xx_hal_dma.o(.constdata)
+    .constdata                               0x08004aec   Section       48  stm32h7xx_hal_uart.o(.constdata)
+    UARTPrescTable                           0x08004aec   Data          24  stm32h7xx_hal_uart.o(.constdata)
+    USARTPrescTable                          0x08004b04   Data          24  stm32h7xx_hal_uart.o(.constdata)
     .data                                    0x24000000   Section        8  system_stm32h7xx.o(.data)
-    .data                                    0x24000008   Section        8  main.o(.data)
-    .data                                    0x24000010   Section       28  cpu_core.o(.data)
-    .data                                    0x2400002c   Section        4  os_prio.o(.data)
-    .data                                    0x24000030   Section      192  os_var.o(.data)
-    .data                                    0x240000f0   Section        4  os_cpu_c.o(.data)
-    .bss                                     0x240000f4   Section      256  main.o(.bss)
-    .bss                                     0x240001f4   Section     3072  os_cfg_app.o(.bss)
-    .bss                                     0x24000df4   Section     1292  os_var.o(.bss)
-    STACK                                    0x24001300   Section     1024  startup_stm32h743xx.o(STACK)
+    .data                                    0x24000008   Section       28  cpu_core.o(.data)
+    .data                                    0x24000024   Section        4  os_prio.o(.data)
+    .data                                    0x24000028   Section      192  os_var.o(.data)
+    .data                                    0x240000e8   Section        4  os_cpu_c.o(.data)
+    .bss                                     0x240000ec   Section      248  main.o(.bss)
+    .bss                                     0x240001e4   Section      616  inmp441.o(.bss)
+    .bss                                     0x2400044c   Section     1292  os_var.o(.bss)
+    STACK                                    0x24000958   Section     1024  startup_stm32h743xx.o(STACK)
 
     Global Symbols
 
@@ -6883,7 +6908,6 @@ Image Symbol Table
     DFSDM1_FLT1_IRQHandler                   0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     DFSDM1_FLT2_IRQHandler                   0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     DFSDM1_FLT3_IRQHandler                   0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
-    DMA1_Stream0_IRQHandler                  0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     DMA1_Stream1_IRQHandler                  0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     DMA1_Stream2_IRQHandler                  0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     DMA1_Stream3_IRQHandler                  0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
@@ -6994,8 +7018,10 @@ Image Symbol Table
     TIM8_TRG_COM_TIM14_IRQHandler            0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     TIM8_UP_TIM13_IRQHandler                 0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     UART4_IRQHandler                         0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
+    UART5_IRQHandler                         0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     UART7_IRQHandler                         0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     UART8_IRQHandler                         0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
+    USART1_IRQHandler                        0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     USART2_IRQHandler                        0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     USART3_IRQHandler                        0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
     USART6_IRQHandler                        0x080002c7   Thumb Code     0  startup_stm32h743xx.o(.text)
@@ -7011,208 +7037,180 @@ Image Symbol Table
     CPU_CntTrailZeros                        0x080002f5   Thumb Code     0  cpu_a.o(.text)
     CPU_RevBits                              0x080002ff   Thumb Code     0  cpu_a.o(.text)
     __aeabi_uldivmod                         0x08000305   Thumb Code    98  uldiv.o(.text)
-    __aeabi_memset                           0x08000367   Thumb Code    14  memseta.o(.text)
-    __aeabi_memset4                          0x08000367   Thumb Code     0  memseta.o(.text)
-    __aeabi_memset8                          0x08000367   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr                           0x08000375   Thumb Code     4  memseta.o(.text)
-    __aeabi_memclr4                          0x08000375   Thumb Code     0  memseta.o(.text)
-    __aeabi_memclr8                          0x08000375   Thumb Code     0  memseta.o(.text)
-    _memset$wrapper                          0x08000379   Thumb Code    18  memseta.o(.text)
-    __aeabi_llsl                             0x0800038b   Thumb Code    30  llshl.o(.text)
-    _ll_shift_l                              0x0800038b   Thumb Code     0  llshl.o(.text)
-    __aeabi_llsr                             0x080003a9   Thumb Code    32  llushr.o(.text)
-    _ll_ushift_r                             0x080003a9   Thumb Code     0  llushr.o(.text)
-    __scatterload                            0x080003c9   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x080003c9   Thumb Code     0  init.o(.text)
-    OS_CPU_FP_Reg_Push                       0x080003ed   Thumb Code     0  os_cpu_a.o(CODE)
-    OS_CPU_FP_Reg_Pop                        0x080003ff   Thumb Code     0  os_cpu_a.o(CODE)
-    OSStartHighRdy                           0x0800040b   Thumb Code     0  os_cpu_a.o(CODE)
-    OSCtxSw                                  0x08000485   Thumb Code     0  os_cpu_a.o(CODE)
-    OSIntCtxSw                               0x0800048f   Thumb Code     0  os_cpu_a.o(CODE)
-    OS_CPU_PendSVHandler                     0x08000499   Thumb Code     0  os_cpu_a.o(CODE)
-    BusFault_Handler                         0x080004f5   Thumb Code     4  stm32h7xx_it.o(i.BusFault_Handler)
-    CPU_IntDisMeasMaxCurGet                  0x08000515   Thumb Code    40  cpu_core.o(i.CPU_IntDisMeasMaxCurGet)
-    CPU_IntDisMeasMaxCurReset                0x08000541   Thumb Code    40  cpu_core.o(i.CPU_IntDisMeasMaxCurReset)
-    CPU_IntDisMeasStart                      0x0800056d   Thumb Code    38  cpu_core.o(i.CPU_IntDisMeasStart)
-    CPU_IntDisMeasStop                       0x080005a1   Thumb Code    62  cpu_core.o(i.CPU_IntDisMeasStop)
-    CPU_TS_TmrRd                             0x080005f5   Thumb Code     6  cpu_bsp.o(i.CPU_TS_TmrRd)
-    DebugMon_Handler                         0x08000601   Thumb Code     2  stm32h7xx_it.o(i.DebugMon_Handler)
-    HAL_GPIO_Init                            0x08000605   Thumb Code   534  stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init)
-    HAL_GetTick                              0x08000851   Thumb Code    14  bsp.o(i.HAL_GetTick)
-    HAL_Init                                 0x0800085f   Thumb Code    28  stm32h7xx_hal.o(i.HAL_Init)
-    HAL_InitTick                             0x0800087b   Thumb Code    14  bsp.o(i.HAL_InitTick)
-    HAL_MspInit                              0x08000889   Thumb Code     2  stm32h7xx_hal.o(i.HAL_MspInit)
-    HAL_NVIC_EnableIRQ                       0x0800088b   Thumb Code    32  stm32h7xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ)
-    HAL_NVIC_SetPriority                     0x080008ab   Thumb Code   124  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriority)
-    HAL_NVIC_SetPriorityGrouping             0x08000929   Thumb Code    32  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping)
-    HAL_RCCEx_GetD1SysClockFreq              0x08000951   Thumb Code    44  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD1SysClockFreq)
-    HAL_RCCEx_GetD3PCLK1Freq                 0x08000989   Thumb Code    34  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD3PCLK1Freq)
-    HAL_RCCEx_GetPLL2ClockFreq               0x080009b5   Thumb Code   532  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL2ClockFreq)
-    HAL_RCCEx_GetPLL3ClockFreq               0x08000be1   Thumb Code   532  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL3ClockFreq)
-    HAL_RCCEx_PeriphCLKConfig                0x08000e0d   Thumb Code  3204  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig)
-    HAL_RCC_ClockConfig                      0x08001a95   Thumb Code   574  stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
-    HAL_RCC_GetHCLKFreq                      0x08001ce5   Thumb Code    42  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq)
-    HAL_RCC_GetPCLK1Freq                     0x08001d1d   Thumb Code    34  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq)
-    HAL_RCC_GetPCLK2Freq                     0x08001d49   Thumb Code    36  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq)
-    HAL_RCC_GetSysClockFreq                  0x08001d75   Thumb Code   556  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
-    HAL_RCC_OscConfig                        0x08001fb9   Thumb Code  1716  stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig)
-    HAL_UART_Init                            0x08002675   Thumb Code   120  stm32h7xx_hal_uart.o(i.HAL_UART_Init)
-    HAL_UART_MspInit                         0x080026ed   Thumb Code     2  stm32h7xx_hal_uart.o(i.HAL_UART_MspInit)
-    HardFault_Handler                        0x080026ef   Thumb Code     4  stm32h7xx_it.o(i.HardFault_Handler)
-    MemManage_Handler                        0x080026f3   Thumb Code     4  stm32h7xx_it.o(i.MemManage_Handler)
-    NMI_Handler                              0x080026f7   Thumb Code     2  stm32h7xx_it.o(i.NMI_Handler)
-    OSIntEnter                               0x080026f9   Thumb Code    34  os_core.o(i.OSIntEnter)
-    OSIntExit                                0x08002725   Thumb Code   184  os_core.o(i.OSIntExit)
-    OSSched                                  0x080027fd   Thumb Code   152  os_core.o(i.OSSched)
-    OSTaskSemPost                            0x080028b5   Thumb Code   344  os_task.o(i.OSTaskSemPost)
-    OSTaskSwHook                             0x08002a15   Thumb Code   132  os_cpu_c.o(i.OSTaskSwHook)
-    OSTimeGet                                0x08002aa5   Thumb Code    54  os_time.o(i.OSTimeGet)
-    OSTimeTick                               0x08002ae1   Thumb Code    62  os_time.o(i.OSTimeTick)
-    OSTimeTickHook                           0x08002b35   Thumb Code    16  os_cpu_c.o(i.OSTimeTickHook)
-    OS_CPU_SysTickHandler                    0x08002b49   Thumb Code    54  os_cpu_c.o(i.OS_CPU_SysTickHandler)
-    OS_CPU_SysTickInit                       0x08002b81   Thumb Code    44  os_cpu_c.o(i.OS_CPU_SysTickInit)
-    OS_CPU_SysTickInitFreq                   0x08002bb1   Thumb Code    20  os_cpu_c.o(i.OS_CPU_SysTickInitFreq)
-    OS_PendDbgNameRemove                     0x08002bc9   Thumb Code    32  os_core.o(i.OS_PendDbgNameRemove)
-    OS_PendListRemove                        0x08002bed   Thumb Code    78  os_core.o(i.OS_PendListRemove)
-    OS_Post                                  0x08002c3b   Thumb Code   172  os_core.o(i.OS_Post)
-    OS_PrioGetHighest                        0x08002ce9   Thumb Code    20  os_prio.o(i.OS_PrioGetHighest)
-    OS_PrioInsert                            0x08002d01   Thumb Code    30  os_prio.o(i.OS_PrioInsert)
-    OS_RdyListInsert                         0x08002d25   Thumb Code    40  os_core.o(i.OS_RdyListInsert)
-    OS_RdyListInsertHead                     0x08002d51   Thumb Code    58  os_core.o(i.OS_RdyListInsertHead)
-    OS_RdyListInsertTail                     0x08002d91   Thumb Code    56  os_core.o(i.OS_RdyListInsertTail)
-    OS_TickListRemove                        0x08002dcd   Thumb Code    88  os_tick.o(i.OS_TickListRemove)
-    SVC_Handler                              0x08003015   Thumb Code     2  stm32h7xx_it.o(i.SVC_Handler)
-    SystemInit                               0x080030e9   Thumb Code   130  system_stm32h7xx.o(i.SystemInit)
-    UART5_IRQHandler                         0x0800317d   Thumb Code    74  main.o(i.UART5_IRQHandler)
-    UART_AdvFeatureConfig                    0x080031d5   Thumb Code   234  stm32h7xx_hal_uart.o(i.UART_AdvFeatureConfig)
-    UART_CheckIdleState                      0x080032bf   Thumb Code   116  stm32h7xx_hal_uart.o(i.UART_CheckIdleState)
-    UART_SetConfig                           0x08003335   Thumb Code  2452  stm32h7xx_hal_uart.o(i.UART_SetConfig)
-    UART_WaitOnFlagUntilTimeout              0x08003cd9   Thumb Code   108  stm32h7xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout)
-    USART1_IRQHandler                        0x08003d45   Thumb Code    74  main.o(i.USART1_IRQHandler)
-    UsageFault_Handler                       0x08003d9d   Thumb Code     4  stm32h7xx_it.o(i.UsageFault_Handler)
-    __scatterload_copy                       0x08003dd9   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08003de7   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08003de9   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    delay                                    0x08003df7   Thumb Code    12  main.o(i.delay)
-    main                                     0x08003e05   Thumb Code   222  main.o(i.main)
-    uart1                                    0x08003ef9   Thumb Code   210  main.o(i.uart1)
-    uart5                                    0x08003fe1   Thumb Code   232  main.o(i.uart5)
-    D1CorePrescTable                         0x0800410c   Data          16  system_stm32h7xx.o(.constdata)
-    OSCfg_IdleTaskStkBasePtr                 0x0800414c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_IdleTaskStkLimit                   0x08004150   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_IdleTaskStkSize                    0x08004154   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_IdleTaskStkSizeRAM                 0x08004158   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_ISRStkBasePtr                      0x0800415c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_ISRStkSize                         0x08004160   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_ISRStkSizeRAM                      0x08004164   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_MsgPoolSize                        0x08004168   Data           2  os_cfg_app.o(.constdata)
-    OSCfg_MsgPoolSizeRAM                     0x0800416c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_MsgPoolBasePtr                     0x08004170   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskPrio                       0x08004174   Data           1  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskRate_Hz                    0x08004178   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskStkBasePtr                 0x0800417c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskStkLimit                   0x08004180   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskStkSize                    0x08004184   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StatTaskStkSizeRAM                 0x08004188   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_StkSizeMin                         0x0800418c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TickRate_Hz                        0x08004190   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TickTaskPrio                       0x08004194   Data           1  os_cfg_app.o(.constdata)
-    OSCfg_TickTaskStkBasePtr                 0x08004198   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TickTaskStkLimit                   0x0800419c   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TickTaskStkSize                    0x080041a0   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TickTaskStkSizeRAM                 0x080041a4   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskPrio                        0x080041a8   Data           1  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskRate_Hz                     0x080041ac   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskStkBasePtr                  0x080041b0   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskStkLimit                    0x080041b4   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskStkSize                     0x080041b8   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_TmrTaskStkSizeRAM                  0x080041bc   Data           4  os_cfg_app.o(.constdata)
-    OSCfg_DataSizeRAM                        0x080041c0   Data           4  os_cfg_app.o(.constdata)
-    Region$$Table$$Base                      0x080041c4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080041e4   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_memcpy                           0x08000367   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x08000367   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x08000367   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memset                           0x0800038b   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x0800038b   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x0800038b   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x08000399   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x08000399   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x08000399   Thumb Code     0  memseta.o(.text)
+    _memset$wrapper                          0x0800039d   Thumb Code    18  memseta.o(.text)
+    __aeabi_llsl                             0x080003af   Thumb Code    30  llshl.o(.text)
+    _ll_shift_l                              0x080003af   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x080003cd   Thumb Code    32  llushr.o(.text)
+    _ll_ushift_r                             0x080003cd   Thumb Code     0  llushr.o(.text)
+    __scatterload                            0x080003ed   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x080003ed   Thumb Code     0  init.o(.text)
+    OS_CPU_FP_Reg_Push                       0x08000411   Thumb Code     0  os_cpu_a.o(CODE)
+    OS_CPU_FP_Reg_Pop                        0x08000423   Thumb Code     0  os_cpu_a.o(CODE)
+    OSStartHighRdy                           0x0800042f   Thumb Code     0  os_cpu_a.o(CODE)
+    OSCtxSw                                  0x080004a9   Thumb Code     0  os_cpu_a.o(CODE)
+    OSIntCtxSw                               0x080004b3   Thumb Code     0  os_cpu_a.o(CODE)
+    OS_CPU_PendSVHandler                     0x080004bd   Thumb Code     0  os_cpu_a.o(CODE)
+    BusFault_Handler                         0x08000519   Thumb Code     4  stm32h7xx_it.o(i.BusFault_Handler)
+    CPU_IntDisMeasMaxCurGet                  0x08000539   Thumb Code    40  cpu_core.o(i.CPU_IntDisMeasMaxCurGet)
+    CPU_IntDisMeasMaxCurReset                0x08000565   Thumb Code    40  cpu_core.o(i.CPU_IntDisMeasMaxCurReset)
+    CPU_IntDisMeasStart                      0x08000591   Thumb Code    38  cpu_core.o(i.CPU_IntDisMeasStart)
+    CPU_IntDisMeasStop                       0x080005c5   Thumb Code    62  cpu_core.o(i.CPU_IntDisMeasStop)
+    CPU_TS_TmrRd                             0x08000619   Thumb Code     6  cpu_bsp.o(i.CPU_TS_TmrRd)
+    DMA1_Stream0_IRQHandler                  0x08000625   Thumb Code    10  inmp441.o(i.DMA1_Stream0_IRQHandler)
+    DebugMon_Handler                         0x08000895   Thumb Code     2  stm32h7xx_it.o(i.DebugMon_Handler)
+    Error_Handler                            0x08000897   Thumb Code     2  app.o(i.Error_Handler)
+    HAL_DMA_DeInit                           0x08000899   Thumb Code   276  stm32h7xx_hal_dma.o(i.HAL_DMA_DeInit)
+    HAL_DMA_GetError                         0x080009b9   Thumb Code     6  stm32h7xx_hal_dma.o(i.HAL_DMA_GetError)
+    HAL_DMA_IRQHandler                       0x080009c1   Thumb Code  1094  stm32h7xx_hal_dma.o(i.HAL_DMA_IRQHandler)
+    HAL_DMA_Init                             0x08000e0d   Thumb Code   512  stm32h7xx_hal_dma.o(i.HAL_DMA_Init)
+    HAL_DMA_Start_IT                         0x0800101d   Thumb Code   328  stm32h7xx_hal_dma.o(i.HAL_DMA_Start_IT)
+    HAL_GPIO_Init                            0x0800116d   Thumb Code   534  stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init)
+    HAL_GetTick                              0x080013b9   Thumb Code    14  bsp.o(i.HAL_GetTick)
+    HAL_Init                                 0x080013c7   Thumb Code    28  stm32h7xx_hal.o(i.HAL_Init)
+    HAL_InitTick                             0x080013e3   Thumb Code    14  bsp.o(i.HAL_InitTick)
+    HAL_MspInit                              0x080013f1   Thumb Code     2  stm32h7xx_hal.o(i.HAL_MspInit)
+    HAL_NVIC_SetPriorityGrouping             0x080013f5   Thumb Code    32  stm32h7xx_hal_cortex.o(i.HAL_NVIC_SetPriorityGrouping)
+    HAL_RCCEx_GetD1SysClockFreq              0x0800141d   Thumb Code    44  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD1SysClockFreq)
+    HAL_RCCEx_GetD3PCLK1Freq                 0x08001455   Thumb Code    34  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetD3PCLK1Freq)
+    HAL_RCCEx_GetPLL2ClockFreq               0x08001481   Thumb Code   532  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL2ClockFreq)
+    HAL_RCCEx_GetPLL3ClockFreq               0x080016ad   Thumb Code   532  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_GetPLL3ClockFreq)
+    HAL_RCCEx_PeriphCLKConfig                0x080018d9   Thumb Code  3204  stm32h7xx_hal_rcc_ex.o(i.HAL_RCCEx_PeriphCLKConfig)
+    HAL_RCC_ClockConfig                      0x08002561   Thumb Code   574  stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig)
+    HAL_RCC_GetHCLKFreq                      0x080027b1   Thumb Code    42  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetHCLKFreq)
+    HAL_RCC_GetPCLK1Freq                     0x080027e9   Thumb Code    34  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq)
+    HAL_RCC_GetPCLK2Freq                     0x08002815   Thumb Code    36  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq)
+    HAL_RCC_GetSysClockFreq                  0x08002841   Thumb Code   556  stm32h7xx_hal_rcc.o(i.HAL_RCC_GetSysClockFreq)
+    HAL_RCC_OscConfig                        0x08002a85   Thumb Code  1716  stm32h7xx_hal_rcc.o(i.HAL_RCC_OscConfig)
+    HAL_UART_ErrorCallback                   0x08003141   Thumb Code     2  stm32h7xx_hal_uart.o(i.HAL_UART_ErrorCallback)
+    HAL_UART_Init                            0x08003143   Thumb Code   120  stm32h7xx_hal_uart.o(i.HAL_UART_Init)
+    HAL_UART_MspInit                         0x080031bb   Thumb Code     2  stm32h7xx_hal_uart.o(i.HAL_UART_MspInit)
+    HAL_UART_Transmit_DMA                    0x080031bd   Thumb Code   142  stm32h7xx_hal_uart.o(i.HAL_UART_Transmit_DMA)
+    HAL_UART_TxCpltCallback                  0x08003259   Thumb Code     2  stm32h7xx_hal_uart.o(i.HAL_UART_TxCpltCallback)
+    HAL_UART_TxHalfCpltCallback              0x0800325b   Thumb Code     2  stm32h7xx_hal_uart.o(i.HAL_UART_TxHalfCpltCallback)
+    HardFault_Handler                        0x0800325d   Thumb Code     4  stm32h7xx_it.o(i.HardFault_Handler)
+    MemManage_Handler                        0x08003261   Thumb Code     4  stm32h7xx_it.o(i.MemManage_Handler)
+    NMI_Handler                              0x08003265   Thumb Code     2  stm32h7xx_it.o(i.NMI_Handler)
+    OSIntEnter                               0x08003269   Thumb Code    34  os_core.o(i.OSIntEnter)
+    OSIntExit                                0x08003295   Thumb Code   184  os_core.o(i.OSIntExit)
+    OSSched                                  0x0800336d   Thumb Code   152  os_core.o(i.OSSched)
+    OSTaskSemPost                            0x08003425   Thumb Code   344  os_task.o(i.OSTaskSemPost)
+    OSTaskSwHook                             0x08003585   Thumb Code   132  os_cpu_c.o(i.OSTaskSwHook)
+    OSTimeGet                                0x08003615   Thumb Code    54  os_time.o(i.OSTimeGet)
+    OSTimeTick                               0x08003651   Thumb Code    62  os_time.o(i.OSTimeTick)
+    OSTimeTickHook                           0x080036a5   Thumb Code    16  os_cpu_c.o(i.OSTimeTickHook)
+    OS_CPU_SysTickHandler                    0x080036b9   Thumb Code    54  os_cpu_c.o(i.OS_CPU_SysTickHandler)
+    OS_PendDbgNameRemove                     0x080036f1   Thumb Code    32  os_core.o(i.OS_PendDbgNameRemove)
+    OS_PendListRemove                        0x08003715   Thumb Code    78  os_core.o(i.OS_PendListRemove)
+    OS_Post                                  0x08003763   Thumb Code   172  os_core.o(i.OS_Post)
+    OS_PrioGetHighest                        0x08003811   Thumb Code    20  os_prio.o(i.OS_PrioGetHighest)
+    OS_PrioInsert                            0x08003829   Thumb Code    30  os_prio.o(i.OS_PrioInsert)
+    OS_RdyListInsert                         0x0800384d   Thumb Code    40  os_core.o(i.OS_RdyListInsert)
+    OS_RdyListInsertHead                     0x08003879   Thumb Code    58  os_core.o(i.OS_RdyListInsertHead)
+    OS_RdyListInsertTail                     0x080038b9   Thumb Code    56  os_core.o(i.OS_RdyListInsertTail)
+    OS_TickListRemove                        0x080038f5   Thumb Code    88  os_tick.o(i.OS_TickListRemove)
+    SVC_Handler                              0x08003b3d   Thumb Code     2  stm32h7xx_it.o(i.SVC_Handler)
+    SystemClock_Config                       0x08003b41   Thumb Code   224  app.o(i.SystemClock_Config)
+    SystemInit                               0x08003c25   Thumb Code   130  system_stm32h7xx.o(i.SystemInit)
+    UART_AdvFeatureConfig                    0x08003cb9   Thumb Code   234  stm32h7xx_hal_uart.o(i.UART_AdvFeatureConfig)
+    UART_CheckIdleState                      0x08003da3   Thumb Code   116  stm32h7xx_hal_uart.o(i.UART_CheckIdleState)
+    UART_SetConfig                           0x08003eed   Thumb Code  2452  stm32h7xx_hal_uart.o(i.UART_SetConfig)
+    UART_WaitOnFlagUntilTimeout              0x08004891   Thumb Code   108  stm32h7xx_hal_uart.o(i.UART_WaitOnFlagUntilTimeout)
+    UsageFault_Handler                       0x080048fd   Thumb Code     4  stm32h7xx_it.o(i.UsageFault_Handler)
+    __scatterload_copy                       0x08004901   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0800490f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08004911   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    main                                     0x08004921   Thumb Code   282  main.o(i.main)
+    D1CorePrescTable                         0x08004aa4   Data          16  system_stm32h7xx.o(.constdata)
+    Region$$Table$$Base                      0x08004b1c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08004b3c   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x24000000   Data           4  system_stm32h7xx.o(.data)
     SystemD2Clock                            0x24000004   Data           4  system_stm32h7xx.o(.data)
-    Phuart5                                  0x24000008   Data           4  main.o(.data)
-    Phuart1                                  0x2400000c   Data           4  main.o(.data)
-    CPU_TS_TmrFreq_Hz                        0x24000010   Data           4  cpu_core.o(.data)
-    CPU_IntDisMeasCtr                        0x24000014   Data           2  cpu_core.o(.data)
-    CPU_IntDisNestCtr                        0x24000016   Data           2  cpu_core.o(.data)
-    CPU_IntDisMeasStart_cnts                 0x24000018   Data           4  cpu_core.o(.data)
-    CPU_IntDisMeasStop_cnts                  0x2400001c   Data           4  cpu_core.o(.data)
-    CPU_IntDisMeasOvrhd_cnts                 0x24000020   Data           4  cpu_core.o(.data)
-    CPU_IntDisMeasMaxCur_cnts                0x24000024   Data           4  cpu_core.o(.data)
-    CPU_IntDisMeasMax_cnts                   0x24000028   Data           4  cpu_core.o(.data)
-    OSPrioTbl                                0x2400002c   Data           4  os_prio.o(.data)
-    OS_AppTaskCreateHookPtr                  0x24000030   Data           4  os_var.o(.data)
-    OS_AppTaskDelHookPtr                     0x24000034   Data           4  os_var.o(.data)
-    OS_AppTaskReturnHookPtr                  0x24000038   Data           4  os_var.o(.data)
-    OS_AppIdleTaskHookPtr                    0x2400003c   Data           4  os_var.o(.data)
-    OS_AppStatTaskHookPtr                    0x24000040   Data           4  os_var.o(.data)
-    OS_AppTaskSwHookPtr                      0x24000044   Data           4  os_var.o(.data)
-    OS_AppTimeTickHookPtr                    0x24000048   Data           4  os_var.o(.data)
-    OSIdleTaskCtr                            0x2400004c   Data           4  os_var.o(.data)
-    OSIntNestingCtr                          0x24000050   Data           1  os_var.o(.data)
-    OSIntDisTimeMax                          0x24000054   Data           4  os_var.o(.data)
-    OSRunning                                0x24000058   Data           1  os_var.o(.data)
-    OSInitialized                            0x24000059   Data           1  os_var.o(.data)
-    OSFlagDbgListPtr                         0x2400005c   Data           4  os_var.o(.data)
-    OSFlagQty                                0x24000060   Data           2  os_var.o(.data)
-    OSMemDbgListPtr                          0x24000064   Data           4  os_var.o(.data)
-    OSMemQty                                 0x24000068   Data           2  os_var.o(.data)
-    OSMutexDbgListPtr                        0x2400006c   Data           4  os_var.o(.data)
-    OSMutexQty                               0x24000070   Data           2  os_var.o(.data)
-    OSPrioCur                                0x24000072   Data           1  os_var.o(.data)
-    OSPrioHighRdy                            0x24000073   Data           1  os_var.o(.data)
-    OSQDbgListPtr                            0x24000074   Data           4  os_var.o(.data)
-    OSQQty                                   0x24000078   Data           2  os_var.o(.data)
-    OSSchedLockNestingCtr                    0x2400007a   Data           1  os_var.o(.data)
-    OSSemDbgListPtr                          0x2400007c   Data           4  os_var.o(.data)
-    OSSemQty                                 0x24000080   Data           2  os_var.o(.data)
-    OSMonDbgListPtr                          0x24000084   Data           4  os_var.o(.data)
-    OSMonQty                                 0x24000088   Data           2  os_var.o(.data)
-    OSStatResetFlag                          0x2400008a   Data           1  os_var.o(.data)
-    OSStatTaskCPUUsage                       0x2400008c   Data           2  os_var.o(.data)
-    OSStatTaskCPUUsageMax                    0x2400008e   Data           2  os_var.o(.data)
-    OSStatTaskCtr                            0x24000090   Data           4  os_var.o(.data)
-    OSStatTaskCtrMax                         0x24000094   Data           4  os_var.o(.data)
-    OSStatTaskCtrRun                         0x24000098   Data           4  os_var.o(.data)
-    OSStatTaskRdy                            0x2400009c   Data           1  os_var.o(.data)
-    OSStatTaskTimeMax                        0x240000a0   Data           4  os_var.o(.data)
-    OSTaskCtxSwCtr                           0x240000a4   Data           4  os_var.o(.data)
-    OSTaskDbgListPtr                         0x240000a8   Data           4  os_var.o(.data)
-    OSTaskQty                                0x240000ac   Data           2  os_var.o(.data)
-    OSTaskRegNextAvailID                     0x240000ae   Data           1  os_var.o(.data)
-    OSTickCtr                                0x240000b0   Data           4  os_var.o(.data)
-    OSTickTaskTimeMax                        0x240000b4   Data           4  os_var.o(.data)
-    OSTickListDly                            0x240000b8   Data           8  os_var.o(.data)
-    OSTickListTimeout                        0x240000c0   Data           8  os_var.o(.data)
-    OSTmrDbgListPtr                          0x240000c8   Data           4  os_var.o(.data)
-    OSTmrListEntries                         0x240000cc   Data           2  os_var.o(.data)
-    OSTmrListPtr                             0x240000d0   Data           4  os_var.o(.data)
-    OSTmrQty                                 0x240000d4   Data           2  os_var.o(.data)
-    OSTmrTaskTimeMax                         0x240000d8   Data           4  os_var.o(.data)
-    OSTmrTickCtr                             0x240000dc   Data           4  os_var.o(.data)
-    OSTmrUpdateCnt                           0x240000e0   Data           4  os_var.o(.data)
-    OSTmrUpdateCtr                           0x240000e4   Data           4  os_var.o(.data)
-    OSTCBCurPtr                              0x240000e8   Data           4  os_var.o(.data)
-    OSTCBHighRdyPtr                          0x240000ec   Data           4  os_var.o(.data)
-    OS_CPU_ExceptStkBase                     0x240000f0   Data           4  os_cpu_c.o(.data)
-    huart5                                   0x240000f4   Data         128  main.o(.bss)
-    huart1                                   0x24000174   Data         128  main.o(.bss)
-    OSCfg_IdleTaskStk                        0x240001f4   Data         512  os_cfg_app.o(.bss)
-    OSCfg_ISRStk                             0x240003f4   Data         512  os_cfg_app.o(.bss)
-    OSCfg_MsgPool                            0x240005f4   Data         512  os_cfg_app.o(.bss)
-    OSCfg_StatTaskStk                        0x240007f4   Data         512  os_cfg_app.o(.bss)
-    OSCfg_TickTaskStk                        0x240009f4   Data         512  os_cfg_app.o(.bss)
-    OSCfg_TmrTaskStk                         0x24000bf4   Data         512  os_cfg_app.o(.bss)
-    OSIdleTaskTCB                            0x24000df4   Data         212  os_var.o(.bss)
-    OSMsgPool                                0x24000ec8   Data          12  os_var.o(.bss)
-    OSRdyList                                0x24000ed4   Data         384  os_var.o(.bss)
-    OSStatTaskTCB                            0x24001054   Data         212  os_var.o(.bss)
-    OSTickTaskTCB                            0x24001128   Data         212  os_var.o(.bss)
-    OSTmrMutex                               0x240011fc   Data          48  os_var.o(.bss)
-    OSTmrTaskTCB                             0x2400122c   Data         212  os_var.o(.bss)
-    __initial_sp                             0x24001700   Data           0  startup_stm32h743xx.o(STACK)
+    CPU_TS_TmrFreq_Hz                        0x24000008   Data           4  cpu_core.o(.data)
+    CPU_IntDisMeasCtr                        0x2400000c   Data           2  cpu_core.o(.data)
+    CPU_IntDisNestCtr                        0x2400000e   Data           2  cpu_core.o(.data)
+    CPU_IntDisMeasStart_cnts                 0x24000010   Data           4  cpu_core.o(.data)
+    CPU_IntDisMeasStop_cnts                  0x24000014   Data           4  cpu_core.o(.data)
+    CPU_IntDisMeasOvrhd_cnts                 0x24000018   Data           4  cpu_core.o(.data)
+    CPU_IntDisMeasMaxCur_cnts                0x2400001c   Data           4  cpu_core.o(.data)
+    CPU_IntDisMeasMax_cnts                   0x24000020   Data           4  cpu_core.o(.data)
+    OSPrioTbl                                0x24000024   Data           4  os_prio.o(.data)
+    OS_AppTaskCreateHookPtr                  0x24000028   Data           4  os_var.o(.data)
+    OS_AppTaskDelHookPtr                     0x2400002c   Data           4  os_var.o(.data)
+    OS_AppTaskReturnHookPtr                  0x24000030   Data           4  os_var.o(.data)
+    OS_AppIdleTaskHookPtr                    0x24000034   Data           4  os_var.o(.data)
+    OS_AppStatTaskHookPtr                    0x24000038   Data           4  os_var.o(.data)
+    OS_AppTaskSwHookPtr                      0x2400003c   Data           4  os_var.o(.data)
+    OS_AppTimeTickHookPtr                    0x24000040   Data           4  os_var.o(.data)
+    OSIdleTaskCtr                            0x24000044   Data           4  os_var.o(.data)
+    OSIntNestingCtr                          0x24000048   Data           1  os_var.o(.data)
+    OSIntDisTimeMax                          0x2400004c   Data           4  os_var.o(.data)
+    OSRunning                                0x24000050   Data           1  os_var.o(.data)
+    OSInitialized                            0x24000051   Data           1  os_var.o(.data)
+    OSFlagDbgListPtr                         0x24000054   Data           4  os_var.o(.data)
+    OSFlagQty                                0x24000058   Data           2  os_var.o(.data)
+    OSMemDbgListPtr                          0x2400005c   Data           4  os_var.o(.data)
+    OSMemQty                                 0x24000060   Data           2  os_var.o(.data)
+    OSMutexDbgListPtr                        0x24000064   Data           4  os_var.o(.data)
+    OSMutexQty                               0x24000068   Data           2  os_var.o(.data)
+    OSPrioCur                                0x2400006a   Data           1  os_var.o(.data)
+    OSPrioHighRdy                            0x2400006b   Data           1  os_var.o(.data)
+    OSQDbgListPtr                            0x2400006c   Data           4  os_var.o(.data)
+    OSQQty                                   0x24000070   Data           2  os_var.o(.data)
+    OSSchedLockNestingCtr                    0x24000072   Data           1  os_var.o(.data)
+    OSSemDbgListPtr                          0x24000074   Data           4  os_var.o(.data)
+    OSSemQty                                 0x24000078   Data           2  os_var.o(.data)
+    OSMonDbgListPtr                          0x2400007c   Data           4  os_var.o(.data)
+    OSMonQty                                 0x24000080   Data           2  os_var.o(.data)
+    OSStatResetFlag                          0x24000082   Data           1  os_var.o(.data)
+    OSStatTaskCPUUsage                       0x24000084   Data           2  os_var.o(.data)
+    OSStatTaskCPUUsageMax                    0x24000086   Data           2  os_var.o(.data)
+    OSStatTaskCtr                            0x24000088   Data           4  os_var.o(.data)
+    OSStatTaskCtrMax                         0x2400008c   Data           4  os_var.o(.data)
+    OSStatTaskCtrRun                         0x24000090   Data           4  os_var.o(.data)
+    OSStatTaskRdy                            0x24000094   Data           1  os_var.o(.data)
+    OSStatTaskTimeMax                        0x24000098   Data           4  os_var.o(.data)
+    OSTaskCtxSwCtr                           0x2400009c   Data           4  os_var.o(.data)
+    OSTaskDbgListPtr                         0x240000a0   Data           4  os_var.o(.data)
+    OSTaskQty                                0x240000a4   Data           2  os_var.o(.data)
+    OSTaskRegNextAvailID                     0x240000a6   Data           1  os_var.o(.data)
+    OSTickCtr                                0x240000a8   Data           4  os_var.o(.data)
+    OSTickTaskTimeMax                        0x240000ac   Data           4  os_var.o(.data)
+    OSTickListDly                            0x240000b0   Data           8  os_var.o(.data)
+    OSTickListTimeout                        0x240000b8   Data           8  os_var.o(.data)
+    OSTmrDbgListPtr                          0x240000c0   Data           4  os_var.o(.data)
+    OSTmrListEntries                         0x240000c4   Data           2  os_var.o(.data)
+    OSTmrListPtr                             0x240000c8   Data           4  os_var.o(.data)
+    OSTmrQty                                 0x240000cc   Data           2  os_var.o(.data)
+    OSTmrTaskTimeMax                         0x240000d0   Data           4  os_var.o(.data)
+    OSTmrTickCtr                             0x240000d4   Data           4  os_var.o(.data)
+    OSTmrUpdateCnt                           0x240000d8   Data           4  os_var.o(.data)
+    OSTmrUpdateCtr                           0x240000dc   Data           4  os_var.o(.data)
+    OSTCBCurPtr                              0x240000e0   Data           4  os_var.o(.data)
+    OSTCBHighRdyPtr                          0x240000e4   Data           4  os_var.o(.data)
+    OS_CPU_ExceptStkBase                     0x240000e8   Data           4  os_cpu_c.o(.data)
+    huart1                                   0x240000ec   Data         128  main.o(.bss)
+    hdma_usart1_tx                           0x2400016c   Data         120  main.o(.bss)
+    hi2s1                                    0x240001e4   Data          96  inmp441.o(.bss)
+    hdma_spi1_rx                             0x24000244   Data         120  inmp441.o(.bss)
+    d1                                       0x240002bc   Data         200  inmp441.o(.bss)
+    d2                                       0x24000384   Data         200  inmp441.o(.bss)
+    OSIdleTaskTCB                            0x2400044c   Data         212  os_var.o(.bss)
+    OSMsgPool                                0x24000520   Data          12  os_var.o(.bss)
+    OSRdyList                                0x2400052c   Data         384  os_var.o(.bss)
+    OSStatTaskTCB                            0x240006ac   Data         212  os_var.o(.bss)
+    OSTickTaskTCB                            0x24000780   Data         212  os_var.o(.bss)
+    OSTmrMutex                               0x24000854   Data          48  os_var.o(.bss)
+    OSTmrTaskTCB                             0x24000884   Data         212  os_var.o(.bss)
+    __initial_sp                             0x24000d58   Data           0  startup_stm32h743xx.o(STACK)
 
 
 
@@ -7222,135 +7220,147 @@ Memory Map of the image
 
   Image Entry point : 0x08000299
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000042d8, Max: 0x00020000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004c28, Max: 0x00020000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000041e4, Max: 0x00020000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00004b3c, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000298   Data   RO            3    RESET               startup_stm32h743xx.o
-    0x08000298   0x08000298   0x00000000   Code   RO        17638  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000298   0x08000298   0x00000004   Code   RO        17910    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x0800029c   0x0800029c   0x00000004   Code   RO        17913    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO        17915    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO        17917    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080002a0   0x080002a0   0x00000008   Code   RO        17918    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080002a8   0x080002a8   0x00000000   Code   RO        17920    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080002a8   0x080002a8   0x00000000   Code   RO        17922    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080002a8   0x080002a8   0x00000004   Code   RO        17911    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000298   0x08000298   0x00000000   Code   RO        17691  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000298   0x08000298   0x00000004   Code   RO        17963    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800029c   0x0800029c   0x00000004   Code   RO        17966    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO        17968    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO        17970    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080002a0   0x080002a0   0x00000008   Code   RO        17971    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080002a8   0x080002a8   0x00000000   Code   RO        17973    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080002a8   0x080002a8   0x00000000   Code   RO        17975    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080002a8   0x080002a8   0x00000004   Code   RO        17964    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080002ac   0x080002ac   0x00000024   Code   RO            4    .text               startup_stm32h743xx.o
-    0x080002d0   0x080002d0   0x00000034   Code   RO        16066    .text               cpu_a.o
-    0x08000304   0x08000304   0x00000062   Code   RO        17641    .text               mc_w.l(uldiv.o)
-    0x08000366   0x08000366   0x00000024   Code   RO        17645    .text               mc_w.l(memseta.o)
-    0x0800038a   0x0800038a   0x0000001e   Code   RO        17927    .text               mc_w.l(llshl.o)
-    0x080003a8   0x080003a8   0x00000020   Code   RO        17929    .text               mc_w.l(llushr.o)
-    0x080003c8   0x080003c8   0x00000024   Code   RO        17942    .text               mc_w.l(init.o)
-    0x080003ec   0x080003ec   0x00000108   Code   RO        17528    CODE                os_cpu_a.o
-    0x080004f4   0x080004f4   0x00000004   Code   RO        14897    i.BusFault_Handler  stm32h7xx_it.o
-    0x080004f8   0x080004f8   0x0000001c   Code   RO        15898    i.CPU_IntDisMeasMaxCalc  cpu_core.o
-    0x08000514   0x08000514   0x0000002c   Code   RO        15899    i.CPU_IntDisMeasMaxCurGet  cpu_core.o
-    0x08000540   0x08000540   0x0000002c   Code   RO        15900    i.CPU_IntDisMeasMaxCurReset  cpu_core.o
-    0x0800056c   0x0800056c   0x00000034   Code   RO        15902    i.CPU_IntDisMeasStart  cpu_core.o
-    0x080005a0   0x080005a0   0x00000054   Code   RO        15903    i.CPU_IntDisMeasStop  cpu_core.o
-    0x080005f4   0x080005f4   0x0000000c   Code   RO        15274    i.CPU_TS_TmrRd      cpu_bsp.o
-    0x08000600   0x08000600   0x00000002   Code   RO        14898    i.DebugMon_Handler  stm32h7xx_it.o
-    0x08000602   0x08000602   0x00000002   PAD
-    0x08000604   0x08000604   0x0000024c   Code   RO         4282    i.HAL_GPIO_Init     stm32h7xx_hal_gpio.o
-    0x08000850   0x08000850   0x0000000e   Code   RO        15213    i.HAL_GetTick       bsp.o
-    0x0800085e   0x0800085e   0x0000001c   Code   RO          356    i.HAL_Init          stm32h7xx_hal.o
-    0x0800087a   0x0800087a   0x0000000e   Code   RO        15214    i.HAL_InitTick      bsp.o
-    0x08000888   0x08000888   0x00000002   Code   RO          358    i.HAL_MspInit       stm32h7xx_hal.o
-    0x0800088a   0x0800088a   0x00000020   Code   RO         1230    i.HAL_NVIC_EnableIRQ  stm32h7xx_hal_cortex.o
-    0x080008aa   0x080008aa   0x0000007c   Code   RO         1236    i.HAL_NVIC_SetPriority  stm32h7xx_hal_cortex.o
-    0x08000926   0x08000926   0x00000002   PAD
-    0x08000928   0x08000928   0x00000028   Code   RO         1237    i.HAL_NVIC_SetPriorityGrouping  stm32h7xx_hal_cortex.o
-    0x08000950   0x08000950   0x00000038   Code   RO         9736    i.HAL_RCCEx_GetD1SysClockFreq  stm32h7xx_hal_rcc_ex.o
-    0x08000988   0x08000988   0x0000002c   Code   RO         9737    i.HAL_RCCEx_GetD3PCLK1Freq  stm32h7xx_hal_rcc_ex.o
-    0x080009b4   0x080009b4   0x0000022c   Code   RO         9739    i.HAL_RCCEx_GetPLL2ClockFreq  stm32h7xx_hal_rcc_ex.o
-    0x08000be0   0x08000be0   0x0000022c   Code   RO         9740    i.HAL_RCCEx_GetPLL3ClockFreq  stm32h7xx_hal_rcc_ex.o
-    0x08000e0c   0x08000e0c   0x00000c88   Code   RO         9744    i.HAL_RCCEx_PeriphCLKConfig  stm32h7xx_hal_rcc_ex.o
-    0x08001a94   0x08001a94   0x00000250   Code   RO         9627    i.HAL_RCC_ClockConfig  stm32h7xx_hal_rcc.o
-    0x08001ce4   0x08001ce4   0x00000038   Code   RO         9631    i.HAL_RCC_GetHCLKFreq  stm32h7xx_hal_rcc.o
-    0x08001d1c   0x08001d1c   0x0000002c   Code   RO         9633    i.HAL_RCC_GetPCLK1Freq  stm32h7xx_hal_rcc.o
-    0x08001d48   0x08001d48   0x0000002c   Code   RO         9634    i.HAL_RCC_GetPCLK2Freq  stm32h7xx_hal_rcc.o
-    0x08001d74   0x08001d74   0x00000244   Code   RO         9635    i.HAL_RCC_GetSysClockFreq  stm32h7xx_hal_rcc.o
-    0x08001fb8   0x08001fb8   0x000006bc   Code   RO         9638    i.HAL_RCC_OscConfig  stm32h7xx_hal_rcc.o
-    0x08002674   0x08002674   0x00000078   Code   RO        13427    i.HAL_UART_Init     stm32h7xx_hal_uart.o
-    0x080026ec   0x080026ec   0x00000002   Code   RO        13429    i.HAL_UART_MspInit  stm32h7xx_hal_uart.o
-    0x080026ee   0x080026ee   0x00000004   Code   RO        14899    i.HardFault_Handler  stm32h7xx_it.o
-    0x080026f2   0x080026f2   0x00000004   Code   RO        14900    i.MemManage_Handler  stm32h7xx_it.o
-    0x080026f6   0x080026f6   0x00000002   Code   RO        14901    i.NMI_Handler       stm32h7xx_it.o
-    0x080026f8   0x080026f8   0x0000002c   Code   RO        16621    i.OSIntEnter        os_core.o
-    0x08002724   0x08002724   0x000000d8   Code   RO        16622    i.OSIntExit         os_core.o
-    0x080027fc   0x080027fc   0x000000b8   Code   RO        16623    i.OSSched           os_core.o
-    0x080028b4   0x080028b4   0x00000160   Code   RO        17218    i.OSTaskSemPost     os_task.o
-    0x08002a14   0x08002a14   0x00000090   Code   RO        17541    i.OSTaskSwHook      os_cpu_c.o
-    0x08002aa4   0x08002aa4   0x0000003c   Code   RO        17392    i.OSTimeGet         os_time.o
-    0x08002ae0   0x08002ae0   0x00000054   Code   RO        17394    i.OSTimeTick        os_time.o
-    0x08002b34   0x08002b34   0x00000014   Code   RO        17542    i.OSTimeTickHook    os_cpu_c.o
-    0x08002b48   0x08002b48   0x00000036   Code   RO        17543    i.OS_CPU_SysTickHandler  os_cpu_c.o
-    0x08002b7e   0x08002b7e   0x00000002   PAD
-    0x08002b80   0x08002b80   0x00000030   Code   RO        17544    i.OS_CPU_SysTickInit  os_cpu_c.o
-    0x08002bb0   0x08002bb0   0x00000018   Code   RO        17545    i.OS_CPU_SysTickInitFreq  os_cpu_c.o
-    0x08002bc8   0x08002bc8   0x00000024   Code   RO        16633    i.OS_PendDbgNameRemove  os_core.o
-    0x08002bec   0x08002bec   0x0000004e   Code   RO        16637    i.OS_PendListRemove  os_core.o
-    0x08002c3a   0x08002c3a   0x000000ac   Code   RO        16638    i.OS_Post           os_core.o
-    0x08002ce6   0x08002ce6   0x00000002   PAD
-    0x08002ce8   0x08002ce8   0x00000018   Code   RO        17031    i.OS_PrioGetHighest  os_prio.o
-    0x08002d00   0x08002d00   0x00000024   Code   RO        17033    i.OS_PrioInsert     os_prio.o
-    0x08002d24   0x08002d24   0x0000002c   Code   RO        16640    i.OS_RdyListInsert  os_core.o
-    0x08002d50   0x08002d50   0x00000040   Code   RO        16641    i.OS_RdyListInsertHead  os_core.o
-    0x08002d90   0x08002d90   0x0000003c   Code   RO        16642    i.OS_RdyListInsertTail  os_core.o
-    0x08002dcc   0x08002dcc   0x00000058   Code   RO        17346    i.OS_TickListRemove  os_tick.o
-    0x08002e24   0x08002e24   0x000000f8   Code   RO         9747    i.RCCEx_PLL2_Config  stm32h7xx_hal_rcc_ex.o
-    0x08002f1c   0x08002f1c   0x000000f8   Code   RO         9748    i.RCCEx_PLL3_Config  stm32h7xx_hal_rcc_ex.o
-    0x08003014   0x08003014   0x00000002   Code   RO        14902    i.SVC_Handler       stm32h7xx_it.o
-    0x08003016   0x08003016   0x00000002   PAD
-    0x08003018   0x08003018   0x000000d0   Code   RO        14962    i.SystemClock_Config  main.o
-    0x080030e8   0x080030e8   0x00000094   Code   RO           14    i.SystemInit        system_stm32h7xx.o
-    0x0800317c   0x0800317c   0x00000058   Code   RO        14963    i.UART5_IRQHandler  main.o
-    0x080031d4   0x080031d4   0x000000ea   Code   RO        13440    i.UART_AdvFeatureConfig  stm32h7xx_hal_uart.o
-    0x080032be   0x080032be   0x00000074   Code   RO        13441    i.UART_CheckIdleState  stm32h7xx_hal_uart.o
-    0x08003332   0x08003332   0x00000002   PAD
-    0x08003334   0x08003334   0x000009a4   Code   RO        13456    i.UART_SetConfig    stm32h7xx_hal_uart.o
-    0x08003cd8   0x08003cd8   0x0000006c   Code   RO        13458    i.UART_WaitOnFlagUntilTimeout  stm32h7xx_hal_uart.o
-    0x08003d44   0x08003d44   0x00000058   Code   RO        14964    i.USART1_IRQHandler  main.o
-    0x08003d9c   0x08003d9c   0x00000004   Code   RO        14903    i.UsageFault_Handler  stm32h7xx_it.o
-    0x08003da0   0x08003da0   0x00000010   Code   RO         1243    i.__NVIC_GetPriorityGrouping  stm32h7xx_hal_cortex.o
-    0x08003db0   0x08003db0   0x00000028   Code   RO         1244    i.__NVIC_SetPriority  stm32h7xx_hal_cortex.o
-    0x08003dd8   0x08003dd8   0x0000000e   Code   RO        17950    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08003de6   0x08003de6   0x00000002   Code   RO        17951    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08003de8   0x08003de8   0x0000000e   Code   RO        17952    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x08003df6   0x08003df6   0x0000000c   Code   RO        14965    i.delay             main.o
-    0x08003e02   0x08003e02   0x00000002   PAD
-    0x08003e04   0x08003e04   0x000000f4   Code   RO        14966    i.main              main.o
-    0x08003ef8   0x08003ef8   0x000000e8   Code   RO        14967    i.uart1             main.o
-    0x08003fe0   0x08003fe0   0x000000fc   Code   RO        14968    i.uart5             main.o
-    0x080040dc   0x080040dc   0x00000040   Data   RO           15    .constdata          system_stm32h7xx.o
-    0x0800411c   0x0800411c   0x00000030   Data   RO        13459    .constdata          stm32h7xx_hal_uart.o
-    0x0800414c   0x0800414c   0x00000078   Data   RO        16602    .constdata          os_cfg_app.o
-    0x080041c4   0x080041c4   0x00000020   Data   RO        17948    Region$$Table       anon$$obj.o
+    0x080002d0   0x080002d0   0x00000034   Code   RO        16119    .text               cpu_a.o
+    0x08000304   0x08000304   0x00000062   Code   RO        17694    .text               mc_w.l(uldiv.o)
+    0x08000366   0x08000366   0x00000024   Code   RO        17696    .text               mc_w.l(memcpya.o)
+    0x0800038a   0x0800038a   0x00000024   Code   RO        17698    .text               mc_w.l(memseta.o)
+    0x080003ae   0x080003ae   0x0000001e   Code   RO        17980    .text               mc_w.l(llshl.o)
+    0x080003cc   0x080003cc   0x00000020   Code   RO        17982    .text               mc_w.l(llushr.o)
+    0x080003ec   0x080003ec   0x00000024   Code   RO        17995    .text               mc_w.l(init.o)
+    0x08000410   0x08000410   0x00000108   Code   RO        17581    CODE                os_cpu_a.o
+    0x08000518   0x08000518   0x00000004   Code   RO        14961    i.BusFault_Handler  stm32h7xx_it.o
+    0x0800051c   0x0800051c   0x0000001c   Code   RO        15951    i.CPU_IntDisMeasMaxCalc  cpu_core.o
+    0x08000538   0x08000538   0x0000002c   Code   RO        15952    i.CPU_IntDisMeasMaxCurGet  cpu_core.o
+    0x08000564   0x08000564   0x0000002c   Code   RO        15953    i.CPU_IntDisMeasMaxCurReset  cpu_core.o
+    0x08000590   0x08000590   0x00000034   Code   RO        15955    i.CPU_IntDisMeasStart  cpu_core.o
+    0x080005c4   0x080005c4   0x00000054   Code   RO        15956    i.CPU_IntDisMeasStop  cpu_core.o
+    0x08000618   0x08000618   0x0000000c   Code   RO        15303    i.CPU_TS_TmrRd      cpu_bsp.o
+    0x08000624   0x08000624   0x00000010   Code   RO        15859    i.DMA1_Stream0_IRQHandler  inmp441.o
+    0x08000634   0x08000634   0x00000034   Code   RO         2653    i.DMA_CalcBaseAndBitshift  stm32h7xx_hal_dma.o
+    0x08000668   0x08000668   0x00000074   Code   RO         2654    i.DMA_CalcDMAMUXChannelBaseAndMask  stm32h7xx_hal_dma.o
+    0x080006dc   0x080006dc   0x00000054   Code   RO         2655    i.DMA_CalcDMAMUXRequestGenBaseAndMask  stm32h7xx_hal_dma.o
+    0x08000730   0x08000730   0x000000ae   Code   RO         2656    i.DMA_CheckFifoParam  stm32h7xx_hal_dma.o
+    0x080007de   0x080007de   0x00000002   PAD
+    0x080007e0   0x080007e0   0x000000b4   Code   RO         2657    i.DMA_SetConfig     stm32h7xx_hal_dma.o
+    0x08000894   0x08000894   0x00000002   Code   RO        14962    i.DebugMon_Handler  stm32h7xx_it.o
+    0x08000896   0x08000896   0x00000002   Code   RO        15159    i.Error_Handler     app.o
+    0x08000898   0x08000898   0x00000120   Code   RO         2660    i.HAL_DMA_DeInit    stm32h7xx_hal_dma.o
+    0x080009b8   0x080009b8   0x00000006   Code   RO         2661    i.HAL_DMA_GetError  stm32h7xx_hal_dma.o
+    0x080009be   0x080009be   0x00000002   PAD
+    0x080009c0   0x080009c0   0x0000044c   Code   RO         2663    i.HAL_DMA_IRQHandler  stm32h7xx_hal_dma.o
+    0x08000e0c   0x08000e0c   0x00000210   Code   RO         2664    i.HAL_DMA_Init      stm32h7xx_hal_dma.o
+    0x0800101c   0x0800101c   0x00000150   Code   RO         2668    i.HAL_DMA_Start_IT  stm32h7xx_hal_dma.o
+    0x0800116c   0x0800116c   0x0000024c   Code   RO         4346    i.HAL_GPIO_Init     stm32h7xx_hal_gpio.o
+    0x080013b8   0x080013b8   0x0000000e   Code   RO        15239    i.HAL_GetTick       bsp.o
+    0x080013c6   0x080013c6   0x0000001c   Code   RO          420    i.HAL_Init          stm32h7xx_hal.o
+    0x080013e2   0x080013e2   0x0000000e   Code   RO        15240    i.HAL_InitTick      bsp.o
+    0x080013f0   0x080013f0   0x00000002   Code   RO          422    i.HAL_MspInit       stm32h7xx_hal.o
+    0x080013f2   0x080013f2   0x00000002   PAD
+    0x080013f4   0x080013f4   0x00000028   Code   RO         1301    i.HAL_NVIC_SetPriorityGrouping  stm32h7xx_hal_cortex.o
+    0x0800141c   0x0800141c   0x00000038   Code   RO         9800    i.HAL_RCCEx_GetD1SysClockFreq  stm32h7xx_hal_rcc_ex.o
+    0x08001454   0x08001454   0x0000002c   Code   RO         9801    i.HAL_RCCEx_GetD3PCLK1Freq  stm32h7xx_hal_rcc_ex.o
+    0x08001480   0x08001480   0x0000022c   Code   RO         9803    i.HAL_RCCEx_GetPLL2ClockFreq  stm32h7xx_hal_rcc_ex.o
+    0x080016ac   0x080016ac   0x0000022c   Code   RO         9804    i.HAL_RCCEx_GetPLL3ClockFreq  stm32h7xx_hal_rcc_ex.o
+    0x080018d8   0x080018d8   0x00000c88   Code   RO         9808    i.HAL_RCCEx_PeriphCLKConfig  stm32h7xx_hal_rcc_ex.o
+    0x08002560   0x08002560   0x00000250   Code   RO         9691    i.HAL_RCC_ClockConfig  stm32h7xx_hal_rcc.o
+    0x080027b0   0x080027b0   0x00000038   Code   RO         9695    i.HAL_RCC_GetHCLKFreq  stm32h7xx_hal_rcc.o
+    0x080027e8   0x080027e8   0x0000002c   Code   RO         9697    i.HAL_RCC_GetPCLK1Freq  stm32h7xx_hal_rcc.o
+    0x08002814   0x08002814   0x0000002c   Code   RO         9698    i.HAL_RCC_GetPCLK2Freq  stm32h7xx_hal_rcc.o
+    0x08002840   0x08002840   0x00000244   Code   RO         9699    i.HAL_RCC_GetSysClockFreq  stm32h7xx_hal_rcc.o
+    0x08002a84   0x08002a84   0x000006bc   Code   RO         9702    i.HAL_RCC_OscConfig  stm32h7xx_hal_rcc.o
+    0x08003140   0x08003140   0x00000002   Code   RO        13487    i.HAL_UART_ErrorCallback  stm32h7xx_hal_uart.o
+    0x08003142   0x08003142   0x00000078   Code   RO        13491    i.HAL_UART_Init     stm32h7xx_hal_uart.o
+    0x080031ba   0x080031ba   0x00000002   Code   RO        13493    i.HAL_UART_MspInit  stm32h7xx_hal_uart.o
+    0x080031bc   0x080031bc   0x0000009c   Code   RO        13500    i.HAL_UART_Transmit_DMA  stm32h7xx_hal_uart.o
+    0x08003258   0x08003258   0x00000002   Code   RO        13502    i.HAL_UART_TxCpltCallback  stm32h7xx_hal_uart.o
+    0x0800325a   0x0800325a   0x00000002   Code   RO        13503    i.HAL_UART_TxHalfCpltCallback  stm32h7xx_hal_uart.o
+    0x0800325c   0x0800325c   0x00000004   Code   RO        14963    i.HardFault_Handler  stm32h7xx_it.o
+    0x08003260   0x08003260   0x00000004   Code   RO        14964    i.MemManage_Handler  stm32h7xx_it.o
+    0x08003264   0x08003264   0x00000002   Code   RO        14965    i.NMI_Handler       stm32h7xx_it.o
+    0x08003266   0x08003266   0x00000002   PAD
+    0x08003268   0x08003268   0x0000002c   Code   RO        16674    i.OSIntEnter        os_core.o
+    0x08003294   0x08003294   0x000000d8   Code   RO        16675    i.OSIntExit         os_core.o
+    0x0800336c   0x0800336c   0x000000b8   Code   RO        16676    i.OSSched           os_core.o
+    0x08003424   0x08003424   0x00000160   Code   RO        17271    i.OSTaskSemPost     os_task.o
+    0x08003584   0x08003584   0x00000090   Code   RO        17594    i.OSTaskSwHook      os_cpu_c.o
+    0x08003614   0x08003614   0x0000003c   Code   RO        17445    i.OSTimeGet         os_time.o
+    0x08003650   0x08003650   0x00000054   Code   RO        17447    i.OSTimeTick        os_time.o
+    0x080036a4   0x080036a4   0x00000014   Code   RO        17595    i.OSTimeTickHook    os_cpu_c.o
+    0x080036b8   0x080036b8   0x00000036   Code   RO        17596    i.OS_CPU_SysTickHandler  os_cpu_c.o
+    0x080036ee   0x080036ee   0x00000002   PAD
+    0x080036f0   0x080036f0   0x00000024   Code   RO        16686    i.OS_PendDbgNameRemove  os_core.o
+    0x08003714   0x08003714   0x0000004e   Code   RO        16690    i.OS_PendListRemove  os_core.o
+    0x08003762   0x08003762   0x000000ac   Code   RO        16691    i.OS_Post           os_core.o
+    0x0800380e   0x0800380e   0x00000002   PAD
+    0x08003810   0x08003810   0x00000018   Code   RO        17084    i.OS_PrioGetHighest  os_prio.o
+    0x08003828   0x08003828   0x00000024   Code   RO        17086    i.OS_PrioInsert     os_prio.o
+    0x0800384c   0x0800384c   0x0000002c   Code   RO        16693    i.OS_RdyListInsert  os_core.o
+    0x08003878   0x08003878   0x00000040   Code   RO        16694    i.OS_RdyListInsertHead  os_core.o
+    0x080038b8   0x080038b8   0x0000003c   Code   RO        16695    i.OS_RdyListInsertTail  os_core.o
+    0x080038f4   0x080038f4   0x00000058   Code   RO        17399    i.OS_TickListRemove  os_tick.o
+    0x0800394c   0x0800394c   0x000000f8   Code   RO         9811    i.RCCEx_PLL2_Config  stm32h7xx_hal_rcc_ex.o
+    0x08003a44   0x08003a44   0x000000f8   Code   RO         9812    i.RCCEx_PLL3_Config  stm32h7xx_hal_rcc_ex.o
+    0x08003b3c   0x08003b3c   0x00000002   Code   RO        14966    i.SVC_Handler       stm32h7xx_it.o
+    0x08003b3e   0x08003b3e   0x00000002   PAD
+    0x08003b40   0x08003b40   0x000000e4   Code   RO        15160    i.SystemClock_Config  app.o
+    0x08003c24   0x08003c24   0x00000094   Code   RO           14    i.SystemInit        system_stm32h7xx.o
+    0x08003cb8   0x08003cb8   0x000000ea   Code   RO        13504    i.UART_AdvFeatureConfig  stm32h7xx_hal_uart.o
+    0x08003da2   0x08003da2   0x00000074   Code   RO        13505    i.UART_CheckIdleState  stm32h7xx_hal_uart.o
+    0x08003e16   0x08003e16   0x0000005c   Code   RO        13507    i.UART_DMAError     stm32h7xx_hal_uart.o
+    0x08003e72   0x08003e72   0x00000036   Code   RO        13512    i.UART_DMATransmitCplt  stm32h7xx_hal_uart.o
+    0x08003ea8   0x08003ea8   0x0000000e   Code   RO        13514    i.UART_DMATxHalfCplt  stm32h7xx_hal_uart.o
+    0x08003eb6   0x08003eb6   0x00000020   Code   RO        13516    i.UART_EndRxTransfer  stm32h7xx_hal_uart.o
+    0x08003ed6   0x08003ed6   0x00000014   Code   RO        13518    i.UART_EndTxTransfer  stm32h7xx_hal_uart.o
+    0x08003eea   0x08003eea   0x00000002   PAD
+    0x08003eec   0x08003eec   0x000009a4   Code   RO        13520    i.UART_SetConfig    stm32h7xx_hal_uart.o
+    0x08004890   0x08004890   0x0000006c   Code   RO        13522    i.UART_WaitOnFlagUntilTimeout  stm32h7xx_hal_uart.o
+    0x080048fc   0x080048fc   0x00000004   Code   RO        14967    i.UsageFault_Handler  stm32h7xx_it.o
+    0x08004900   0x08004900   0x0000000e   Code   RO        18003    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800490e   0x0800490e   0x00000002   Code   RO        18004    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08004910   0x08004910   0x0000000e   Code   RO        18005    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800491e   0x0800491e   0x00000002   PAD
+    0x08004920   0x08004920   0x00000154   Code   RO        15127    i.main              main.o
+    0x08004a74   0x08004a74   0x00000040   Data   RO           15    .constdata          system_stm32h7xx.o
+    0x08004ab4   0x08004ab4   0x00000038   Data   RO         2670    .constdata          stm32h7xx_hal_dma.o
+    0x08004aec   0x08004aec   0x00000030   Data   RO        13523    .constdata          stm32h7xx_hal_uart.o
+    0x08004b1c   0x08004b1c   0x00000020   Data   RO        18001    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x080041e4, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08004b3c, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x080041e4, Size: 0x00001700, Max: 0x00080000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x08004b3c, Size: 0x00000d58, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x24000000   0x080041e4   0x00000008   Data   RW           16    .data               system_stm32h7xx.o
-    0x24000008   0x080041ec   0x00000008   Data   RW        14971    .data               main.o
-    0x24000010   0x080041f4   0x0000001c   Data   RW        15918    .data               cpu_core.o
-    0x2400002c   0x08004210   0x00000004   Data   RW        17035    .data               os_prio.o
-    0x24000030   0x08004214   0x000000c0   Data   RW        17515    .data               os_var.o
-    0x240000f0   0x080042d4   0x00000004   Data   RW        17547    .data               os_cpu_c.o
-    0x240000f4        -       0x00000100   Zero   RW        14969    .bss                main.o
-    0x240001f4        -       0x00000c00   Zero   RW        16601    .bss                os_cfg_app.o
-    0x24000df4        -       0x0000050c   Zero   RW        17514    .bss                os_var.o
-    0x24001300        -       0x00000400   Zero   RW            1    STACK               startup_stm32h743xx.o
+    0x24000000   0x08004b3c   0x00000008   Data   RW           16    .data               system_stm32h7xx.o
+    0x24000008   0x08004b44   0x0000001c   Data   RW        15971    .data               cpu_core.o
+    0x24000024   0x08004b60   0x00000004   Data   RW        17088    .data               os_prio.o
+    0x24000028   0x08004b64   0x000000c0   Data   RW        17568    .data               os_var.o
+    0x240000e8   0x08004c24   0x00000004   Data   RW        17600    .data               os_cpu_c.o
+    0x240000ec        -       0x000000f8   Zero   RW        15128    .bss                main.o
+    0x240001e4        -       0x00000268   Zero   RW        15863    .bss                inmp441.o
+    0x2400044c        -       0x0000050c   Zero   RW        17567    .bss                os_var.o
+    0x24000958        -       0x00000400   Zero   RW            1    STACK               startup_stm32h743xx.o
 
 
 ==============================================================================
@@ -7360,35 +7370,37 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        28          0          0          0          0       1149   bsp.o
-        52          0          0          0          0        344   cpu_a.o
-        12          6          0          0          0      10615   cpu_bsp.o
-       252         48          0         28          0       5692   cpu_core.o
-         0          0          0          0          0      18481   jdy40.o
-      1124         96          0          8        256      69966   main.o
-         0          0        120          0       3072      19029   os_cfg_app.o
-       898        100          0          0          0       6593   os_core.o
-       264         14          0          0          0        428   os_cpu_a.o
-       290         24          0          4          0       4237   os_cpu_c.o
-        60         10          0          4          0       1836   os_prio.o
-       352         16          0          0          0       1508   os_task.o
-        88          0          0          0          0        752   os_tick.o
-       144         28          0          0          0       1597   os_time.o
-         0          0          0        192       1292      18279   os_var.o
-        36          8        664          0       1024        992   startup_stm32h743xx.o
-        30          0          0          0          0       1169   stm32h7xx_hal.o
-       252         22          0          0          0      38310   stm32h7xx_hal_cortex.o
-       588         54          0          0          0       1884   stm32h7xx_hal_gpio.o
-      3040         86          0          0          0       6192   stm32h7xx_hal_rcc.o
-      4916        122          0          0          0       7607   stm32h7xx_hal_rcc_ex.o
-      3048        130         48          0          0       6560   stm32h7xx_hal_uart.o
-        22          0          0          0          0       3427   stm32h7xx_it.o
-       148         18         64          8          0    1162918   system_stm32h7xx.o
+       230          4          0          0          0       1505   app.o
+        28          0          0          0          0       1097   bsp.o
+        52          0          0          0          0        324   cpu_a.o
+        12          6          0          0          0        503   cpu_bsp.o
+       252         48          0         28          0       5484   cpu_core.o
+        16          6          0          0        616       1201   inmp441.o
+       340         58          0          0        248       1359   main.o
+         0          0          0          0          0      28625   os_app_hooks.o
+       898        100          0          0          0       6329   os_core.o
+       264         14          0          0          0        408   os_cpu_a.o
+       218         16          0          4          0       2755   os_cpu_c.o
+        60         10          0          4          0       1724   os_prio.o
+       352         16          0          0          0       1456   os_task.o
+        88          0          0          0          0        728   os_tick.o
+       144         28          0          0          0       1521   os_time.o
+         0          0          0        192       1292      18223   os_var.o
+        36          8        664          0       1024        972   startup_stm32h743xx.o
+        30          0          0          0          0       1113   stm32h7xx_hal.o
+        40          8          0          0          0      35306   stm32h7xx_hal_cortex.o
+      2864        112         56          0          0      10259   stm32h7xx_hal_dma.o
+       588         54          0          0          0       1828   stm32h7xx_hal_gpio.o
+      3040         86          0          0          0       6004   stm32h7xx_hal_rcc.o
+      4916        122          0          0          0       7387   stm32h7xx_hal_rcc_ex.o
+      3422        144         48          0          0      11937   stm32h7xx_hal_uart.o
+        22          0          0          0          0       3239   stm32h7xx_it.o
+       148         18         64          8          0    1198391   system_stm32h7xx.o
 
     ----------------------------------------------------------------------
-     15658        782        928        244       5644    1389565   Object Totals
+     18076        858        864        236       3180    1349678   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        14          0          0          0          0          0   (incl. Padding)
+        16          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -7406,21 +7418,22 @@ Image component sizes
         36          8          0          0          0         68   init.o
         30          0          0          0          0         68   llshl.o
         32          0          0          0          0         68   llushr.o
+        36          0          0          0          0         68   memcpya.o
         36          0          0          0          0        108   memseta.o
         98          0          0          0          0         92   uldiv.o
 
     ----------------------------------------------------------------------
-       282         16          0          0          0        404   Library Totals
-         0          0          0          0          0          0   (incl. Padding)
+       320         16          0          0          0        472   Library Totals
+         2          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-       282         16          0          0          0        404   mc_w.l
+       318         16          0          0          0        472   mc_w.l
 
     ----------------------------------------------------------------------
-       282         16          0          0          0        404   Library Totals
+       320         16          0          0          0        472   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -7429,15 +7442,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     15940        798        928        244       5644    1383669   Grand Totals
-     15940        798        928        244       5644    1383669   ELF Image Totals
-     15940        798        928        244          0          0   ROM Totals
+     18396        874        864        236       3180    1342798   Grand Totals
+     18396        874        864        236       3180    1342798   ELF Image Totals
+     18396        874        864        236          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                16868 (  16.47kB)
-    Total RW  Size (RW Data + ZI Data)              5888 (   5.75kB)
-    Total ROM Size (Code + RO Data + RW Data)      17112 (  16.71kB)
+    Total RO  Size (Code + RO Data)                19260 (  18.81kB)
+    Total RW  Size (RW Data + ZI Data)              3416 (   3.34kB)
+    Total ROM Size (Code + RO Data + RW Data)      19496 (  19.04kB)
 
 ==============================================================================
 

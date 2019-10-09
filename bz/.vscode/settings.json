@@ -40,6 +40,7 @@
         "stm32h7xx_hal_uart.h": "c",
         "bsp.h": "c",
         "os_app_hooks.h": "c",
-        "stm32h7xx_hal_def.h": "c"
+        "stm32h7xx_hal_def.h": "c",
+        "app.h": "c"
     }
 }
