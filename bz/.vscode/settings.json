@@ -41,6 +41,9 @@
         "bsp.h": "c",
         "os_app_hooks.h": "c",
         "stm32h7xx_hal_def.h": "c",
-        "app.h": "c"
+        "app.h": "c",
+        "APP_LCD.c": "c",
+        "button.h": "c",
+        "stm32h7xx.h": "c"
     }
 }

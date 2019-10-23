@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32H750xx,PROGRAM_ADDR = 0x08000000,__CC_ARM</Define>
+              <Define>USE_HAL_DRIVER,STM32H750xx,PROGRAM_ADDR = 0x08000000,__CC_ARM,ARM_MATH_CM7</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS\Include;..\..\Libraries\CMSIS\Device\ST\STM32H7xx\Include;..\..\Libraries\STM32H7xx_HAL_Driver\Inc;..\..\User;..\..\User\APP;..\..\User\BSP;..\..\User\uC-CPU;..\..\User\uC-CPU\ARM-Cortex-M4\RealView;..\..\User\uC-LIB;..\..\User\uCOS-III\Source;..\..\User\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\RealView;..\..\User\BSP\ABC</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS\Include;..\..\Libraries\CMSIS\Device\ST\STM32H7xx\Include;..\..\Libraries\STM32H7xx_HAL_Driver\Inc;..\..\User;..\..\User\APP;..\..\User\BSP;..\..\User\uC-CPU;..\..\User\uC-CPU\ARM-Cortex-M4\RealView;..\..\User\uC-LIB;..\..\User\uCOS-III\Source;..\..\User\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\RealView;..\..\User\BSP\ABC;..\..\Libraries\CMSIS\DSP;..\..\User\STemWin\inc;..\..\User\STemWin\Config</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -396,6 +396,11 @@
               <FileName>system_stm32h7xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\CMSIS\Device\ST\STM32H7xx\Source\Templates\system_stm32h7xx.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_cortexM7lfsp_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\Libraries\CMSIS\DSP\arm_cortexM7lfsp_math.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -868,11 +873,6 @@
               <FilePath>..\..\User\BSP\fonts\font24.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_lcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\BSP\lcd\bsp_lcd.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_mpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\BSP\mpu\bsp_mpu.c</FilePath>
@@ -891,6 +891,11 @@
               <FileName>INMP441.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\BSP\INMP441\INMP441.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\BSP\tft-lcd\bsp_lcd.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1086,6 +1091,46 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STemWin_Conf</GroupName>
+          <Files>
+            <File>
+              <FileName>GUIConf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\STemWin\Config\GUIConf.c</FilePath>
+            </File>
+            <File>
+              <FileName>GUIDRV_Template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\STemWin\Config\GUIDRV_Template.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDConf_Lin_Template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\STemWin\Config\LCDConf_Lin_Template.c</FilePath>
+            </File>
+            <File>
+              <FileName>SIMConf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\STemWin\Config\SIMConf.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCDConf_FlexColor_Template.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\STemWin\Config\LCDConf_FlexColor_Template.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>STemWin_LIB</GroupName>
+          <Files>
+            <File>
+              <FileName>STemWin_CM7_wc16.a</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\User\STemWin\Lib\STemWin_CM7_wc16.a</FilePath>
             </File>
           </Files>
         </Group>

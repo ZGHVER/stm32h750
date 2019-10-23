@@ -3,14 +3,14 @@
 *                                                      uC/OS-III
 *                                                 The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2016; Micrium, Inc.; Weston, FL
+*                                  (c) Copyright 2009-2014; Micrium, Inc.; Weston, FL
 *                           All rights reserved.  Protected by international copyright laws.
 *
 *                                       OS CONFIGURATION (APPLICATION SPECIFICS)
 *
 * File    : OS_CFG_APP.H
 * By      : JJL
-* Version : V3.06.00
+* Version : V3.04.04
 *
 * LICENSING TERMS:
 * ---------------
@@ -40,33 +40,39 @@
 *                                                      CONSTANTS
 ************************************************************************************************************************
 */
-                                                                /* ------------------ MISCELLANEOUS ------------------- */
-#define  OS_CFG_ISR_STK_SIZE                         128u       /* Stack size of ISR stack (number of CPU_STK elements) */
 
-#define  OS_CFG_MSG_POOL_SIZE                         32u       /* Maximum number of messages                           */
+                                                            /* --------------------- MISCELLANEOUS ------------------ */
+#define  OS_CFG_MSG_POOL_SIZE            100u               /* Maximum number of messages                             */
 
-#define  OS_CFG_TASK_STK_LIMIT_PCT_EMPTY              10u       /* Stack limit position in percentage to empty          */
+#define  OS_CFG_ISR_STK_SIZE             100u               /* Stack size of ISR stack (number of CPU_STK elements)   */
 
-
-                                                                /* -------------------- IDLE TASK --------------------- */
-#define  OS_CFG_IDLE_TASK_STK_SIZE                   128u       /* Stack size (number of CPU_STK elements)              */
+#define  OS_CFG_TASK_STK_LIMIT_PCT_EMPTY  10u               /* Stack limit position in percentage to empty            */
 
 
-                                                                /* ------------------ STATISTIC TASK ------------------ */
-#define  OS_CFG_STAT_TASK_PRIO       (OS_CFG_PRIO_MAX-2u)       /* Priority                                             */
-#define  OS_CFG_STAT_TASK_RATE_HZ                     10u       /* Rate of execution (1 to 10 Hz)                       */
-#define  OS_CFG_STAT_TASK_STK_SIZE                   128u       /* Stack size (number of CPU_STK elements)              */
+                                                            /* ---------------------- IDLE TASK --------------------- */
+#define  OS_CFG_IDLE_TASK_STK_SIZE        64u               /* Stack size (number of CPU_STK elements)                */
 
 
-                                                                /* ---------------------- TICKS ----------------------- */
-#define  OS_CFG_TICK_RATE_HZ                        1000u       /* Tick rate in Hertz (10 to 1000 Hz)                   */
-#define  OS_CFG_TICK_TASK_PRIO                         1u       /* Priority                                             */
-#define  OS_CFG_TICK_TASK_STK_SIZE                   128u       /* Stack size (number of CPU_STK elements)              */
+                                                            /* ------------------ ISR HANDLER TASK ------------------ */
+#define  OS_CFG_INT_Q_SIZE                10u               /* Size of ISR handler task queue                         */
+#define  OS_CFG_INT_Q_TASK_STK_SIZE      100u               /* Stack size (number of CPU_STK elements)                */
 
 
-                                                                /* --------------------- TIMERS ----------------------- */
-#define  OS_CFG_TMR_TASK_PRIO        (OS_CFG_PRIO_MAX-3u)       /* Priority of 'Timer Task'                             */
-#define  OS_CFG_TMR_TASK_RATE_HZ                      10u       /* Rate for timers (10 Hz Typ.)                         */
-#define  OS_CFG_TMR_TASK_STK_SIZE                    128u       /* Stack size (number of CPU_STK elements)              */
+                                                            /* ------------------- STATISTIC TASK ------------------- */
+#define  OS_CFG_STAT_TASK_PRIO            11u               /* Priority                                               */
+#define  OS_CFG_STAT_TASK_RATE_HZ         10u               /* Rate of execution (1 to 10 Hz)                         */
+#define  OS_CFG_STAT_TASK_STK_SIZE       100u               /* Stack size (number of CPU_STK elements)                */
+
+
+                                                            /* ------------------------ TICKS ----------------------- */
+#define  OS_CFG_TICK_RATE_HZ             500u               /* Tick rate in Hertz (10 to 1000 Hz)                     */
+#define  OS_CFG_TICK_TASK_PRIO             1u               /* Priority                                               */
+#define  OS_CFG_TICK_TASK_STK_SIZE       100u               /* Stack size (number of CPU_STK elements)                */
+
+
+                                                            /* ----------------------- TIMERS ----------------------- */
+#define  OS_CFG_TMR_TASK_PRIO             11u               /* Priority of 'Timer Task'                               */
+#define  OS_CFG_TMR_TASK_RATE_HZ          10u               /* Rate for timers (10 Hz Typ.)                           */
+#define  OS_CFG_TMR_TASK_STK_SIZE        100u               /* Stack size (number of CPU_STK elements)                */
 
 #endif

@@ -2,7 +2,7 @@
 ;                                                uC/LIB
 ;                                        CUSTOM LIBRARY MODULES
 ;
-;                          (c) Copyright 2004-2015; Micrium, Inc.; Weston, FL
+;                          (c) Copyright 2004-2011; Micrium, Inc.; Weston, FL
 ;
 ;               All rights reserved.  Protected by international copyright laws.
 ;
@@ -29,7 +29,7 @@
 ;                                           Keil uVision
 ;
 ; Filename      : lib_mem_a.asm
-; Version       : V1.38.02.00
+; Version       : V1.38.01.00
 ; Programmer(s) : JDH
 ;                 BAN
 ;********************************************************************************************************

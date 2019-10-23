@@ -203,6 +203,12 @@ static void LCD_GPIO_Config(void)
   HAL_GPIO_Init(LTDC_BL_GPIO_PORT, &GPIO_InitStruct);
   
 }
+
+
+uint32_t LCD_GetActiveLayer(){
+  return ActiveLayer;
+}
+
 /**
   * @brief  时钟配置
   * @retval 无
@@ -220,10 +226,10 @@ void LCD_ClockConfig(void)
 	/* LTDC clock frequency = PLLLCDCLK = 27 Mhz */    
 	periph_clk_init_struct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
 	periph_clk_init_struct.PLL3.PLL3M = 25;    
-	periph_clk_init_struct.PLL3.PLL3N = 270;
+	periph_clk_init_struct.PLL3.PLL3N = 420;
 	periph_clk_init_struct.PLL3.PLL3P = 2;
 	periph_clk_init_struct.PLL3.PLL3Q = 2;
-	periph_clk_init_struct.PLL3.PLL3R = 10;  
+	periph_clk_init_struct.PLL3.PLL3R = 25;  
 	HAL_RCCEx_PeriphCLKConfig(&periph_clk_init_struct);  
 }
 void LCD_Init(void)
@@ -236,8 +242,6 @@ void LCD_Init(void)
 		LCD_ClockConfig();
     /* 初始化LCD引脚 */
     LCD_GPIO_Config();
-    /* 初始化SDRAM 用作LCD 显存*/
-    SDRAM_Init();
     /* 配置LTDC参数 */
     Ltdc_Handler.Instance = LTDC;  
     /* 配置行同步信号宽度(HSW-1) */
@@ -276,6 +280,11 @@ void LCD_Init(void)
     HAL_LTDC_Init(&Ltdc_Handler);
     /* 初始化字体 */
     LCD_SetFont(&LCD_DEFAULT_FONT);
+
+
+    LCD_LayerInit(0, LCD_FB_START_ADDRESS,ARGB8888);
+	  LCD_LayerInit(1, LCD_FB_START_ADDRESS+(LCD_GetXSize()*LCD_GetYSize()*4),ARGB8888);
+	  LCD_DisplayOn(); 
 }
 
 /**
@@ -570,6 +579,37 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
     DrawProp[ActiveLayer].pFont->Height * ((DrawProp[ActiveLayer].pFont->Width + 7) / 8)]);
 }
 
+void LCD_DisplayStringAtABSPos(uint16_t Xpos, uint16_t Ypos, uint8_t *Text)
+{
+  uint16_t ref_column = 1, i = 0;
+  uint32_t size = 0, xsize = 0; 
+  uint8_t  *ptr = Text;
+  
+  /* 获取字符串大小 */
+  while (*ptr++) size ++ ;
+  
+  ref_column = Xpos;
+  
+  /*检查起始行是否在显示范围内 */
+  if ((ref_column < 1) || (ref_column >= 0x8000))
+  {
+    ref_column = 1;
+  }
+
+  /* 使用字符显示函数显示每一个字符*/
+  while ((*Text != 0) & (((LCD_GetXSize() - (i*DrawProp[ActiveLayer].pFont->Width)) & 0xFFFF)\
+			>= DrawProp[ActiveLayer].pFont->Width))
+  {
+    /* 显示一个字符 */
+    LCD_DisplayChar(ref_column, Ypos, *Text);
+    /* 根据字体大小计算下一个偏移位置 */
+    ref_column += DrawProp[ActiveLayer].pFont->Width;
+    /* 指针指向下一个字符 */
+    Text++;
+    i++;
+  }  
+}
+
 /**
   * @brief  显示字符串
   * @param  Xpos: X轴起始坐标
@@ -578,6 +618,7 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
   * @param  Mode: 显示对齐方式，可以是CENTER_MODE、RIGHT_MODE、LEFT_MODE
   * @retval None
   */
+
 void LCD_DisplayStringAt(uint16_t Xpos, uint16_t Ypos, uint8_t *Text, Text_AlignModeTypdef Mode)
 {
   uint16_t ref_column = 1, i = 0;
@@ -954,7 +995,7 @@ void LCD_DrawPixel(uint16_t Xpos, uint16_t Ypos, uint32_t RGB_Code)
   * @param  pbmp: 指针指向存在内部flash的Bmp图片的首地址
   * @retval 无
   */
-void LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pbmp)
+void LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, const uint8_t *pbmp)
 {
   uint32_t index = 0, width = 0, height = 0, bit_pixel = 0;
   uint32_t address;
@@ -1415,7 +1456,7 @@ static void LL_FillBuffer(uint32_t LayerIndex, void *pDst, uint32_t xSize, uint3
   * @param  ColorMode: 输入颜色模式   
   * @retval 无
   */
-static void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
+void LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode)
 {    
   /* 配置DMA2D模式,颜色模式和输出偏移 */
   Dma2d_Handler.Init.Mode         = DMA2D_M2M_PFC;

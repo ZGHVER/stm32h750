@@ -1,64 +1,114 @@
 
 #include "main.h"
-#include "./BSP/INMP441/INMP441.h"
+#include "./bsp/lcd/bsp_lcd.h"
+#include "./touch/button.h"
+#include "./BSP/lcd/photo1.h"
+#include "./touch/bsp_touch_gtxx.h"
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_tx;
-int main(void){
-  SystemClock_Config();	
-  HAL_Init();
- uint8_t ss[32] = {
-    0x01, 0x02, 0x04, 0x08,
-    0x00, 0x00, 0x00, 0x01,
-    0x01, 0x02, 0x04, 0x08,
-    0x00, 0x00, 0x00, 0x02,
-    0x10, 0x20, 0x40, 0x80,
-    0x00, 0x00, 0x00, 0x03,
-    0xaa, 0xaa, 0xaa, 0xaa,
-    0x00, 0x00, 0x00, 0x04,
-  };
+extern OS_MEM SDRAM_MEM;
+int32_t lastid = -1;
+BUTTON but[4];
 
-  __HAL_RCC_USART1_CLK_ENABLE();
-  __DMA1_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
-  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+#define Test_TSIZE 128
+#define Test_Prio 15
+CPU_STK Test_STK[Test_TSIZE];
+OS_TCB  Test_TCB;
+void    Test_Task(void* args);
 
-  hdma_usart1_tx.Instance = DMA1_Stream1;
-  hdma_usart1_tx.Init.Request = DMA_REQUEST_USART1_TX;
-  hdma_usart1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-  hdma_usart1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-  hdma_usart1_tx.Init.MemInc = DMA_MINC_ENABLE;
-  hdma_usart1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-  hdma_usart1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-  hdma_usart1_tx.Init.Mode = DMA_CIRCULAR;
-  hdma_usart1_tx.Init.Priority = DMA_PRIORITY_HIGH;
-  hdma_usart1_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-  HAL_DMA_DeInit(&hdma_usart1_tx);
-  HAL_DMA_Init(&hdma_usart1_tx);
+#define Test1_TSIZE 128
+#define Test1_Prio 15
+CPU_STK Test1_STK[Test_TSIZE];
+OS_TCB  Test1_TCB;
+void    Test1_Task(void* args);
 
-  __HAL_LINKDMA(&huart1,hdmatx,hdma_usart1_tx);
 
-  huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
-  huart1.Init.WordLength = UART_WORDLENGTH_8B;
-  huart1.Init.StopBits = UART_STOPBITS_1;
-  huart1.Init.Parity = UART_PARITY_NONE;
-  huart1.Init.Mode = UART_MODE_TX_RX;
-  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.Init.Prescaler = UART_PRESCALER_DIV1;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  HAL_UART_Init(&huart1);
 
-	HAL_UART_Transmit_DMA(&huart1, (uint8_t*)ss, 32);
-  
-	while(1){
-  }
+void dd(BUTTON* but){
+ char s[10];
+    sprintf(s, "%d", but->id);
+    LCD_DisplayStringAtABSPos(100, 50, (unsigned char*)s);
 }
+
+int main(void){
+	OS_ERR err;
+	
+  	SystemClock_Config();	
+	//BSP_SystemClkCfg();
+  	HAL_Init();
+	BSP_Init();
+	CPU_Init();
+	SDRAM_Init();
+	BUTTON_SetBorderColor(LCD_COLOR_BROWN);
+	OSInit(&err);
+	LCD_Start();
+	BUTTON but[16];
+	osError_hander(err);
+	
+	Button_KeyBoard_Init(but, 400, 100, 80);
+
+	OSTaskCreate(
+		(  OS_TCB*   )&Test_TCB,                                   //任务控制块
+		( CPU_CHAR*  )"test",                                      //任务名
+		(OS_TASK_PTR )Test_Task,                                  //任务函数指针
+		(   void*    )0,                                          //首次运行时传递的参数
+		(  OS_PRIO   )Test_Prio,                                  //任务优先级
+		(  CPU_STK*  )&Test_STK[0],                               //任务堆栈基地址
+		(CPU_STK_SIZE)Test_TSIZE / 10,                            //可用最大堆栈空间
+		(CPU_STK_SIZE)Test_TSIZE,                                 //任务堆栈大小
+		( OS_MSG_QTY )10,                                         //任务可接收的最大消息数
+		(  OS_TICK   )0,                                          //在任务之间循环时的时间片的时间量（以刻度表示）指定0以使用默认值
+		(   void*    )0,                                          //TCB扩展指针
+		(  OS_OPT    )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,  //包含有关任务行为的其他信息（或选项）
+		(  OS_ERR*   )&err                                        //错误变量
+	);
+
+	OSTaskCreate(
+		(  OS_TCB*   )&Test1_TCB,                                   //任务控制块
+		( CPU_CHAR*  )"Test1_Task",                                 //任务名
+		(OS_TASK_PTR )Test1_Task,                                   //任务函数指针
+		(   void*    )0,                                            //首次运行时传递的参数
+		(  OS_PRIO   )Test1_Prio,                                   //任务优先级
+		(  CPU_STK*  )&Test1_STK[0],                                //任务堆栈基地址
+		(CPU_STK_SIZE)Test1_TSIZE / 10,                             //可用最大堆栈空间
+		(CPU_STK_SIZE)Test1_TSIZE,                                  //任务堆栈大小
+		( OS_MSG_QTY )12,                                           //任务可接收的最大消息数
+		(  OS_TICK   )0,                                            //在任务之间循环时的时间片的时间量（以刻度表示）指定0以使用默认值
+		(   void*    )0,                                            //TCB扩展指针
+		(  OS_OPT    )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,    //包含有关任务行为的其他信息（或选项）
+		(  OS_ERR*   )&err                                          //错误变量
+	);
+
+		OSStart(&err);
+	uint32_t k;
+	while(1){	
+		k ++;
+  };
+}
+
+void Test_Task(void* args){
+	OS_ERR err;
+	while(1){
+		LCD_SetTextColor(LCD_COLOR_YELLOW);
+		LCD_FillRect(100, 100, 50, 50);
+		OSTimeDly(1000, OS_OPT_TIME_DLY, &err);
+		LCD_SetTextColor(LCD_COLOR_BLUE);
+		LCD_FillRect(100, 100, 50, 50);
+		OSTimeDly(400, OS_OPT_TIME_DLY, &err);
+	}
+}
+
+void Test1_Task(void* args){
+	OS_ERR err;
+	while(1){
+		LCD_SetTextColor(LCD_COLOR_RED);
+		LCD_FillRect(150, 100, 50, 50);
+		OSTimeDly(400, OS_OPT_TIME_DLY, &err);
+		LCD_SetTextColor(LCD_COLOR_GREEN);
+		LCD_FillRect(150, 100, 50, 50);
+		OSTimeDly(200, OS_OPT_TIME_DLY, &err);
+	}
+}
+
+
 

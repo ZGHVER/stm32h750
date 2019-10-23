@@ -25,7 +25,7 @@
 *                                              TEMPLATE
 *
 * Filename      : lib_cfg.h
-* Version       : V1.38.02.00
+* Version       : V1.38.01.00
 * Programmer(s) : FBJ
 *                 JFD
 *********************************************************************************************************
@@ -83,7 +83,7 @@
                                                                 /* Assembly-optimized function(s).                      */
                                                                 /* Enable/disable assembly-optimized memory ...         */
                                                                 /* ... function(s). [see Note #1]                       */
-#define  LIB_MEM_CFG_OPTIMIZE_ASM_EN        DEF_ENABLED
+#define  LIB_MEM_CFG_OPTIMIZE_ASM_EN    DEF_ENABLED
 
 
 /*
@@ -115,7 +115,7 @@
                                                                 /* Heap memory size (in bytes).                         */
                                                                 /* Configure the desired size of the heap memory. ...   */
                                                                 /* ... Set to 0 to disable heap allocation features.    */
-#define  LIB_MEM_CFG_HEAP_SIZE             (1u * 1024u)
+#define  LIB_MEM_CFG_HEAP_SIZE            (3u * 1024u)
 
 
                                                                 /* Heap memory padding alignment (in bytes).            */

@@ -4,23 +4,23 @@
 *                                          The Real-Time Kernel
 *
 *
-*                           (c) Copyright 2009-2016; Micrium, Inc.; Weston, FL
+*                         (c) Copyright 2009-2013; Micrium, Inc.; Weston, FL
 *                    All rights reserved.  Protected by international copyright laws.
 *
-*                                              ARMv7-M Port
+*                                           ARM Cortex-M4 Port
 *
 * File      : OS_CPU.H
-* Version   : V3.06.00
+* Version   : V3.04.04
 * By        : JJL
 *             JBL
 *
 * LICENSING TERMS:
 * ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
+*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
 *           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
+*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
+*           application/product.   We provide ALL the source code for your convenience and to help you 
+*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
 *           it commercially without paying a licensing fee.
 *
 *           Knowledge of the source code may NOT be used to develop a similar product.
@@ -32,14 +32,9 @@
 *           more information at https://doc.micrium.com.
 *           You can contact us at www.micrium.com.
 *
-* For       : ARMv7M Cortex-M
+* For       : ARMv7 Cortex-M4
 * Mode      : Thumb-2 ISA
-* Toolchain : IAR EWARM
-*
-* Note(s)   : (1) This port supports the ARM Cortex-M3, Cortex-M4 and Cortex-M7 architectures.
-*             (2) It has been tested with the following Hardware Floating Point Unit.
-*                 (a) Single-precision: FPv4-SP-D16-M and FPv5-SP-D16-M
-*                 (b) Double-precision: FPv5-D16-M
+* Toolchain : RealView
 *********************************************************************************************************
 */
 
@@ -52,18 +47,8 @@
 #define  OS_CPU_EXT  extern
 #endif
 
-
-/*
-*********************************************************************************************************
-*                                     EXTERNAL C LANGUAGE LINKAGE
-*
-* Note(s) : (1) C++ compilers MUST 'extern'ally declare ALL C function prototypes & variable/object
-*               declarations for correct C language linkage.
-*********************************************************************************************************
-*/
-
 #ifdef __cplusplus
-extern  "C" {                                    /* See Note #1.                                       */
+extern  "C" {
 #endif
 
 
@@ -73,11 +58,13 @@ extern  "C" {                                    /* See Note #1.                
 *********************************************************************************************************
 */
 
-#ifdef __TARGET_FPU_VFP
-#define  OS_CPU_ARM_FP_EN              1u
+#ifndef  __TARGET_FPU_SOFTVFP
+#define  OS_CPU_ARM_FP_EN                              DEF_ENABLED
 #else
-#define  OS_CPU_ARM_FP_EN              0u
+#define  OS_CPU_ARM_FP_EN                              DEF_DISABLED
 #endif
+
+#define  OS_CPU_ARM_FP_REG_NBR                           32u
 
 
 /*
@@ -88,12 +75,7 @@ extern  "C" {                                    /* See Note #1.                
 
 #define  OS_TASK_SW()               OSCtxSw()
 
-
-#define  OS_TASK_SW_SYNC() do {\
-                               __schedule_barrier();\
-                               __isb(0xF);\
-                               __schedule_barrier();\
-                            } while (0U)
+#define  OS_TASK_SW_SYNC()          __isb(0xF)
 
 
 /*
@@ -103,7 +85,7 @@ extern  "C" {                                    /* See Note #1.                
 * Note(s) : (1) OS_TS_GET() is generally defined as CPU_TS_Get32() to allow CPU timestamp timer to be of
 *               any data type size.
 *
-*           (2) For architectures that provide 32-bit or higher precision free running counters
+*           (2) For architectures that provide 32-bit or higher precision free running counters 
 *               (i.e. cycle count registers):
 *
 *               (a) OS_TS_GET() may be defined as CPU_TS_TmrRd() to improve performance when retrieving
@@ -150,9 +132,7 @@ extern  "C" {                                    /* See Note #1.                
 *********************************************************************************************************
 */
 
-#ifndef  OS_CPU_CFG_SYSTICK_PRIO
 #define  OS_CPU_CFG_SYSTICK_PRIO           0u
-#endif
 
 
 /*
@@ -170,39 +150,24 @@ OS_CPU_EXT  CPU_STK  *OS_CPU_ExceptStkBase;
 *********************************************************************************************************
 */
 
-                                                  /* See OS_CPU_A.ASM                                  */
-void  OSCtxSw           (void);
-void  OSIntCtxSw        (void);
-void  OSStartHighRdy    (void);
+void  OSCtxSw              (void);
+void  OSIntCtxSw           (void);
+void  OSStartHighRdy       (void);
 
-                                                  /* See OS_CPU_C.C                                    */
-void  OS_CPU_SysTickInit    (CPU_INT32U  cnts);
-void  OS_CPU_SysTickInitFreq(CPU_INT32U  cpu_freq);
-
-void  OS_CPU_SysTickHandler(void);
 void  OS_CPU_PendSVHandler (void);
 
-#if (OS_CPU_ARM_FP_EN > 0u)
-void  OS_CPU_FP_Reg_Push(CPU_STK  *stkPtr);
-void  OS_CPU_FP_Reg_Pop (CPU_STK  *stkPtr);
+
+void  OS_CPU_SysTickHandler(void);
+void  OS_CPU_SysTickInit   (CPU_INT32U  cnts);
+
+#if (OS_CPU_ARM_FP_EN == DEF_ENABLED)
+void  OS_CPU_FP_Reg_Push   (CPU_STK    *stkPtr);
+void  OS_CPU_FP_Reg_Pop    (CPU_STK    *stkPtr);
 #endif
 
-
-/*
-*********************************************************************************************************
-*                                   EXTERNAL C LANGUAGE LINKAGE END
-*********************************************************************************************************
-*/
 
 #ifdef __cplusplus
-}                                                 /* End of 'extern'al C lang linkage.                 */
+}
 #endif
-
-
-/*
-*********************************************************************************************************
-*                                             MODULE END
-*********************************************************************************************************
-*/
 
 #endif

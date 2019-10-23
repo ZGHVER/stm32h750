@@ -1,6 +1,7 @@
 
 #include "main.h"
 #include "./BSP/INMP441/INMP441.h"
+#include "arm_math.h"
 int main(void){
   SystemClock_Config();	
  __GPIOC_CLK_ENABLE();

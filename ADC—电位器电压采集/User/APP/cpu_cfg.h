@@ -3,7 +3,7 @@
 *                                                uC/CPU
 *                                    CPU CONFIGURATION & PORT LAYER
 *
-*                          (c) Copyright 2004-2016; Micrium, Inc.; Weston, FL
+*                          (c) Copyright 2004-2013; Micrium, Inc.; Weston, FL
 *
 *               All rights reserved.  Protected by international copyright laws.
 *
@@ -29,7 +29,7 @@
 *                                              TEMPLATE
 *
 * Filename      : cpu_cfg.h
-* Version       : V1.31.00
+* Version       : V1.30.00
 * Programmer(s) : SR
 *                 ITJ
 *                 JBL
@@ -128,7 +128,7 @@
 *********************************************************************************************************
 */
 
-#if 1                                                           /* Configure CPU interrupts disabled time ...           */
+#if 0                                                           /* Configure CPU interrupts disabled time ...           */
 #define  CPU_CFG_INT_DIS_MEAS_EN                                /* ... measurements feature (see Note #1a).             */
 #endif
 

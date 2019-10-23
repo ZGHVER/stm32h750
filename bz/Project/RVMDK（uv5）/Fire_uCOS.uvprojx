@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32H750xx,PROGRAM_ADDR = 0x08000000,__CC_ARM</Define>
+              <Define>USE_HAL_DRIVER,STM32H750xx,PROGRAM_ADDR = 0x8000000,__CC_ARM</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\Libraries\CMSIS\Include;..\..\Libraries\CMSIS\Device\ST\STM32H7xx\Include;..\..\Libraries\STM32H7xx_HAL_Driver\Inc;..\..\User;..\..\User\APP;..\..\User\BSP;..\..\User\uC-CPU;..\..\User\uC-CPU\ARM-Cortex-M4\RealView;..\..\User\uC-LIB;..\..\User\uCOS-III\Source;..\..\User\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\RealView;..\..\User\BSP\ABC</IncludePath>
             </VariousControls>
@@ -817,6 +817,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\APP\app.c</FilePath>
             </File>
+            <File>
+              <FileName>APP_LCD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\APP\MY_APP\APP_LCD.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -891,6 +896,21 @@
               <FileName>INMP441.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\BSP\INMP441\INMP441.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_i2c_touch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\BSP\touch\bsp_i2c_touch.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_touch_gtxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\BSP\touch\bsp_touch_gtxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\BSP\touch\button.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1086,6 +1106,16 @@
               <FileName>必读说明.txt</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\必读说明.txt</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>AL</GroupName>
+          <Files>
+            <File>
+              <FileName>AL_Array.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\BSP\al\AL_Array.c</FilePath>
             </File>
           </Files>
         </Group>

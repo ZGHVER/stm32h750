@@ -5,7 +5,7 @@
 #include "stm32h7xx_hal_conf.h"
 #include "stm32h7xx.h"
 #include "./BSP/sdram/bsp_sdram.h"
-#include "./BSP/lcd/bsp_lcd.h"
+#include "./BSP/tft-lcd/bsp_lcd.h"
 
 #define osError_hander(err) ((err) == OS_ERR_NONE ? (void)0 : ERR_H((uint8_t *)__FILE__, __LINE__, (OS_ERR)err))
 

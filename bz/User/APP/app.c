@@ -1,5 +1,10 @@
 #include"app.h"
-void Error_Handler();
+
+#define MAX_ADDR 0x1100 0000
+
+uint32_t mem_addr = 0xD300000;
+
+void Error_Handler(void);
 void ERR_H(uint8_t* file, uint32_t line, OS_ERR err){
     err = err;
     file = file;
@@ -31,8 +36,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 2;
-  RCC_OscInitStruct.PLL.PLLN = 64;
+  RCC_OscInitStruct.PLL.PLLM = 5;
+  RCC_OscInitStruct.PLL.PLLN = 192;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
@@ -67,6 +72,12 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+void* MEM_Get(uint32_t size){
+  void* ret =  (void*)mem_addr;
+  mem_addr += size;
+  return ret;
 }
 
 void Error_Handler(){
