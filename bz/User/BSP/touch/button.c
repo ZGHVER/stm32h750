@@ -171,7 +171,7 @@ void Button_KeyBoard_Init(BUTTON* but ,uint16_t x, uint16_t y, uint32_t size){
                         x + i * size, y + j * size,
                         size, size, 
                         LCD_COLOR_YELLOW, LCD_COLOR_BLUE, 
-                        "1", &Font16,
+                        "k", &Font16,
                          CallBack);
         }
     }   

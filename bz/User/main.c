@@ -26,6 +26,7 @@ void    Test1_Task(void* args);
 
 void dd(BUTTON* but){
  char s[10];
+	
     sprintf(s, "%d", but->id);
     LCD_DisplayStringAtABSPos(100, 50, (unsigned char*)s);
 }
@@ -44,7 +45,6 @@ int main(void){
 	LCD_Start();
 	BUTTON but[16];
 	osError_hander(err);
-	
 	Button_KeyBoard_Init(but, 400, 100, 80);
 
 	OSTaskCreate(
@@ -79,7 +79,7 @@ int main(void){
 		(  OS_ERR*   )&err                                          //¥ÌŒÛ±‰¡ø
 	);
 
-		OSStart(&err);
+	OSStart(&err);
 	uint32_t k;
 	while(1){	
 		k ++;
@@ -95,6 +95,8 @@ void Test_Task(void* args){
 		LCD_SetTextColor(LCD_COLOR_BLUE);
 		LCD_FillRect(100, 100, 50, 50);
 		OSTimeDly(400, OS_OPT_TIME_DLY, &err);
+		//LCD_SelectLayer(0);
+		//LCD_Clear(LCD_COLOR_WHITE);
 	}
 }
 

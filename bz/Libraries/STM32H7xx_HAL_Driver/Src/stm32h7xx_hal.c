@@ -157,8 +157,6 @@ HAL_StatusTypeDef HAL_Init(void)
   //Board_MPU_Config(0, MPU_Normal_WT, 0xD0000000, MPU_32MB);
   //Board_MPU_Config(1, MPU_Normal_WT, 0x24000000, MPU_512KB);
   
-  SCB_EnableICache();    // 使能指令 Cache
-  SCB_EnableDCache();    // 使能数据 Cache
   /* Return function status */
   return HAL_OK;
 }
