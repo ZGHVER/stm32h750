@@ -144,7 +144,7 @@ static HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 HAL_StatusTypeDef HAL_Init(void)
 {
   /* Set Interrupt Group Priority */
-  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_2);
+  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
   if(HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK)

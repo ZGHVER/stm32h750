@@ -244,39 +244,24 @@ void LCD_Init(void)
     LCD_GPIO_Config();
     /* 配置LTDC参数 */
     Ltdc_Handler.Instance = LTDC;  
-    /* 配置行同步信号宽度(HSW-1) */
-    Ltdc_Handler.Init.HorizontalSync =HSW-1;
-    /* 配置垂直同步信号宽度(VSW-1) */
-    Ltdc_Handler.Init.VerticalSync = VSW-1;
-    /* 配置(HSW+HBP-1) */
-    Ltdc_Handler.Init.AccumulatedHBP = HSW+HBP-1;
-    /* 配置(VSW+VBP-1) */
-    Ltdc_Handler.Init.AccumulatedVBP = VSW+VBP-1;
-    /* 配置(HSW+HBP+有效像素宽度-1) */
-    Ltdc_Handler.Init.AccumulatedActiveW = HSW+HBP+LCD_PIXEL_WIDTH-1;
-    /* 配置(VSW+VBP+有效像素高度-1) */
-    Ltdc_Handler.Init.AccumulatedActiveH = VSW+VBP+LCD_PIXEL_HEIGHT-1;
-    /* 配置总宽度(HSW+HBP+有效像素宽度+HFP-1) */
-    Ltdc_Handler.Init.TotalWidth =HSW+ HBP+LCD_PIXEL_WIDTH + HFP-1; 
-    /* 配置总高度(VSW+VBP+有效像素高度+VFP-1) */
-    Ltdc_Handler.Init.TotalHeigh =VSW+ VBP+LCD_PIXEL_HEIGHT + VFP-1;
-
-    /* 初始化LCD的像素宽度和高度 */
-    Ltdc_Handler.LayerCfg->ImageWidth  = LCD_PIXEL_WIDTH;
+    Ltdc_Handler.Init.HorizontalSync =HSW-1;//配置行同步信号宽度(HSW-1) 
+    Ltdc_Handler.Init.VerticalSync = VSW-1;//配置垂直同步信号宽度(VSW-1) 
+    Ltdc_Handler.Init.AccumulatedHBP = HSW+HBP-1;//配置(HSW+HBP-1)
+    Ltdc_Handler.Init.AccumulatedVBP = VSW+VBP-1;//配置(VSW+VBP-1) 
+    Ltdc_Handler.Init.AccumulatedActiveW = HSW+HBP+LCD_PIXEL_WIDTH-1;//配置(HSW+HBP+有效像素宽度-1)
+    Ltdc_Handler.Init.AccumulatedActiveH = VSW+VBP+LCD_PIXEL_HEIGHT-1;//配置(VSW+VBP+有效像素高度-1)
+    Ltdc_Handler.Init.TotalWidth =HSW+ HBP+LCD_PIXEL_WIDTH + HFP-1; //配置总宽度(HSW+HBP+有效像素宽度+HFP-1)
+    Ltdc_Handler.Init.TotalHeigh =VSW+ VBP+LCD_PIXEL_HEIGHT + VFP-1;//配置总高度(VSW+VBP+有效像素高度+VFP-1)
+    Ltdc_Handler.LayerCfg->ImageWidth  = LCD_PIXEL_WIDTH;//初始化LCD的像素宽度和高度
     Ltdc_Handler.LayerCfg->ImageHeight = LCD_PIXEL_HEIGHT;
-    /* 设置LCD背景层的颜色，默认黑色 */
-    Ltdc_Handler.Init.Backcolor.Red = 0;
+    Ltdc_Handler.Init.Backcolor.Red = 0;//设置LCD背景层的颜色，默认黑色 
     Ltdc_Handler.Init.Backcolor.Green = 0;
     Ltdc_Handler.Init.Backcolor.Blue = 0;
     /* 极性配置 */
-    /* 初始化行同步极性，低电平有效 */
-    Ltdc_Handler.Init.HSPolarity = LTDC_HSPOLARITY_AL;
-    /* 初始化场同步极性，低电平有效 */
-    Ltdc_Handler.Init.VSPolarity = LTDC_VSPOLARITY_AL;
-    /* 初始化数据有效极性，低电平有效 */
-    Ltdc_Handler.Init.DEPolarity = LTDC_DEPOLARITY_AL;
-    /* 初始化行像素时钟极性，同输入时钟 */
-    Ltdc_Handler.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
+    Ltdc_Handler.Init.HSPolarity = LTDC_HSPOLARITY_AL;//初始化行同步极性，低电平有效
+    Ltdc_Handler.Init.VSPolarity = LTDC_VSPOLARITY_AL;//初始化场同步极性，低电平有效
+    Ltdc_Handler.Init.DEPolarity = LTDC_DEPOLARITY_AL;//初始化数据有效极性，低电平有效
+    Ltdc_Handler.Init.PCPolarity = LTDC_PCPOLARITY_IPC;//初始化行像素时钟极性，同输入时钟
     HAL_LTDC_Init(&Ltdc_Handler);
     /* 初始化字体 */
     LCD_SetFont(&LCD_DEFAULT_FONT);

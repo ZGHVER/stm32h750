@@ -1,81 +1,65 @@
 #include "oled.h"
 #include "stdlib.h"
+#include "os.h"
 #include "oledfont.h"
-#include "stm32f4xx_rcc.h"
-#include "stm32f4xx_gpio.h"
-#include "delay.h"
 
-u8 OLED_GRAM[128][8];
+uint8_t OLED_GRAM[128 * 8 + 1];
 
-void OLED_Refresh_Gram(void)
-{
-	u8 i, n;
-	for (i = 0; i < 8; i++)
-	{
-		OLED_WR_Byte(0xb0 + i, OLED_CMD);
-		OLED_WR_Byte(0x00, OLED_CMD);
-		OLED_WR_Byte(0x10, OLED_CMD);
-		for (n = 0; n < 128; n++)
-			OLED_WR_Byte(OLED_GRAM[n][i], OLED_DATA);
-	}
+I2C_HandleTypeDef hi2c1;
+DMA_HandleTypeDef hdma_i2c1_tx;
+
+static void MX_I2C1_Init(void);
+
+__STATIC_INLINE void delayt(uint16_t de){
+	while(de--);
 }
 
-void OLED_WR_Byte(u8 dat, u8 cmd)
-{
-	u8 i;
-	OLED_RS = cmd; //д����
-	for (i = 0; i < 8; i++)
-	{
-		OLED_SCLK = 0;
-		if (dat & 0x80)
-			OLED_SDIN = 1;
-		else
-			OLED_SDIN = 0;
-		OLED_SCLK = 1;
-		dat <<= 1;
-	}
-	OLED_RS = 1;
+__STATIC_INLINE void I2C_WriteByte(uint8_t addr,uint8_t data){
+	uint8_t dat[2];
+	dat[0] = addr;
+	dat[1] = data;
+	HAL_I2C_Master_Transmit(&hi2c1, OLED_ADDRESS, dat, 2,100);
 }
 
-void OLED_Display_On(void)
-{
-	OLED_WR_Byte(0X8D, OLED_CMD);
-	OLED_WR_Byte(0X14, OLED_CMD);
-	OLED_WR_Byte(0XAF, OLED_CMD);
+__STATIC_INLINE void WriteCmd(unsigned char I2C_Command){//д����
+	I2C_WriteByte(0x00, I2C_Command);
 }
 
-void OLED_Display_Off(void)
-{
-	OLED_WR_Byte(0X8D, OLED_CMD);
-	OLED_WR_Byte(0X10, OLED_CMD);
-	OLED_WR_Byte(0XAE, OLED_CMD);
+void OLED_Display_On(void){
+	WriteCmd(0X8D);
+	WriteCmd(0X14);
+	WriteCmd(0XAF);
 }
 
-void OLED_Clear(void)
-{
-	u8 i, n;
+void OLED_Display_Off(void){
+	WriteCmd(0X8D);
+	WriteCmd(0X10);
+	WriteCmd(0XAE);
+}
+
+void OLED_Clear(void){
+	uint8_t i, n;
 	for (i = 0; i < 8; i++)
 		for (n = 0; n < 128; n++)
-			OLED_GRAM[n][i] = 0X00;
+			OLED_GRAM[n + i * 128] = 0X00;
 }
 
-void OLED_DrawPoint(u8 x, u8 y, u8 t)
-{
-	u8 pos, bx, temp = 0;
+void OLED_DrawPoint(uint8_t x, uint8_t y, uint8_t t){
+	uint8_t pos, bx, temp = 0;
 	if (x > 127 || y > 63)
 		return;
-	pos = 7 - y / 8;
+	
 	bx = y % 8;
-	temp = 1 << (7 - bx);
+	pos = y / 8;
+	temp = 1 << bx;
 	if (t)
-		OLED_GRAM[x][pos] |= temp;
+		OLED_GRAM[x + pos * 128 + 1] |= temp;
 	else
-		OLED_GRAM[x][pos] &= ~temp;
+		OLED_GRAM[x + pos * 128 + 1] &= ~temp;
 }
 
-void OLED_Fill(u8 x1, u8 y1, u8 x2, u8 y2, u8 dot)
-{
-	u8 x, y;
+void OLED_Fill(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t dot){
+	uint8_t x, y;
 	for (x = x1; x <= x2; x++)
 	{
 		for (y = y1; y <= y2; y++)
@@ -84,11 +68,10 @@ void OLED_Fill(u8 x1, u8 y1, u8 x2, u8 y2, u8 dot)
 	OLED_Refresh_Gram();
 }
 
-void OLED_ShowChar(u8 x, u8 y, u8 chr, u8 size, u8 mode)
-{
-	u8 temp, t, t1;
-	u8 y0 = y;
-	u8 csize = (size / 8 + ((size % 8) ? 1 : 0)) * (size / 2);
+void OLED_ShowChar(uint8_t x, uint8_t y, uint8_t chr, uint8_t size, uint8_t mode){
+	uint8_t temp, t, t1;
+	uint8_t y0 = y;
+	uint8_t csize = (size / 8 + ((size % 8) ? 1 : 0)) * (size / 2);
 	chr = chr - ' ';
 	for (t = 0; t < csize; t++)
 	{
@@ -117,18 +100,17 @@ void OLED_ShowChar(u8 x, u8 y, u8 chr, u8 size, u8 mode)
 		}
 	}
 }
-u32 mypow(u8 m, u8 n)
-{
-	u32 result = 1;
+
+uint32_t mypow(uint8_t m, uint8_t n){
+	uint32_t result = 1;
 	while (n--)
 		result *= m;
 	return result;
 }
 
-void OLED_ShowNum(u8 x, u8 y, u32 num, u8 len, u8 size)
-{
-	u8 t, temp;
-	u8 enshow = 0;
+void OLED_ShowNum(uint8_t x, uint8_t y, uint32_t num, uint8_t len, uint8_t size){
+	uint8_t t, temp;
+	uint8_t enshow = 0;
 	for (t = 0; t < len; t++)
 	{
 		temp = (num / mypow(10, len - t - 1)) % 10;
@@ -146,9 +128,8 @@ void OLED_ShowNum(u8 x, u8 y, u32 num, u8 len, u8 size)
 	}
 }
 
-void OLED_ShowString(u8 x, u8 y, const u8 *p, u8 size)
-{
-	while ((*p <= '~') && (*p >= ' ')) //�ж��ǲ��ǷǷ��ַ�!
+void OLED_ShowString(uint8_t x, uint8_t y, const uint8_t *p, uint8_t size){
+	while ((*p <= '~') && (*p >= ' ')) 
 	{
 		if (x > (128 - (size / 2)))
 		{
@@ -166,67 +147,62 @@ void OLED_ShowString(u8 x, u8 y, const u8 *p, u8 size)
 	}
 }
 
-void OLED_Init(void)
-{
-	//c5 b5 14 13
-	GPIO_InitTypeDef ioC;
-	ioC.GPIO_Pin = GPIO_Pin_15;
-	ioC.GPIO_Mode = GPIO_Mode_OUT;
-	ioC.GPIO_OType = GPIO_OType_PP;
-	ioC.GPIO_PuPd = GPIO_PuPd_UP;
-	ioC.GPIO_Speed = GPIO_Speed_50MHz;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
-	GPIO_Init(GPIOC, &ioC);
+void OLED_Init(void){
+	OLED_GRAM[0] = 0x40;
+	
+	//HAL_I2C1_MspInit();
+	MX_I2C1_Init();
 
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
-	ioC.GPIO_Pin = GPIO_Pin_15 | GPIO_Pin_14 | GPIO_Pin_13;
-	GPIO_Init(GPIOB, &ioC);
+	delayt(0xfff);
 
-	OLED_SDIN = 1;
-	OLED_SCLK = 1;
-	OLED_RS = 1;
-
-	OLED_RST = 0;
-
-	delay_ms(100);
-	OLED_RST = 1;
-
-	OLED_WR_Byte(0xAE, OLED_CMD); //�ر���ʾ
-	OLED_WR_Byte(0xD5, OLED_CMD); //����ʱ�ӷ�Ƶ����,��Ƶ��
-	OLED_WR_Byte(0x80, OLED_CMD); //[3:0],��Ƶ����;[7:4],��Ƶ��
-	OLED_WR_Byte(0xA8, OLED_CMD); //��������·��
-	OLED_WR_Byte(0X3F, OLED_CMD); //Ĭ��0X3F(1/64)
-	OLED_WR_Byte(0xD3, OLED_CMD); //������ʾƫ��
-	OLED_WR_Byte(0X00, OLED_CMD); //Ĭ��Ϊ0
-
-	OLED_WR_Byte(0x40, OLED_CMD); //������ʾ��ʼ�� [5:0],����.
-
-	OLED_WR_Byte(0x8D, OLED_CMD); //��ɱ�����??
-	OLED_WR_Byte(0x14, OLED_CMD); //bit2������/�ر�
-	OLED_WR_Byte(0x20, OLED_CMD); //�����ڴ��ַģ�?
-	OLED_WR_Byte(0x02, OLED_CMD); //[1:0],00���е�ַģʽ;01���е�ַģʽ;10,ҳ��ַģʽ;Ĭ��10;
-	OLED_WR_Byte(0xA1, OLED_CMD); //���ض�������,bit0:0,0->0;1,0->127;
-	OLED_WR_Byte(0xC0, OLED_CMD); //����COMɨ�跽��;bit3:0,��ͨģʽ;1,�ض���ģʽ COM[N-1]->COM0;N:����·��
-	OLED_WR_Byte(0xDA, OLED_CMD); //����COMӲ����������
-	OLED_WR_Byte(0x12, OLED_CMD); //[5:4]����
-
-	OLED_WR_Byte(0x81, OLED_CMD); //�Աȶ�����
-	OLED_WR_Byte(0xEF, OLED_CMD); //1~255;Ĭ��0X7F (��������,Խ��Խ��)
-	OLED_WR_Byte(0xD9, OLED_CMD); //����Ԥ�������??
-	OLED_WR_Byte(0xf1, OLED_CMD); //[3:0],PHASE 1;[7:4],PHASE 2;
-	OLED_WR_Byte(0xDB, OLED_CMD); //����VCOMH ��ѹ����
-	OLED_WR_Byte(0x30, OLED_CMD); //[6:4] 000,0.65*vcc;001,0.77*vcc;011,0.83*vcc;
-
-	OLED_WR_Byte(0xA4, OLED_CMD); //ȫ����ʾ����;bit0:1,����;0,�ر�;(����/����)
-	OLED_WR_Byte(0xA6, OLED_CMD); //������ʾ��ʽ;bit0:1,������ʾ;0,������ʾ
-	OLED_WR_Byte(0xAF, OLED_CMD); //������ʾ
-	OLED_Clear();
+	WriteCmd(0xAE); //display off
+	WriteCmd(0x20);	//Set Memory Addressing Mode	
+	WriteCmd(0x10);	//00,Horizontal Addressing Mode;01,Vertical Addressing Mode;10,Page Addressing Mode (RESET);11,Invalid
+	WriteCmd(0xb0);	//Set Page Start Address for Page Addressing Mode,0-7
+	WriteCmd(0xc8);	//Set COM Output Scan Direction
+	WriteCmd(0x00); //---set low column address
+	WriteCmd(0x10); //---set high column address
+	WriteCmd(0x40); //--set start line address
+	WriteCmd(0x81); //--set contrast control register
+	WriteCmd(0xff); //���ȵ��� 0x00~0xff
+	WriteCmd(0xa1); //--set segment re-map 0 to 127
+	WriteCmd(0xa6); //--set normal display
+	WriteCmd(0xa8); //--set multiplex ratio(1 to 64)
+	WriteCmd(0x3F); //
+	WriteCmd(0xa4); //0xa4,Output follows RAM content;0xa5,Output ignores RAM content
+	WriteCmd(0xd3); //-set display offset
+	WriteCmd(0x00); //-not offset
+	WriteCmd(0xd5); //--set display clock divide ratio/oscillator frequency
+	WriteCmd(0xf0); //--set divide ratio
+	WriteCmd(0xd9); //--set pre-charge period
+	WriteCmd(0x22); //
+	WriteCmd(0xda); //--set com pins hardware configuration
+	WriteCmd(0x12);
+	WriteCmd(0xdb); //--set vcomh
+	WriteCmd(0x20); //0x20,0.77xVcc
+	WriteCmd(0x8d); //--set DC-DC enable
+	WriteCmd(0x14); //
+	WriteCmd(0xaf); //--turn on oled panel
 }
 
-void OLED_ADDval(u8 x)
-{
-    static u8 max = 0;
-    u8 i = 0, j = 0;
+void OLED_SetPos(unsigned char x, unsigned char y){ //������ʼ������ 
+	WriteCmd(0xb0 + y);
+	WriteCmd(((x & 0xf0) >> 4)|0x10);
+	WriteCmd((x & 0x0f) | 0x01);
+}
+
+void OLED_Refresh_Gram(){
+	OLED_SetPos(0, 0);
+	__HAL_I2C_DISABLE(&hi2c1);
+	OLED_GRAM[0] = 0x40;
+	__HAL_I2C_ENABLE(&hi2c1);
+	HAL_I2C_Master_Transmit_DMA(&hi2c1, OLED_ADDRESS, OLED_GRAM, 128 * 8 + 1);
+	//__HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_BUSY);
+}
+
+void OLED_ADDval(uint8_t x){
+    static uint8_t max = 0;
+    uint8_t i = 0, j = 0;
     if (x > 64)
         return;
     if (max < 128)
@@ -237,15 +213,95 @@ void OLED_ADDval(u8 x)
     else
     {
         for (i = 0; i < 8; i++)
-            OLED_GRAM[0][i] = OLED_GRAM[1][i];
+            OLED_GRAM[i * 128 + 1] = OLED_GRAM[2 + i * 128];
         for (i = 1; i < 127; i++)
         {
             for (j = 0; j < 8; j++)
-                OLED_GRAM[i][j] = OLED_GRAM[i + 1][j];
+                OLED_GRAM[i + j * 128 + 1] = OLED_GRAM[i + 2 + j * 128];
         }
         for (j = 0; j < 8; j++)
-            OLED_GRAM[127][j] = 0;
+            OLED_GRAM[128 + j * 128] = 0;
         OLED_DrawPoint(127, 63 - x, 1);
     }
 }
 
+__STATIC_INLINE void MX_I2C1_Init(void){
+  __HAL_RCC_DMA1_CLK_ENABLE();
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 1, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
+
+
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.Timing = 0x20200719;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  HAL_I2C1_MspInit();
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    while(1);
+  }
+  /** Configure Analogue filter 
+  */
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    while(1);
+  }
+  /** Configure Digital filter 
+  */
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  {
+    while(1);
+  }
+  /** I2C Enable Fast Mode Plus 
+  */
+  HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
+}
+
+ void HAL_I2C1_MspInit(){
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+    /**I2C1 GPIO Configuration    
+    PB7     ------> I2C1_SDA
+    PB8     ------> I2C1_SCL 
+    */
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_8;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+    GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* Peripheral clock enable */
+    __HAL_RCC_I2C1_CLK_ENABLE();
+  
+    /* I2C1 DMA Init */
+    /* I2C1_TX Init */
+    hdma_i2c1_tx.Instance = DMA1_Stream0;
+    hdma_i2c1_tx.Init.Request = DMA_REQUEST_I2C1_TX;
+    hdma_i2c1_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_i2c1_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_i2c1_tx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_i2c1_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_i2c1_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_i2c1_tx.Init.Mode = DMA_NORMAL;
+    hdma_i2c1_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
+    hdma_i2c1_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    if (HAL_DMA_Init(&hdma_i2c1_tx) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(&hi2c1,hdmatx,hdma_i2c1_tx);
+
+  HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+  HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
+}

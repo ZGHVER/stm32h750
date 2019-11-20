@@ -267,6 +267,6 @@ void  App_OS_TaskSwHook (void)
 
 void  App_OS_TimeTickHook (void)
 {
-  GPIOC->ODR ^= GPIO_PIN_5;
+ // GPIOC->ODR ^= GPIO_PIN_5;
 
 }

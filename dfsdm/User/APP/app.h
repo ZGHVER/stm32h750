@@ -13,6 +13,7 @@
 void ERR_H(uint8_t* file, uint32_t line, OS_ERR err);
 void SystemClock_Config(void);
 void SystemClock_Config1(void);
+void SystemClock_Config2(void);
 void MEM_Init(void);
 void LCD_Start(void);
 //void PDMMIC_Start();

@@ -49,6 +49,8 @@
         "ff_gen_drv.h": "c",
         "sd_diskio.h": "c",
         "fatfs_sd_sdio.h": "c",
-        "bsp_usart.h": "c"
+        "bsp_usart.h": "c",
+        "*.h\u0000h": "c",
+        "ES9038.C": "c"
     }
 }

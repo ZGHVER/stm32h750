@@ -67,7 +67,7 @@ void GRAPH_SetGridOn(GRAPH* graph, uint32_t gridColor, uint32_t textColor,uint16
     uint32_t LineLength = imagLength + realLength;
     uint16_t Hcounter = interval;
     uint16_t Vcounter = interval;
-    uint16_t Vpos = LeftBoard;
+//    uint16_t Vpos = LeftBoard;
     char s[10];
 
     LCD_SetFont(&Font12);
@@ -143,7 +143,7 @@ void GRAPH_ClearGraph(GRAPH* graph){
         for(uint8_t j = 0; j < graph->LineNum; j ++){
             int q = i + graph->BoardSize + graph->x0;
             int w = graph->y0  + graph->height - graph->BoardSize - graph->GraphRam[i][j];
-            int e = graph->ClolrList[j];
+            //int e = graph->ClolrList[j];
             LCD_DrawPixel(q,w ,LCD_COLOR_LUCENCY );
 
         }

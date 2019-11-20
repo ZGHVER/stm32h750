@@ -837,6 +837,7 @@ CPU_TS_TMR  CPU_IntDisMeasMaxGet (void)
 #ifdef  CPU_CFG_INT_DIS_MEAS_EN
 void  CPU_IntDisMeasStart (void)
 {
+
     CPU_IntDisMeasCtr++;
     if (CPU_IntDisNestCtr == 0u) {                                  /* If ints NOT yet dis'd, ...                       */
         CPU_IntDisMeasStart_cnts = CPU_TS_TmrRd();                  /* ... get ints dis'd start time.                   */

@@ -35,8 +35,6 @@ static LCD_DrawPropTypeDef DrawProp[MAX_LAYER_NUMBER];
  * @param  None 0xD0000000 0x4000000
  * @retval None
  */
-static uint8_t _lay0[800 * 480 * 4]__attribute__((section(".ARM.__at_0xD0000000")));
-static uint8_t _lay1[800 * 480 * 4]__attribute__((section(".ARM.__at_0xD0177000?")));
 
 /*根据液晶数据手册的参数配置*/
 #define HBP  46		//HSYNC后的无效像素
@@ -237,6 +235,7 @@ void LCD_ClockConfig(void)
 }
 void LCD_Init(void)
 { 
+    SDRAM_Init();
     /* 使能LTDC时钟 */
     __HAL_RCC_LTDC_CLK_ENABLE();
     /* 使能DMA2D时钟 */
@@ -282,12 +281,12 @@ void LCD_Init(void)
     Ltdc_Handler.Init.PCPolarity = LTDC_PCPOLARITY_IPC;
     HAL_LTDC_Init(&Ltdc_Handler);
     /* 初始化字体 */
-    LCD_SetFont(&LCD_DEFAULT_FONT);
+   // LCD_SetFont(&LCD_DEFAULT_FONT);
 
 
-    LCD_LayerInit(0, (uint32_t)&_lay0[0],ARGB8888);
-	  LCD_LayerInit(1, (uint32_t)&_lay1[0],ARGB8888);
-	  LCD_DisplayOn(); 
+   // LCD_LayerInit(0, (uint32_t)0xD0000000,ARGB8888);
+	//  LCD_LayerInit(1, (uint32_t)0xD0177000,ARGB8888);
+	 // LCD_DisplayOn(); 
 }
 
 /**
@@ -585,7 +584,7 @@ void LCD_DisplayChar(uint16_t Xpos, uint16_t Ypos, uint8_t Ascii)
 void LCD_DisplayStringAtABSPos(uint16_t Xpos, uint16_t Ypos, uint8_t *Text)
 {
   uint16_t ref_column = 1, i = 0;
-  uint32_t size = 0, xsize = 0; 
+  uint32_t size = 0; 
   uint8_t  *ptr = Text;
   
   /* 获取字符串大小 */

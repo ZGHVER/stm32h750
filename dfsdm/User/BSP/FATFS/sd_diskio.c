@@ -76,7 +76,6 @@ DSTATUS SD_initialize(BYTE lun)
 {
   Stat = STA_NOINIT;
   
-  /* Configure the uSD device */
   if(BSP_SD_Init() == MSD_OK)
   {
     Stat &= ~STA_NOINIT;

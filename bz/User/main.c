@@ -88,15 +88,16 @@ int main(void){
 
 void Test_Task(void* args){
 	OS_ERR err;
+	    __GPIOC_CLK_ENABLE();
+    GPIO_InitTypeDef GPIOC_InitType;
+    GPIOC_InitType.Pin = GPIO_PIN_5;
+    GPIOC_InitType.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIOC_InitType.Pull = GPIO_PULLUP;
+    GPIOC_InitType.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(GPIOC, &GPIOC_InitType);
 	while(1){
-		LCD_SetTextColor(LCD_COLOR_YELLOW);
-		LCD_FillRect(100, 100, 50, 50);
-		OSTimeDly(1000, OS_OPT_TIME_DLY, &err);
-		LCD_SetTextColor(LCD_COLOR_BLUE);
-		LCD_FillRect(100, 100, 50, 50);
-		OSTimeDly(400, OS_OPT_TIME_DLY, &err);
-		//LCD_SelectLayer(0);
-		//LCD_Clear(LCD_COLOR_WHITE);
+GPIOC->ODR ^= GPIO_PIN_5;
+            OSTimeDly(500, OS_OPT_TIME_DLY, &err);
 	}
 }
 

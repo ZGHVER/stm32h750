@@ -41,13 +41,15 @@
 */
 void  BSP_Init (void)
 {
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
     BSP_OSTickInit();                  //初始化 OS 时钟源
     SCB_EnableICache();    // 使能指令 Cache
     SCB_EnableDCache();    // 使能数据 Cache
     Board_MPU_Config(0,MPU_Normal_WT,0xD0000000,MPU_32MB);
     /* 设置AXI RAM为Normal类型,禁用共享, 直写模式*/ 
 	  Board_MPU_Config(1,MPU_Normal_WT,0x24000000,MPU_512KB);
-    Board_MPU_Config(2,MPU_Normal_WT,0x90000000,MPU_32MB);
+	  Board_MPU_Config(2,MPU_Normal_WT,0x38000000,MPU_128KB);
+    Board_MPU_Config(3,MPU_Normal_WT,0x90000000,MPU_32MB);
 }
 /*
 *********************************************************************************************************                               

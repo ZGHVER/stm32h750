@@ -8,13 +8,12 @@ DFSDM_Channel_HandleTypeDef hdfsdm1_channel1;
 DMA_HandleTypeDef hdma_dfsdm1_flt0;
 DMA_HandleTypeDef hdma_dfsdm1_flt1;
 
-#define BufferSize 1000
-/*
-int32_t F0_B0[BufferSize]__attribute__((section(".ARM.__at_0x24000000")));
+
+int32_t F0_B0[BufferSize];
 int32_t F0_B1[BufferSize];
 int32_t F1_B0[BufferSize];
 int32_t F1_B1[BufferSize];
-*/
+
 static uint32_t DFSDM1_Init = 0;
 static uint32_t HAL_RCC_DFSDM1_CLK_ENABLED = 0;
 
@@ -87,16 +86,16 @@ void DFSDM_Init(){
 
   Channel0_Filter0_Init();
   Channel1_Filter1_Init();
-/*
-HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, cab);
+  /*
+  HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, cab);
 	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_M1CPLT_CB_ID, cac);
 	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt1, HAL_DMA_XFER_M1CPLT_CB_ID, cad);
 	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
          (uint32_t)&dd[0], (uint32_t)&dd1[0], 500);       
 	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt1, (uint32_t)&hdfsdm1_filter1.Instance->FLTRDATAR,
          (uint32_t)&dd2[0], (uint32_t)&dd3[0], 500); 
-    HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter0);
-    HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter1);*/
+  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter0);
+  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter1);*/
   /*HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, 
                                 (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
                                 (uint32_t)&F0_B0[0], 
@@ -112,8 +111,15 @@ HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, cab);
                                 );  */                            
 }
 
-void DFSDM_StartConv(){
-  
+void DFSDM_StartConv(void (* M1F)(DMA_HandleTypeDef *), void (* M2F)(DMA_HandleTypeDef *)){
+  HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, M1F);
+	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt1, HAL_DMA_XFER_M1CPLT_CB_ID, M2F);
+	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
+         (uint32_t)&F0_B0[0], (uint32_t)&F0_B1[0], BufferSize);       
+	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt1, (uint32_t)&hdfsdm1_filter1.Instance->FLTRDATAR,
+         (uint32_t)&F1_B0[0], (uint32_t)&F1_B1[0], BufferSize); 
+  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter0);
+  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter1);
 }
 
 __STATIC_INLINE void Filter0_DMAInit(){

@@ -132,7 +132,6 @@ void TouchDown_Task(void* args){
 
 void down(int32_t id,int32_t x,int32_t y,int32_t w){
 	OS_ERR err;
-	char s[20];
 	int32_t* ret = OSMemGet(&MEM_SI128, &err);
 	osError_hander(err);
 	ret[0] = id;

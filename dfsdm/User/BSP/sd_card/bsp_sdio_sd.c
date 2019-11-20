@@ -32,25 +32,20 @@ volatile uint8_t RX_Flag=0;
   */
 void SD_Test(void)
 {
-    LED_BLUE;
     /*------------------------------ SD 初始化 ------------------------------ */
     if(BSP_SD_Init() != HAL_OK)
     {    
-        LED_RED;
         printf("SD卡初始化失败，请确保SD卡已正确接入开发板，或换一张SD卡测试！\n");
     }
     else
     {
         printf("SD卡初始化成功！\n");	     
-        LED_BLUE;
         /*擦除测试*/
         SD_EraseTest();
 
-        LED_BLUE;
         /*single block 读写测试*/
-        SD_SingleBlockTest();
+       SD_SingleBlockTest();
 
-        LED_BLUE;
         /*muti block 读写测试*/
         SD_MultiBlockTest(); 
     } 
@@ -67,36 +62,16 @@ HAL_StatusTypeDef BSP_SD_Init(void)
     HAL_StatusTypeDef sd_state = HAL_OK;
     
     /* 定义SDMMC句柄 */
-    uSdHandle.Instance = SDMMC1;
-    uSdHandle.Init.ClockEdge           = SDMMC_CLOCK_EDGE_RISING;
-    uSdHandle.Init.ClockPowerSave      = SDMMC_CLOCK_POWER_SAVE_DISABLE;
-    uSdHandle.Init.BusWide             = SDMMC_BUS_WIDE_4B;
-    uSdHandle.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-    uSdHandle.Init.ClockDiv            = 0;
-    
-    /* 初始化SD底层驱动 */
-    BSP_SD_MspInit();
-
-    /* HAL SD 初始化 */
+  uSdHandle.Instance = SDMMC1;
+  uSdHandle.Init.ClockEdge = SDMMC_CLOCK_EDGE_RISING;
+  uSdHandle.Init.ClockPowerSave = SDMMC_CLOCK_POWER_SAVE_DISABLE;
+  uSdHandle.Init.BusWide = SDMMC_BUS_WIDE_4B;
+  uSdHandle.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
+  uSdHandle.Init.ClockDiv = 0;
     if(HAL_SD_Init(&uSdHandle) != HAL_OK)
     {
       sd_state = HAL_OK;
     }
-    
-    /* 配置SD总线位宽 */
-    if(sd_state == HAL_OK)
-    {
-      /* 配置为4bit模式 */
-      if(HAL_SD_ConfigWideBusOperation(&uSdHandle, uSdHandle.Init.BusWide) != HAL_OK)
-      {
-        sd_state = HAL_ERROR;
-      }
-      else
-      {
-        sd_state = HAL_OK;
-      }
-    }
-    
   return  sd_state;
 }
 /**
@@ -118,12 +93,12 @@ static void SD_EraseTest(void)
     }     
     if(EraseStatus == HAL_OK)
     {    
-      LED_GREEN;
+     // LED_GREEN;
       printf("SD卡擦除测试成功！\n");
     }
     else
     {
-      LED_RED;
+   //   LED_RED;
       printf("SD卡擦除测试失败！\n");
       printf("温馨提示：部分SD卡不支持擦除测试，若SD卡能通过下面的single读写测试，即表示SD卡能够正常使用。\n");
     }    
@@ -162,12 +137,12 @@ void SD_SingleBlockTest(void)
     }
     if(TransferStatus1 == HAL_OK)
     {
-        LED_GREEN;
+     //   LED_GREEN;
         printf("Single block 测试成功！\n");
     }
     else
     {
-        LED_RED;
+     //   LED_RED;
         printf("Single block 测试失败，请确保SD卡正确接入开发板，或换一张SD卡测试！\n");
     }
 }
@@ -206,12 +181,12 @@ void SD_MultiBlockTest(void)
     }
     if(TransferStatus1 == HAL_OK)
     {
-        LED_GREEN;
+  //      LED_GREEN;
         printf("Multi block 测试成功！\n");
     }
     else
     {
-        LED_RED;
+   //     LED_RED;
         printf("Multi block 测试失败，请确保SD卡正确接入开发板，或换一张SD卡测试！\n");
     }
 }
@@ -277,50 +252,32 @@ void Fill_Buffer(uint8_t *pBuffer, uint32_t BufferLength, uint32_t Offset)
   }
 }
 /**
-  * @brief  禁用WIFI模块
-  * @param  无
-  * @param  无
-  * @retval 无
-  */
-static void WIFI_PDN_INIT(void)
-{
-    /*定义一个GPIO_InitTypeDef类型的结构体*/
-    GPIO_InitTypeDef GPIO_InitStruct;
-    /*使能引脚时钟*/	
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    /*选择要控制的GPIO引脚*/															   
-    GPIO_InitStruct.Pin = GPIO_PIN_2;	
-    /*设置引脚的输出类型为推挽输出*/
-    GPIO_InitStruct.Mode  = GPIO_MODE_OUTPUT_PP;      
-    /*设置引脚为上拉模式*/
-    GPIO_InitStruct.Pull  = GPIO_PULLUP;
-    /*设置引脚速率为高速 */   
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH; 
-    /*调用库函数，使用上面配置的GPIO_InitStructure初始化GPIO*/
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);	
-    /*禁用WiFi模块*/
-    HAL_GPIO_WritePin(GPIOC,GPIO_PIN_2,GPIO_PIN_RESET);  
-}
-
-/**
   * @brief  初始化SD外设
   * @param  无
   * @param  无
   * @retval None
   */
-void BSP_SD_MspInit(void)
-{
-    GPIO_InitTypeDef GPIO_InitStruct;
 
-    /* 使能 SDMMC 时钟 */
+
+void HAL_SD_MspInit(SD_HandleTypeDef* hsd)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  if(hsd->Instance==SDMMC1)
+  {
     __HAL_RCC_SDMMC1_CLK_ENABLE();
   
-    /* 使能 GPIOs 时钟 */
     __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
-  
-    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11 
-                          |GPIO_PIN_12;
+    /**SDMMC1 GPIO Configuration    
+    PC10     ------> SDMMC1_D2
+    PC11     ------> SDMMC1_D3
+    PC12     ------> SDMMC1_CK
+    PD2     ------> SDMMC1_CMD
+    PC8     ------> SDMMC1_D0
+    PC9     ------> SDMMC1_D1 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_8 
+                          |GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -333,14 +290,15 @@ void BSP_SD_MspInit(void)
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF12_SDIO1;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-    //禁用WIFI模块
-    WIFI_PDN_INIT();
-        
-    HAL_NVIC_SetPriority(SDMMC1_IRQn,0,0);  //配置SDMMC1中断
-    HAL_NVIC_EnableIRQ(SDMMC1_IRQn);        //使能SDMMC1中断
-    
-    HAL_NVIC_SetPriority(SysTick_IRQn, 0x0E ,0);
+
+    /* SDMMC1 interrupt Init */
+    HAL_NVIC_SetPriority(SDMMC1_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(SDMMC1_IRQn);
+  }
+
 }
+
+
 
 //SDMMC1发送完成回调函数
 void HAL_SD_TxCpltCallback(SD_HandleTypeDef *hsd)

@@ -447,11 +447,11 @@ ARM Macro Assembler    Page 7
   281 00000034         
   282 00000034                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
-interwork --depend=..\..\output\cpu_a.d -o..\..\output\cpu_a.o -I.\RTE\_outFLAS
-H -ID:\K5\Keil\STM32H7xx_DFP\2.2.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include -I
-D:\K5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_
-VERSION SETA 528" --predefine="STM32H750xx SETA 1" --list=..\..\listing\cpu_a.l
-st ..\..\User\uC-CPU\ARM-Cortex-M4\RealView\cpu_a.asm
+interwork --depend=..\..\output\cpu_a.d -o..\..\output\cpu_a.o -I.\RTE\_OF -ID:
+\K5\Keil\STM32H7xx_DFP\2.2.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include -ID:\K5\
+ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSIO
+N SETA 528" --predefine="STM32H750xx SETA 1" --list=..\..\listing\cpu_a.lst ..\
+..\User\uC-CPU\ARM-Cortex-M4\RealView\cpu_a.asm
 
 
 

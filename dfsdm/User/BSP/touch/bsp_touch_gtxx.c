@@ -570,9 +570,9 @@ static int32_t GTP_Get_Info(void)
     uint8_t opr_buf[10] = {0};
     int32_t ret = 0;
 
-    uint16_t abs_x_max = GTP_MAX_WIDTH;
-    uint16_t abs_y_max = GTP_MAX_HEIGHT;
-    uint8_t int_trigger_type = GTP_INT_TRIGGER;
+    //uint16_t abs_x_max = GTP_MAX_WIDTH;
+    //uint16_t abs_y_max = GTP_MAX_HEIGHT;
+    //uint8_t int_trigger_type = GTP_INT_TRIGGER;
         
     opr_buf[0] = (uint8_t)((GTP_REG_CONFIG_DATA+1) >> 8);
     opr_buf[1] = (uint8_t)((GTP_REG_CONFIG_DATA+1) & 0xFF);
@@ -583,8 +583,8 @@ static int32_t GTP_Get_Info(void)
         return FAIL;
     }
     
-    abs_x_max = (opr_buf[3] << 8) + opr_buf[2];
-    abs_y_max = (opr_buf[5] << 8) + opr_buf[4];
+    //abs_x_max = (opr_buf[3] << 8) + opr_buf[2];
+    //abs_y_max = (opr_buf[5] << 8) + opr_buf[4];
 //		GTP_DEBUG("RES");   
 //		GTP_DEBUG_ARRAY(&opr_buf[0],10);
 
@@ -596,7 +596,7 @@ static int32_t GTP_Get_Info(void)
     {
         return FAIL;
     }
-    int_trigger_type = opr_buf[2] & 0x03;
+    //int_trigger_type = opr_buf[2] & 0x03;
     
 //    GTP_INFO("X_MAX = %d, Y_MAX = %d, TRIGGER = 0x%02x",
      //       abs_x_max,abs_y_max,int_trigger_type);

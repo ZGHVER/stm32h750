@@ -300,7 +300,7 @@ void     LCD_FillEllipse(int Xpos, int Ypos, int XRadius, int YRadius);
 void     LCD_DisplayStringAtABSPos(uint16_t Xpos, uint16_t Ypos, uint8_t *Text);
 void     LCD_DisplayOff(void);
 void     LCD_DisplayOn(void);
-void      LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
+void     LL_ConvertLineToARGB8888(void *pSrc, void *pDst, uint32_t xSize, uint32_t ColorMode);
 
 /* These functions can be modified in case the current settings
    need to be changed for specific application needs */

@@ -38,143 +38,119 @@
 
 
 #define OS_USE 1
-/* USER CODE BEGIN 0 */
 
-/* USER CODE END 0 */
-
-/* External variables --------------------------------------------------------*/
-
-/******************************************************************************/
-/*            Cortex Processor Interruption and Exception Handlers         */ 
-/******************************************************************************/
-
-/**
-* @brief This function handles Non maskable interrupt.
-*/
-void NMI_Handler(void)
-{
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
-
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+void NMI_Handler(void){
 }
 
-/**
-* @brief This function handles Hard fault interrupt.
-*/
-void HardFault_Handler(void)
-{
-  /* USER CODE BEGIN HardFault_IRQn 0 */
-
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-  }
-  /* USER CODE BEGIN HardFault_IRQn 1 */
-
-  /* USER CODE END HardFault_IRQn 1 */
+void HardFault_Handler(void){
+  while (1);
 }
 
-/**
-* @brief This function handles Memory management fault.
-*/
-void MemManage_Handler(void)
-{
-  /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
-  /* USER CODE END MemoryManagement_IRQn 0 */
-  while (1)
-  {
-  }
-  /* USER CODE BEGIN MemoryManagement_IRQn 1 */
-
-  /* USER CODE END MemoryManagement_IRQn 1 */
+void MemManage_Handler(void){
+  while (1);
 }
 
-/**
-* @brief This function handles Pre-fetch fault, memory access fault.
-*/
-void BusFault_Handler(void)
-{
-  /* USER CODE BEGIN BusFault_IRQn 0 */
-
-  /* USER CODE END BusFault_IRQn 0 */
-  while (1)
-  {
-  }
-  /* USER CODE BEGIN BusFault_IRQn 1 */
-
-  /* USER CODE END BusFault_IRQn 1 */
+void BusFault_Handler(void){
+  while (1);
 }
 
-/**
-* @brief This function handles Undefined instruction or illegal state.
-*/
-void UsageFault_Handler(void)
-{
-  /* USER CODE BEGIN UsageFault_IRQn 0 */
-
-  /* USER CODE END UsageFault_IRQn 0 */
-  while (1)
-  {
-  }
-  /* USER CODE BEGIN UsageFault_IRQn 1 */
-
-  /* USER CODE END UsageFault_IRQn 1 */
+void UsageFault_Handler(void){
+  while (1);
 }
 
-/**
-* @brief This function handles System service call via SWI instruction.
-*/
-void SVC_Handler(void)
-{
-  /* USER CODE BEGIN SVCall_IRQn 0 */
-
-  /* USER CODE END SVCall_IRQn 0 */
-  /* USER CODE BEGIN SVCall_IRQn 1 */
-
-  /* USER CODE END SVCall_IRQn 1 */
+void SVC_Handler(void){
 }
 
-/**
-* @brief This function handles Debug monitor.
-*/
-void DebugMon_Handler(void)
-{
-  /* USER CODE BEGIN DebugMonitor_IRQn 0 */
-
-  /* USER CODE END DebugMonitor_IRQn 0 */
-  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
-
-  /* USER CODE END DebugMonitor_IRQn 1 */
+void DebugMon_Handler(void){
 }
 
+
+//DFSDM PDMÂó¿Ë·ç
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
 extern DMA_HandleTypeDef hdma_dfsdm1_flt0;
 extern DMA_HandleTypeDef hdma_dfsdm1_flt1;
 
+extern SAI_HandleTypeDef hsai_BlockA1;
+extern DMA_HandleTypeDef hdma_sai1_a;
 
-/**
-  * @brief This function handles DMA1 stream4 global interrupt.
-  */
-void DMA1_Stream4_IRQHandler(void){
+extern DMA_HandleTypeDef hdma_i2c1_tx;
+extern I2C_HandleTypeDef hi2c1;
+
+void I2C1_EV_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
   #endif
 
-  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt0);
+  HAL_I2C_EV_IRQHandler(&hi2c1);
 
   #if OS_USE == 1
   OSIntExit();
   #endif
 }
 
-/**
-  * @brief This function handles DMA1 stream5 global interrupt.
-  */
+void I2C1_ER_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_I2C_ER_IRQHandler(&hi2c1);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+
+void DMA1_Stream0_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+extern DMA_HandleTypeDef hdma_memtomem_dma1_stream1;
+extern DMA_HandleTypeDef hdma_memtomem_dma1_stream2;
+void DMA1_Stream1_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_DMA_IRQHandler(&hdma_memtomem_dma1_stream1);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+
+void DMA1_Stream2_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_DMA_IRQHandler(&hdma_memtomem_dma1_stream2);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+
+void DMA1_Stream4_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_DMA_IRQHandler(&hdma_dfsdm1_flt0);
+	HAL_DMA_IRQHandler(&hdma_sai1_a);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+
 void DMA1_Stream5_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
@@ -188,9 +164,6 @@ void DMA1_Stream5_IRQHandler(void){
 
 }
 
-/**
-  * @brief This function handles DFSDM1 filter0 global interrupt.
-  */
 void DFSDM1_FLT0_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
@@ -203,9 +176,6 @@ void DFSDM1_FLT0_IRQHandler(void){
   #endif
 }
 
-/**
-  * @brief This function handles DFSDM1 filter1 global interrupt.
-  */
 void DFSDM1_FLT1_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
@@ -216,4 +186,80 @@ void DFSDM1_FLT1_IRQHandler(void){
   #if OS_USE == 1
   OSIntExit();
   #endif
+}
+
+//À¶ÑÀÒôÆµ
+extern SAI_HandleTypeDef hsai_BlockB2;
+extern DMA_HandleTypeDef hdma_sai2_b;
+void SAI2_IRQHandler(void)
+{
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_SAI_IRQHandler(&hsai_BlockB2);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+  
+}
+
+void DMA1_Stream3_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&hdma_sai2_b);
+}
+
+//I2S½âÂë
+void SAI1_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_SAI_IRQHandler(&hsai_BlockA1);
+
+  #if OS_USE == 1
+  OSIntExit();
+  #endif
+}
+
+void EXTI15_10_IRQHandler(){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+  
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+}
+
+
+//SD¿¨
+extern SD_HandleTypeDef uSdHandle;
+void SDMMC1_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_SD_IRQHandler(&uSdHandle);
+  
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+}
+
+extern MDMA_HandleTypeDef hmdma_mdma_channel41_sw_0;
+void MDMA_IRQHandler(void){
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
+  HAL_MDMA_IRQHandler(&hmdma_mdma_channel41_sw_0);
+
+  #if OS_USE == 1
+  OSIntEnter();
+  #endif
+
 }

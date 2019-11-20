@@ -45,7 +45,7 @@ void BUTTON_Init(BUTTON* button, uint32_t counter, uint32_t id,
                 char* Text, sFONT* TextFont,
                 void     (*PushCallback)(BUTTON* but)
                 ){
-    BUTTON* curPtr = 0;
+//    BUTTON* curPtr = 0;
     if(x > 800 || y > 480){
         return;
     }

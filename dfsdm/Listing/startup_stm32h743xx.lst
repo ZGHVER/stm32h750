@@ -57,9 +57,9 @@ ARM Macro Assembler    Page 1
    35 00000000         ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
    36 00000000         ; </h>
    37 00000000         
-   38 00000000 00000400 
+   38 00000000 00000800 
                        Stack_Size
-                               EQU              0x00000400
+                               EQU              0x00000800
    39 00000000         
    40 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
 =3
@@ -71,18 +71,18 @@ ARM Macro Assembler    Page 2
 
    41 00000000         Stack_Mem
                                SPACE            Stack_Size
-   42 00000400         __initial_sp
-   43 00000400         
-   44 00000400         
-   45 00000400         ; <h> Heap Configuration
-   46 00000400         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
-   47 00000400         ; </h>
-   48 00000400         
-   49 00000400 00020000 
+   42 00000800         __initial_sp
+   43 00000800         
+   44 00000800         
+   45 00000800         ; <h> Heap Configuration
+   46 00000800         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   47 00000800         ; </h>
+   48 00000800         
+   49 00000800 00020000 
                        Heap_Size
                                EQU              0x00020000
-   50 00000400         
-   51 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+   50 00000800         
+   51 00000800                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    52 00000000         __heap_base
    53 00000000         Heap_Mem
@@ -1270,11 +1270,11 @@ ARM Macro Assembler    Page 20
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.dp --apcs=
 interwork --depend=..\..\output\startup_stm32h743xx.d -o..\..\output\startup_st
-m32h743xx.o -I.\RTE\_outFLASH -ID:\K5\Keil\STM32H7xx_DFP\2.2.0\Drivers\CMSIS\De
-vice\ST\STM32H7xx\Include -ID:\K5\ARM\CMSIS\Include --predefine="__MICROLIB SET
-A 1" --predefine="__UVISION_VERSION SETA 528" --predefine="STM32H750xx SETA 1" 
---list=..\..\listing\startup_stm32h743xx.lst ..\..\Libraries\CMSIS\Device\ST\ST
-M32H7xx\Source\Templates\arm\startup_stm32h743xx.s
+m32h743xx.o -I.\RTE\_OF -ID:\K5\Keil\STM32H7xx_DFP\2.2.0\Drivers\CMSIS\Device\S
+T\STM32H7xx\Include -ID:\K5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" -
+-predefine="__UVISION_VERSION SETA 528" --predefine="STM32H750xx SETA 1" --list
+=..\..\listing\startup_stm32h743xx.lst ..\..\Libraries\CMSIS\Device\ST\STM32H7x
+x\Source\Templates\arm\startup_stm32h743xx.s
 
 
 
@@ -1299,7 +1299,7 @@ ates\arm\startup_stm32h743xx.s
    Uses
       None
 Comment: Stack_Mem unused
-__initial_sp 00000400
+__initial_sp 00000800
 
 Symbol: __initial_sp
    Definitions
@@ -3396,7 +3396,7 @@ ates\arm\startup_stm32h743xx.s
       At line 53 in file ..\..\Libraries\CMSIS\Device\ST\STM32H7xx\Source\Templ
 ates\arm\startup_stm32h743xx.s
 Comment: Heap_Size used once
-Stack_Size 00000400
+Stack_Size 00000800
 
 Symbol: Stack_Size
    Definitions

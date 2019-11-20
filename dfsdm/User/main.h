@@ -6,7 +6,8 @@
 #include "./APP/app.h"
 #include "os.h"
 #include "cpu.h"
-#include "./BSP/bsp.h"
+
+#include "arm_math.h"
 
 #endif /* __MAIN_H */
 

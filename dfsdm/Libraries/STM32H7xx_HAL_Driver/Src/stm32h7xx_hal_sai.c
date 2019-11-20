@@ -1274,6 +1274,8 @@ HAL_StatusTypeDef HAL_SAI_Transmit_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, 
       if((HAL_GetTick() - tickstart) > SAI_LONG_TIMEOUT)
       {
         /* Update error code */
+
+
         hsai->ErrorCode |= HAL_SAI_ERROR_TIMEOUT;
 
         /* Process Unlocked */

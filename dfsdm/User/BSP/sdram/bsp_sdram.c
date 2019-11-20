@@ -322,7 +322,7 @@ void SDRAM_Init(void)
 {
 
   	FMC_SDRAM_TimingTypeDef SdramTiming;
-	RCC_PeriphCLKInitTypeDef RCC_PeriphClkInit;
+//	RCC_PeriphCLKInitTypeDef RCC_PeriphClkInit;
 	
   /* 配置FMC接口相关的 GPIO*/
   SDRAM_GPIO_Config();

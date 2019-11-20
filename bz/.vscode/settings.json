@@ -44,6 +44,7 @@
         "app.h": "c",
         "APP_LCD.c": "c",
         "button.h": "c",
-        "stm32h7xx.h": "c"
+        "stm32h7xx.h": "c",
+        "stm32h7xx_hal_sdram.h": "c"
     }
 }
