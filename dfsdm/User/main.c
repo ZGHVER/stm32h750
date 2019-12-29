@@ -82,18 +82,18 @@ int main(){
    
         OSTaskCreate(
         (  OS_TCB*   )&LED_TCB,                                   //任务控制块
-        ( CPU_CHAR*  )"LED_Task",                                  //任务名
-        (OS_TASK_PTR )LED_Task,                                        //任务函数指针
+        ( CPU_CHAR*  )"LED_Task",                                 //任务名
+        (OS_TASK_PTR )LED_Task,                                   //任务函数指针
         (   void*    )0,                                          //首次运行时传递的参数
-        (  OS_PRIO   )LED_Prio,                                          //任务优先级
-        (  CPU_STK*  )&LED_STK[0],                                  //任务堆栈基地址
-        (CPU_STK_SIZE)LED_TSIZE / 10,                            //可用最大堆栈空间
-        (CPU_STK_SIZE)LED_TSIZE,                                 //任务堆栈大小
+        (  OS_PRIO   )LED_Prio,                                   //任务优先级
+        (  CPU_STK*  )&LED_STK[0],                                //任务堆栈基地址
+        (CPU_STK_SIZE)LED_TSIZE / 10,                             //可用最大堆栈空间
+        (CPU_STK_SIZE)LED_TSIZE,                                  //任务堆栈大小
         ( OS_MSG_QTY )10,                                         //任务可接收的最大消息数
         (  OS_TICK   )0,                                          //在任务之间循环时的时间片的时间量（以刻度表示）指定0以使用默认值
         (   void*    )0,                                          //TCB扩展指针
         (  OS_OPT    )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,  //包含有关任务行为的其他信息（或选项）
-        (  OS_ERR*   )&err                                      //错误变量
+        (  OS_ERR*   )&err                                        //错误变量
     );
     OSStart(&err);
     while(1){
@@ -140,9 +140,11 @@ void TF1_Task(void* args){
     OS_ERR err;
     while(1){
         OSFlagPend(&tf1_flg, 
-                   FLAG_TF1 | FLAG_TR1, 
-                   100,
-                   OS_OPT_PEND_FLAG_SET_ALL | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_BLOCKING, 
+                   FLAG_TF1 | FLAG_TR1,  
+                   25,                          //等待30ms  1024/4800 = 21.333 = 25
+                   OS_OPT_PEND_FLAG_SET_ALL |   //等待标志置1
+                   OS_OPT_PEND_FLAG_CONSUME |   //消耗掉标志位
+                   OS_OPT_PEND_BLOCKING,        //阻塞等待
                    (CPU_TS*)0, 
                    &err
                    );
@@ -169,14 +171,20 @@ void TF2_Task(void* args){
     OS_ERR err;
     while(1){
         OSFlagPend(&tf2_flg, 
-                   FLAG_TF2 | FLAG_TR2, 
-                   0,
-                   OS_OPT_PEND_FLAG_SET_ALL | OS_OPT_PEND_FLAG_CONSUME | OS_OPT_PEND_BLOCKING, 
+                   FLAG_TF2 | FLAG_TR2,         
+                   0,                           //无限等待
+                   OS_OPT_PEND_FLAG_SET_ALL |   //等待标志置1
+                   OS_OPT_PEND_FLAG_CONSUME |   //消耗掉标志位
+                   OS_OPT_PEND_BLOCKING,        //阻塞等待
                    (CPU_TS*)0, 
                    &err
                    );
         HAL_DMA_Start_IT(&hdma_memtomem_dma1_stream2, (uint32_t)&RB1[0], (uint32_t)&TB1[0], BS);
 		}
+}
+
+void cv1(DMA_HandleTypeDef* hand){
+    GPIOC->ODR ^= GPIO_PIN_5;
 }
 
 void Init_Task(void* args){
@@ -185,8 +193,10 @@ void Init_Task(void* args){
     MdmaInit();
     CSR8675_Init();
     ES9038_Init();
+    DFSDM_Init();
+    DFSDM_StartConv(cv1, cv1);
 
-    OSFlagCreate(&tf1_flg, "tf1", 0, &err);
+   /* OSFlagCreate(&tf1_flg, "tf1", 0, &err);
     OSFlagCreate(&tf2_flg, "tf2", 0, &err);
     OSFlagPost(&tf1_flg, FLAG_TF1, OS_OPT_POST_FLAG_SET, &err);
     OSTaskCreate(
@@ -220,8 +230,8 @@ void Init_Task(void* args){
         (  OS_OPT    )OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR,  //包含有关任务行为的其他信息（或选项）
         (  OS_ERR*   )&err                                        //错误变量
     );
-
-    CSR8675_StartReceive(&RB0[0], &RB1[0], BS, RF1, RF2);
+    
+    CSR8675_StartReceive(&RB0[0], &RB1[0], BS, RF1, RF2);*/
     __GPIOC_CLK_ENABLE();
     GPIO_InitTypeDef GPIOC_InitType;
     GPIOC_InitType.Pin = GPIO_PIN_5;
@@ -247,7 +257,7 @@ void LED_Task(void* args){
         OLED_ShowString(40, 40, (uint8_t *)&s[0], 12);
 
         OLED_Refresh_Gram();
-        
+
     }
 }
 
