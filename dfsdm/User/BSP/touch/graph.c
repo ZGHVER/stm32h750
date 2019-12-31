@@ -1,7 +1,7 @@
 #include "./touch/graph.h"
 
 __STATIC_INLINE uint16_t** createArray(uint16_t i, uint16_t j){
-    uint16_t **e = (uint16_t **)malloc(sizeof(uint16_t *) * i);
+    uint16_t **e = (uint16_t **)malloc((unsigned int)sizeof(uint16_t *) * i);
     for (uint16_t d = 0; d < i; d++)
         e[d] = (uint16_t *) malloc(sizeof(uint16_t) * j);
     return e;
@@ -76,7 +76,7 @@ void GRAPH_SetGridOn(GRAPH* graph, uint32_t gridColor, uint32_t textColor,uint16
         LCD_SetTextColor(textColor);
         sprintf(s, "%d", Hcounter);
         Hcounter += interval;
-        LCD_DisplayStringAtABSPos(LeftBoard - cont_str(s) * 7 + 2, i - 6, s); 
+        LCD_DisplayStringAtABSPos(LeftBoard - cont_str(s) * 7 + 2, i - 6,(uint8_t*)s); 
         LCD_SetTextColor(gridColor); 
         for(uint16_t j = LeftBoard; j < RightBoard; j += LineLength){
             if(j + realLength > RightBoard)
@@ -90,7 +90,7 @@ void GRAPH_SetGridOn(GRAPH* graph, uint32_t gridColor, uint32_t textColor,uint16
         LCD_SetTextColor(textColor);
         sprintf(s, "%d", Vcounter);
         Vcounter += interval;
-        LCD_DisplayStringAtABSPos(j - cont_str(s) / 2 * 7 + 2, BottomBoard + 4, s);
+        LCD_DisplayStringAtABSPos(j - cont_str(s) / 2 * 7 + 2, BottomBoard + 4, (uint8_t*)s);
         LCD_SetTextColor(gridColor); 
         for(uint16_t i = TopBoard + interval - realLength - imagLength / 2; i < BottomBoard; i += LineLength){  
             if(i + realLength > BottomBoard)

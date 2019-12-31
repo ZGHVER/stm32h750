@@ -8,18 +8,12 @@ DFSDM_Channel_HandleTypeDef hdfsdm1_channel1;
 DMA_HandleTypeDef hdma_dfsdm1_flt0;
 DMA_HandleTypeDef hdma_dfsdm1_flt1;
 
-
-int32_t F0_B0[BufferSize];
-int32_t F0_B1[BufferSize];
-int32_t F1_B0[BufferSize];
-int32_t F1_B1[BufferSize];
-
 static uint32_t DFSDM1_Init = 0;
 static uint32_t HAL_RCC_DFSDM1_CLK_ENABLED = 0;
 
-__STATIC_INLINE void Channel0_Filter0_Init(){
-
-  hdfsdm1_filter0.Instance =                         DFSDM1_Filter0;
+__STATIC_INLINE void Channel0_Filter0_Init(){ 
+  //滤波器初始化
+  hdfsdm1_filter0.Instance =                         DFSDM1_Filter0;         
   hdfsdm1_filter0.Init.RegularParam.Trigger =        DFSDM_FILTER_SW_TRIGGER;
   hdfsdm1_filter0.Init.RegularParam.FastMode =       ENABLE;
   hdfsdm1_filter0.Init.RegularParam.DmaMode =        ENABLE;
@@ -27,7 +21,7 @@ __STATIC_INLINE void Channel0_Filter0_Init(){
   hdfsdm1_filter0.Init.FilterParam.Oversampling =    64;
   hdfsdm1_filter0.Init.FilterParam.IntOversampling = 1;
   HAL_DFSDM_FilterInit(&hdfsdm1_filter0);
-
+  //通道初始化
   hdfsdm1_channel0.Instance = DFSDM1_Channel0;
   hdfsdm1_channel0.Init.OutputClock.Activation =      ENABLE;
   hdfsdm1_channel0.Init.OutputClock.Selection =       DFSDM_CHANNEL_OUTPUT_CLOCK_AUDIO;
@@ -76,7 +70,6 @@ __STATIC_INLINE void Channel1_Filter1_Init(){
 }
 
 void DFSDM_Init(){
-
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
@@ -85,39 +78,33 @@ void DFSDM_Init(){
   HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 
   Channel0_Filter0_Init();
-  Channel1_Filter1_Init();
-  /*
-  HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, cab);
-	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_M1CPLT_CB_ID, cac);
-	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt1, HAL_DMA_XFER_M1CPLT_CB_ID, cad);
-	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
-         (uint32_t)&dd[0], (uint32_t)&dd1[0], 500);       
-	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt1, (uint32_t)&hdfsdm1_filter1.Instance->FLTRDATAR,
-         (uint32_t)&dd2[0], (uint32_t)&dd3[0], 500); 
-  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter0);
-  HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter1);*/
-  /*HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, 
-                                (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
-                                (uint32_t)&F0_B0[0], 
-                                (uint32_t)&F0_B1[0], 
-                                BufferSize
-                                );
-
-	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt1, 
-                                (uint32_t)&hdfsdm1_filter1.Instance->FLTRDATAR,
-                                (uint32_t)&F1_B0[0], 
-                                (uint32_t)&F1_B1[0], 
-                                BufferSize
-                                );  */                            
+  Channel1_Filter1_Init();                         
 }
 
-void DFSDM_StartConv(void (* M1F)(DMA_HandleTypeDef *), void (* M2F)(DMA_HandleTypeDef *)){
-  HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, M1F);
-	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt1, HAL_DMA_XFER_M1CPLT_CB_ID, M2F);
+/**
+ * @description: 指定参数，启动滤波器
+ * @param F0B0 滤波器0缓存0地址
+ * @param F0B1 滤波器0缓存1地址
+ * @param F1B0 滤波器1缓存0地址
+ * @param F1B1 滤波器1缓存1地址
+ * @param BufferLength 缓存块大小
+ * @param F1F 滤波器0传输完成回调函数
+ * @param F2F 滤波器1传输完成回调函数
+ * @return: null
+ */
+void DFSDM_StartConv(uint32_t* F0B0,
+                     uint32_t* F0B1,
+                     uint32_t* F1B0,
+                     uint32_t* F1B1,
+                     uint32_t  BufferLength,
+                     void (* F1F)(DMA_HandleTypeDef *), 
+                     void (* F2F)(DMA_HandleTypeDef *)){
+  HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt0, HAL_DMA_XFER_CPLT_CB_ID, F1F);
+	HAL_DMA_RegisterCallback(&hdma_dfsdm1_flt1, HAL_DMA_XFER_M1CPLT_CB_ID, F2F);
 	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt0, (uint32_t)&hdfsdm1_filter0.Instance->FLTRDATAR,
-         (uint32_t)&F0_B0[0], (uint32_t)&F0_B1[0], BufferSize);       
+         (uint32_t)&F0B0[0], (uint32_t)&F0B1[0], BufferLength);       
 	HAL_DMAEx_MultiBufferStart_IT(&hdma_dfsdm1_flt1, (uint32_t)&hdfsdm1_filter1.Instance->FLTRDATAR,
-         (uint32_t)&F1_B0[0], (uint32_t)&F1_B1[0], BufferSize); 
+         (uint32_t)&F1B0[0], (uint32_t)&F1B1[0], BufferLength); 
   HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter0);
   HAL_DFSDM_FilterRegularStart(&hdfsdm1_filter1);
 }
@@ -158,7 +145,7 @@ __STATIC_INLINE void Filter1_DMAInit(){
 }
 
 void HAL_DFSDM_FilterMspInit(DFSDM_Filter_HandleTypeDef* hdfsdm_filter){
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   if(DFSDM1_Init == 0)
   {
     HAL_RCC_DFSDM1_CLK_ENABLED++;

@@ -65,7 +65,7 @@ void DebugMon_Handler(void){
 }
 
 
-//DFSDM PDMÂó¿Ë·ç
+//DFSDM PDMï¿½ï¿½Ë·ï¿½
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter0;
 extern DFSDM_Filter_HandleTypeDef hdfsdm1_filter1;
 extern DMA_HandleTypeDef hdma_dfsdm1_flt0;
@@ -112,14 +112,12 @@ void DMA1_Stream0_IRQHandler(void){
   OSIntExit();
   #endif
 }
-extern DMA_HandleTypeDef hdma_memtomem_dma1_stream1;
-extern DMA_HandleTypeDef hdma_memtomem_dma1_stream2;
+
 void DMA1_Stream1_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
   #endif
 
-  HAL_DMA_IRQHandler(&hdma_memtomem_dma1_stream1);
 
   #if OS_USE == 1
   OSIntExit();
@@ -131,7 +129,6 @@ void DMA1_Stream2_IRQHandler(void){
   OSIntEnter();
   #endif
 
-  HAL_DMA_IRQHandler(&hdma_memtomem_dma1_stream2);
 
   #if OS_USE == 1
   OSIntExit();
@@ -188,7 +185,7 @@ void DFSDM1_FLT1_IRQHandler(void){
   #endif
 }
 
-//À¶ÑÀÒôÆµ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
 extern SAI_HandleTypeDef hsai_BlockB2;
 extern DMA_HandleTypeDef hdma_sai2_b;
 void SAI2_IRQHandler(void)
@@ -210,7 +207,7 @@ void DMA1_Stream3_IRQHandler(void)
   HAL_DMA_IRQHandler(&hdma_sai2_b);
 }
 
-//I2S½âÂë
+//I2Sï¿½ï¿½ï¿½ï¿½
 void SAI1_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
@@ -236,7 +233,7 @@ void EXTI15_10_IRQHandler(){
 }
 
 
-//SD¿¨
+//SDï¿½ï¿½
 extern SD_HandleTypeDef uSdHandle;
 void SDMMC1_IRQHandler(void){
   #if OS_USE == 1
@@ -250,13 +247,10 @@ void SDMMC1_IRQHandler(void){
   #endif
 }
 
-extern MDMA_HandleTypeDef hmdma_mdma_channel41_sw_0;
 void MDMA_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
   #endif
-
-  HAL_MDMA_IRQHandler(&hmdma_mdma_channel41_sw_0);
 
   #if OS_USE == 1
   OSIntEnter();

@@ -6,7 +6,7 @@ SAI_HandleTypeDef hsai_BlockA1;
 DMA_HandleTypeDef hdma_sai1_a;
 
 void MX_SAI4_Init(void);
-void HAL_SAI1A_MspInit();
+void HAL_SAI1A_MspInit(void);
 
 void ES9038_StartPlay(uint32_t* Buffer1, uint32_t* Buffer2, uint32_t bs, void (* M1F)(DMA_HandleTypeDef *), void (* M2F)(DMA_HandleTypeDef *)){
     HAL_DMA_RegisterCallback(&hdma_sai1_a, HAL_DMA_XFER_CPLT_CB_ID, M1F);

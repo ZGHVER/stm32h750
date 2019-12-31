@@ -827,6 +827,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\APP\MY_APP\APP_LCD.c</FilePath>
             </File>
+            <File>
+              <FileName>PDMMIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\APP\MY_APP\PDMMIC.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2007,6 +2012,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\User\APP\MY_APP\APP_LCD.c</FilePath>
             </File>
+            <File>
+              <FileName>PDMMIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\APP\MY_APP\PDMMIC.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3186,6 +3196,11 @@
               <FileName>APP_LCD.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\APP\MY_APP\APP_LCD.c</FilePath>
+            </File>
+            <File>
+              <FileName>PDMMIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\APP\MY_APP\PDMMIC.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -295,7 +295,7 @@ __STATIC_INLINE void MX_I2C1_Init(void){
     hdma_i2c1_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
     if (HAL_DMA_Init(&hdma_i2c1_tx) != HAL_OK)
     {
-      Error_Handler();
+    //  Error_Handler();
     }
 
     __HAL_LINKDMA(&hi2c1,hdmatx,hdma_i2c1_tx);

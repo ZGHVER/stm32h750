@@ -4,7 +4,7 @@ SAI_HandleTypeDef hsai_BlockB2;
 
 
 static void MX_SAI2_Init(void);
-__STATIC_INLINE void HAL_SAI2B_MspInit();
+__STATIC_INLINE void HAL_SAI2B_MspInit(void);
 
 void CSR8675_Init(){
    __HAL_RCC_DMA1_CLK_ENABLE();
