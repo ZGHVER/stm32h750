@@ -21,7 +21,7 @@ __STATIC_INLINE void I2C_WriteByte(uint8_t addr,uint8_t data){
 	HAL_I2C_Master_Transmit(&hi2c1, OLED_ADDRESS, dat, 2,100);
 }
 
-__STATIC_INLINE void WriteCmd(unsigned char I2C_Command){//Ð´ÃüÁî
+__STATIC_INLINE void WriteCmd(unsigned char I2C_Command){//Ð´ï¿½ï¿½ï¿½ï¿½
 	I2C_WriteByte(0x00, I2C_Command);
 }
 
@@ -164,7 +164,7 @@ void OLED_Init(void){
 	WriteCmd(0x10); //---set high column address
 	WriteCmd(0x40); //--set start line address
 	WriteCmd(0x81); //--set contrast control register
-	WriteCmd(0xff); //ÁÁ¶Èµ÷½Ú 0x00~0xff
+	WriteCmd(0xff); //ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½ 0x00~0xff
 	WriteCmd(0xa1); //--set segment re-map 0 to 127
 	WriteCmd(0xa6); //--set normal display
 	WriteCmd(0xa8); //--set multiplex ratio(1 to 64)
@@ -185,7 +185,7 @@ void OLED_Init(void){
 	WriteCmd(0xaf); //--turn on oled panel
 }
 
-void OLED_SetPos(unsigned char x, unsigned char y){ //ÉèÖÃÆðÊ¼µã×ø±ê 
+void OLED_SetPos(unsigned char x, unsigned char y){ //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	WriteCmd(0xb0 + y);
 	WriteCmd(((x & 0xf0) >> 4)|0x10);
 	WriteCmd((x & 0x0f) | 0x01);

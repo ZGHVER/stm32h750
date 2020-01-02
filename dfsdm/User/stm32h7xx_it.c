@@ -228,7 +228,7 @@ void EXTI15_10_IRQHandler(){
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
   
   #if OS_USE == 1
-  OSIntEnter();
+  OSIntExit();
   #endif
 }
 
@@ -243,17 +243,22 @@ void SDMMC1_IRQHandler(void){
   HAL_SD_IRQHandler(&uSdHandle);
   
   #if OS_USE == 1
-  OSIntEnter();
+  OSIntExit();
   #endif
 }
 
+extern MDMA_HandleTypeDef hmdma_mdma_channel40_sw_0;
+extern MDMA_HandleTypeDef hmdma_mdma_channel41_sw_0;
 void MDMA_IRQHandler(void){
   #if OS_USE == 1
   OSIntEnter();
   #endif
 
+  HAL_MDMA_IRQHandler(&hmdma_mdma_channel40_sw_0);
+  HAL_MDMA_IRQHandler(&hmdma_mdma_channel41_sw_0);
+
   #if OS_USE == 1
-  OSIntEnter();
+  OSIntExit();
   #endif
 
 }
